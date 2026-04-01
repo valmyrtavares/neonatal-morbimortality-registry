@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Clínico | Registro Neonatal</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .doc-content h2 {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .doc-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        .doc-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+        .doc-content ul {
+            margin-bottom: 2rem;
+            list-style: none;
+            padding-left: 0;
+        }
+        .doc-content li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .doc-content li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+        }
+        .quote-box {
+            font-style: italic;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+        .nav-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .nav-footer .secondary-btn {
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container doc-content">
+        <header>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🩺</div>
+            <h1>Guia Clínico e de Apoio</h1>
+            <p>Registro de Morbimortalidade Neonatal</p>
+        </header>
+
+        <div class="glass-panel fade-in-up">
+            <p>Seja bem-vindo(a) ao sistema de <strong>Registro de Morbimortalidade Neonatal</strong>. Este aplicativo foi cuidadosamente desenvolvido para transformar a complexidade da coleta de dados à beira-leito em um processo fluido, seguro e humanizado.</p>
+            
+            <p>Sabemos que no ambiente da UTI Neonatal, cada segundo e cada detalhe contam. Esta ferramenta foi pensada para ser sua aliada na organização das informações, permitindo que você foque no que realmente importa: <strong>o cuidado com o recém-nascido</strong>.</p>
+
+            <h2>🎯 O que este aplicativo faz?</h2>
+            <p>O projeto nasceu da necessidade de substituir planilhas estáticas por uma interface inteligente. Ele organiza todo o histórico do paciente — desde a história gestacional até o desfecho clínico — em um formato digital intuitivo, facilitando a análise de indicadores de saúde e a geração de relatórios para a equipe multidisciplinar.</p>
+
+            <h2>✨ Funcionalidades Principais</h2>
+
+            <h3>1. Formulário em Etapas (Checklist Clínico)</h3>
+            <p>Para evitar a fadiga de decisão e o esquecimento de dados críticos, o registro é dividido em seções lógicas que respeitam o fluxo do atendimento:</p>
+            <ul>
+                <li>Identificação e História Gestacional</li>
+                <li>Dados do Parto e Reanimação</li>
+                <li>Assistência Ventilatória e Infecciosa</li>
+                <li>Desfecho Clínico</li>
+            </ul>
+            <p><em>*Nota: O sistema utiliza lógica condicional. Detalhes de reanimação, por exemplo, só aparecem se houver indicação clínica.</em></p>
+
+            <h3>2. Resumo e Verificação</h3>
+            <p>Antes de finalizar qualquer registro, o aplicativo apresenta uma tela de <strong>Revisão</strong>. Nela, você pode validar todos os parâmetros inseridos, garantindo a integridade científica da informação.</p>
+
+            <h3>3. Prontuário Digital Exportável</h3>
+            <p>Ao finalizar o preenchimento, você pode gerar um documento formatado para impressão ou salvamento em PDF. Ele serve como registro assistencial ou para discussões em passagens de plantão.</p>
+
+            <h3>4. Análise de Dados Flexível</h3>
+            <p>Na visualização de registros, você pode personalizar a grade de dados, selecionando exatamente os marcadores que deseja comparar no momento (ex: Peso vs IG), removendo o ruído visual.</p>
+
+            <h3>5. Exportação Excel para Pesquisa</h3>
+            <p>Com um clique, transforme sua base de dados em um arquivo <code>.xlsx</code> pronto para análises estatísticas e apresentações acadêmicas.</p>
+
+            <div class="highlight-box">
+                <h2>🛡️ Segurança e Privacidade</h2>
+                <p>Este é um <strong>Produto em Fase de Teste (MVP)</strong>. Por segurança e compliance:</p>
+                <ul>
+                    <li><strong>Armazenamento Local:</strong> Os dados são salvos apenas no seu computador ou navegador.</li>
+                    <li><strong>Privacidade Absoluta:</strong> Nenhuma informação é enviada para servidores externos.</li>
+                    <li><strong>Gestão Direta:</strong> Você tem total controle para editar ou remover registros localmente.</li>
+                </ul>
+            </div>
+
+            <div class="quote-box">
+                <p>"Este sistema busca ser a ponte entre o dado bruto e a excelência clínica. Esperamos que ele facilite sua rotina e contribua para a melhoria constante dos desfechos neonatais."</p>
+            </div>
+
+            <div class="nav-footer">
+                <a href="index.html" class="secondary-btn">Voltar ao Painel</a>
+                <a href="form.html" style="text-decoration: none;">
+                    <button style="width: auto; padding: 0.8rem 2rem; margin-top: 0;">Iniciar Novo Registro</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -8,7 +8,7 @@ Este sistema foi desenvolvido para facilitar o acompanhamento e registro de dado
 
 ## 📖 Documentação para Profissionais de Saúde
 Para entender como utilizar o sistema, as funcionalidades clínicas e a política de privacidade dos dados, acesse o nosso guia dedicado:
-👉 **[DOCUMENTACAO_MEDICA.md](DOCUMENTACAO_MEDICA.md)**
+👉 **[Guia Clínico (HTML)](guia_clinico.html)**
 
 ---
 
