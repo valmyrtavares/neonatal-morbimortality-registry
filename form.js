@@ -70,15 +70,20 @@ const schema = {
 
 let currentStep = 0;
 const totalSteps = schema.sections.length + 1; // +1 for Summary
+let editingPatientId = null;
+let originalPatientData = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     const wizardForm = document.getElementById('patientWizardForm');
     const stepsContainer = document.getElementById('wizardStepsContainer');
     const progressSteps = document.getElementById('progressSteps');
-    const progressFill = id => document.getElementById(id);
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
+
+    // Check for Edit Mode
+    const urlParams = new URLSearchParams(window.location.search);
+    editingPatientId = urlParams.get('id');
 
     // 1. Generate Wizard HTML
     function initWizard() {
@@ -136,7 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryDiv.className = 'wizard-step-content fade-in-up';
         summaryDiv.id = `stepContent_${schema.sections.length}`;
         summaryDiv.style.display = 'none';
-        summaryDiv.innerHTML = `<h2>Resumo do Registro</h2><p style="color: var(--text-secondary); margin-bottom: 2rem;">Confira os dados antes de salvar.</p><div id="summaryContent" class="summary-container"></div>`;
+        
+        const summaryTitle = editingPatientId ? 'Revisão das Alterações' : 'Resumo do Registro';
+        summaryDiv.innerHTML = `<h2>${summaryTitle}</h2><p style="color: var(--text-secondary); margin-bottom: 2rem;">Confira os dados antes de salvar.</p><div id="summaryContent" class="summary-container"></div>`;
         stepsContainer.appendChild(summaryDiv);
 
         const summaryNode = document.createElement('div');
@@ -146,7 +153,42 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryNode.onclick = () => jumpToStep(schema.sections.length);
         progressSteps.appendChild(summaryNode);
 
+        // Load Data if Editing
+        if (editingPatientId) {
+            loadPatientForEdit();
+        }
+
         updateWizardUI();
+    }
+
+    function loadPatientForEdit() {
+        const patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
+        originalPatientData = patients.find(p => p.id == editingPatientId);
+        
+        if (originalPatientData) {
+            document.querySelector('header h1').textContent = 'Editar Registro';
+            document.querySelector('header p').textContent = `Editando prontuário de ${originalPatientData.identificacao_nome}`;
+
+            schema.sections.forEach(s => {
+                s.fields.forEach(f => {
+                    const val = originalPatientData[f.name];
+                    if (val !== undefined && val !== null) {
+                        if (f.type === 'boolean') {
+                            const el = document.getElementById(`f_${f.name}`);
+                            if (el) el.checked = val;
+                        } else if (f.type === 'select' && f.multiple) {
+                            const checks = document.querySelectorAll(`input[name="${f.name}"]`);
+                            checks.forEach(c => {
+                                if (val.includes(c.value)) c.checked = true;
+                            });
+                        } else {
+                            const el = document.getElementById(`f_${f.name}`);
+                            if (el) el.value = val;
+                        }
+                    }
+                });
+            });
+        }
     }
 
     function updateWizardUI() {
@@ -193,12 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function jumpToStep(idx) {
-        // Can only jump backwards or to next step if current is valid
         if (idx < currentStep) {
             currentStep = idx;
             updateWizardUI();
         } else if (idx > currentStep) {
-            // Check all steps up to target
             for (let i = currentStep; i < idx; i++) {
                 if (!validateStep(i)) return;
             }
@@ -208,12 +248,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function validateStep(stepIdx) {
-        if (stepIdx === schema.sections.length) return true; // Summary step always valid
+        if (stepIdx === schema.sections.length) return true;
         const section = schema.sections[stepIdx];
         let isValid = true;
         section.fields.forEach(f => {
             if (f.required) {
-                // Check if visible
                 const group = document.querySelector(`.form-group[data-name="${f.name}"]`);
                 if (!group.classList.contains('hidden-field')) {
                     const input = document.getElementById(`f_${f.name}`);
@@ -232,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderSummary() {
         const container = document.getElementById('summaryContent');
-        const data = getFormData();
+        const currentData = getFormData();
         container.innerHTML = '';
 
         schema.sections.forEach(section => {
@@ -243,17 +282,29 @@ document.addEventListener('DOMContentLoaded', () => {
             section.fields.forEach(f => {
                 const groupEl = document.querySelector(`.form-group[data-name="${f.name}"]`);
                 if (!groupEl.classList.contains('hidden-field')) {
-                    let val = data[f.name];
-                    if (Array.isArray(val)) val = val.length > 0 ? val.join(', ') : 'Nenhum';
-                    if (typeof val === 'boolean') val = val ? 'Sim' : 'Não';
-                    if (val === null || val === '') val = '-';
+                    let val = currentData[f.name];
+                    let originalVal = originalPatientData ? originalPatientData[f.name] : undefined;
+
+                    // Formatting function
+                    const fmt = (v) => {
+                        if (Array.isArray(v)) return v.length > 0 ? v.join(', ') : 'Nenhum';
+                        if (typeof v === 'boolean') return v ? 'Sim' : 'Não';
+                        if (v === null || v === '' || v === undefined) return '-';
+                        return v;
+                    };
+
+                    const isChanged = originalPatientData && JSON.stringify(val) !== JSON.stringify(originalVal);
                     
-                    group.innerHTML += `
-                        <div class="summary-item">
+                    const itemHtml = `
+                        <div class="summary-item ${isChanged ? 'highlight-change' : ''}">
                             <span class="label">${f.label}</span>
-                            <span class="value">${val}</span>
+                            <span class="value">
+                                ${isChanged ? `<span class="old-val">${fmt(originalVal)}</span> → ` : ''}
+                                <span class="${isChanged ? 'new-val' : ''}">${fmt(val)}</span>
+                            </span>
                         </div>
                     `;
+                    group.innerHTML += itemHtml;
                 }
             });
             container.appendChild(group);
@@ -308,16 +359,24 @@ document.addEventListener('DOMContentLoaded', () => {
     wizardForm.onsubmit = (e) => {
         e.preventDefault();
         const fullData = {
-            id: Date.now(),
+            id: editingPatientId ? Number(editingPatientId) : Date.now(),
             ...getFormData(),
-            timestamp: new Date().toLocaleString()
+            timestamp: originalPatientData ? originalPatientData.timestamp : new Date().toLocaleString(),
+            lastUpdate: new Date().toLocaleString()
         };
 
-        const existing = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
-        existing.push(fullData);
-        localStorage.setItem('neonatal_patients_v2', JSON.stringify(existing));
+        let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
         
-        alert('Registro salvo com sucesso!');
+        if (editingPatientId) {
+            const index = patients.findIndex(p => p.id == editingPatientId);
+            if (index !== -1) patients[index] = fullData;
+        } else {
+            patients.push(fullData);
+        }
+        
+        localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
+        
+        alert(editingPatientId ? 'Registro atualizado com sucesso!' : 'Registro salvo com sucesso!');
         window.location.href = 'index.html';
     };
 

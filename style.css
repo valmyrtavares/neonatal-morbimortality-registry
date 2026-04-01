@@ -432,3 +432,76 @@ tr:hover td {
 .action-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem; }
 .action-card h3 { margin-bottom: 0.5rem; }
 .action-card p { font-size: 0.9rem; color: var(--text-secondary); }
+
+/* Column Selector Grid */
+.column-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.column-group h3 {
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.column-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.column-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.column-option:hover {
+    color: var(--text-primary);
+}
+
+.column-option input {
+    width: 14px;
+    height: 14px;
+}
+
+.column-option.active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Edit & Highlight Styles */
+.edit-link:hover {
+    background: var(--primary);
+    color: white !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.summary-item.highlight-change {
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 3px solid var(--primary);
+    padding-left: 0.8rem;
+    border-radius: 0.4rem;
+}
+
+.old-val {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-right: 0.3rem;
+}
+
+.new-val {
+    color: var(--primary);
+    font-weight: 600;
+}

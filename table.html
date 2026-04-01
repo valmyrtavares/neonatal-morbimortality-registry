@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Dados | Registro Neonatal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container" style="max-width: 1600px;">
+        <header>
+            <h1>Exploração de Dados</h1>
+            <p>Selecione até 10 colunas para visualizar simultaneamente.</p>
+        </header>
+
+        <div class="main-grid" style="grid-template-columns: 1fr;">
+            <!-- Column Selector Panel -->
+            <div class="glass-panel fade-in-up" style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Filtros de Coluna <span id="columnCounter" style="font-size: 0.9rem; color: var(--primary); margin-left: 1rem;">(0/10)</span></h2>
+                    <button id="clearFiltersBtn" class="secondary-btn" style="width: auto; margin-top: 0; padding: 0.5rem 1rem; font-size: 0.8rem;">Limpar Tudo</button>
+                </div>
+                <div id="columnSelectorContainer" class="column-selector-grid">
+                    <!-- Groups and Checkboxes will be injected here -->
+                </div>
+            </div>
+
+            <!-- Table Panel -->
+            <main class="glass-panel fade-in-up" style="animation-delay: 0.2s;">
+                <div class="table-controls" style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center;">
+                    <div class="search-box" style="flex: 1;">
+                        <input type="text" id="searchInput" placeholder="Pesquisar por nome ou qualquer dado..." style="width: 100%;">
+                    </div>
+                    <button id="exportAllBtn" class="secondary-btn" style="width: auto; margin-top: 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);">Exportar TUDO (Excel)</button>
+                </div>
+
+                <div class="table-container" style="overflow-x: auto;">
+                    <table id="dynamicPatientsTable">
+                        <thead id="tableHeader">
+                            <!-- Headers will be dynamic -->
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Data will be dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">← Voltar ao Painel Principal</a>
+        </div>
+    </div>
+
+    <script src="table.js"></script>
+</body>
+</html>
