@@ -1,0 +1,16 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Local Data
+*.json
+# If you want to keep the clean data but ignore the output, you can do:
+!cleaned_data.json
+output.json
+
+# Temporary
+/tmp/
+.gemini/

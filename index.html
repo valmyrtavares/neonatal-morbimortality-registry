@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morbimortalidade Neonatal | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Registro Neonatal</h1>
+            <p>Sistema de acompanhamento de morbimortalidade</p>
+        </header>
+
+        <div class="dashboard-actions fade-in-up">
+            <a href="form.html" class="action-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📝</div>
+                <h3>Novo Registro</h3>
+                <p>Adicionar dados de um novo paciente neonatal.</p>
+            </a>
+
+            <div class="action-card" onclick="alert('Funcionalidade de Tabela com Filtros em breve!')">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                <h3>Visualizar Dados</h3>
+                <p>Consultar e filtrar registros existentes.</p>
+            </div>
+        </div>
+
+        <div class="glass-panel fade-in-up" style="animation-delay: 0.2s;">
+            <div class="table-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Registros Recentes</h2>
+                <span id="counter" style="background: var(--primary); padding: 0.2rem 0.8rem; border-radius: 1rem; font-size: 0.8rem; font-weight: 600;">0</span>
+            </div>
+            
+            <div class="table-container">
+                <table id="patientsTable">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Sexo</th>
+                            <th>IG / PN</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Registro Neonatal | Registro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Novo Registro</h1>
+            <p>Preencha os dados cuidadosamente seguindo os passos.</p>
+        </header>
+
+        <div class="wizard-container glass-panel fade-in-up">
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-steps" id="progressSteps">
+                    <!-- Steps will be injected here -->
+                </div>
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressLineFill"></div>
+                </div>
+            </div>
+
+            <!-- Form Wizard -->
+            <form id="patientWizardForm">
+                <div id="wizardStepsContainer">
+                    <!-- Dynamic sections will be injected here as steps -->
+                </div>
+
+                <div class="wizard-navigation">
+                    <button type="button" id="prevBtn" class="secondary-btn" style="display: none;">Anterior</button>
+                    <button type="button" id="nextBtn">Próximo</button>
+                    <button type="submit" id="submitBtn" style="display: none;">Finalizar e Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">← Voltar ao Painel Principal</a>
+        </div>
+    </div>
+
+    <script src="form.js"></script>
+</body>
+</html>
