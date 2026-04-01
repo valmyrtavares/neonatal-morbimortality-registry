@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (field.type === 'select') {
                     inputHtml = `<label for="f_${field.name}">${field.label}</label><select id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''}><option value="">Selecione</option>${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
                 } else {
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} placeholder="Digite aqui...">`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="Digite aqui...">`;
                 }
 
                 group.innerHTML = inputHtml;
@@ -159,6 +159,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateWizardUI();
+        setupMasks();
+    }
+
+    function setupMasks() {
+        const rhInput = document.getElementById('f_identificacao_rh');
+        if (rhInput) {
+            rhInput.maxLength = 8; // 6 digits + hyphen + 1 digit
+            rhInput.placeholder = "000000-0";
+            rhInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 7) value = value.slice(0, 7);
+                if (value.length > 6) {
+                    value = value.slice(0, 6) + '-' + value.slice(6);
+                }
+                e.target.value = value;
+            });
+        }
     }
 
     function loadPatientForEdit() {
@@ -251,22 +268,53 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stepIdx === schema.sections.length) return true;
         const section = schema.sections[stepIdx];
         let isValid = true;
+        let firstErrorInput = null;
+
         section.fields.forEach(f => {
-            if (f.required) {
-                const group = document.querySelector(`.form-group[data-name="${f.name}"]`);
-                if (!group.classList.contains('hidden-field')) {
-                    const input = document.getElementById(`f_${f.name}`);
-                    if (input && !input.value) {
-                        input.style.borderColor = '#ef4444';
-                        isValid = false;
-                    } else if (input) {
-                        input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                    }
+            const group = document.querySelector(`.form-group[data-name="${f.name}"]`);
+            if (!group.classList.contains('hidden-field')) {
+                const input = document.getElementById(`f_${f.name}`);
+                if (!input) return;
+
+                let fieldError = false;
+                
+                // 1. Check Required
+                if (f.required && (input.value === "" || input.value === null || input.value === undefined)) {
+                    fieldError = true;
+                }
+                
+                // 2. Check Min/Max for number
+                if (input.type === 'number' && input.value !== '') {
+                    const val = Number(input.value);
+                    if (f.min !== undefined && val < f.min) fieldError = true;
+                    if (f.max !== undefined && val > f.max) fieldError = true;
+                }
+
+                if (fieldError) {
+                    input.style.borderColor = '#ef4444';
+                    isValid = false;
+                    if (!firstErrorInput) firstErrorInput = input;
+                } else {
+                    input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }
             }
         });
-        if (!isValid) alert('Por favor, preencha os campos obrigatórios marcados em vermelho.');
+
+        if (!isValid) {
+            alert(`Erro na etapa "${section.title}": Por favor, verifique os campos obrigatórios ou fora do intervalo permitido.`);
+            if (firstErrorInput) firstErrorInput.focus();
+        }
         return isValid;
+    }
+
+    function validateAll() {
+        for (let i = 0; i < schema.sections.length; i++) {
+            if (!validateStep(i)) {
+                jumpToStep(i);
+                return false;
+            }
+        }
+        return true;
     }
 
     function renderSummary() {
@@ -358,9 +406,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wizardForm.onsubmit = (e) => {
         e.preventDefault();
+        console.log("Iniciando processo de salvamento...");
+
+        if (!validateAll()) {
+            console.warn("Validação falhou. Abortando salvamento.");
+            return;
+        }
+
+        const formData = getFormData();
+        console.log("Dados coletados do formulário:", formData);
+
         const fullData = {
             id: editingPatientId ? Number(editingPatientId) : Date.now(),
-            ...getFormData(),
+            ...formData,
             timestamp: originalPatientData ? originalPatientData.timestamp : new Date().toLocaleString(),
             lastUpdate: new Date().toLocaleString()
         };
@@ -374,10 +432,15 @@ document.addEventListener('DOMContentLoaded', () => {
             patients.push(fullData);
         }
         
-        localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
-        
-        alert(editingPatientId ? 'Registro atualizado com sucesso!' : 'Registro salvo com sucesso!');
-        window.location.href = 'index.html';
+        try {
+            console.log("Salvando no LocalStorage...", fullData);
+            localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
+            alert(editingPatientId ? 'Registro atualizado com sucesso!' : 'Registro salvo com sucesso!');
+            window.location.href = 'index.html';
+        } catch (err) {
+            console.error('Erro crítico ao salvar no LocalStorage:', err);
+            alert('Erro ao salvar os dados. O armazenamento local pode estar cheio ou corrompido.');
+        }
     };
 
     initWizard();
