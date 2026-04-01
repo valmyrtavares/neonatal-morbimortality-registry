@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
 
     // Check for Edit Mode
     const urlParams = new URLSearchParams(window.location.search);
@@ -226,10 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStep === totalSteps - 1) {
             nextBtn.style.display = 'none';
             submitBtn.style.display = 'block';
+            exportPdfBtn.style.display = 'block';
             renderSummary();
         } else {
             nextBtn.style.display = 'block';
             submitBtn.style.display = 'none';
+            exportPdfBtn.style.display = 'none';
         }
 
         updateVisibility();
@@ -402,6 +405,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     nextBtn.onclick = nextStep;
     prevBtn.onclick = prevStep;
+    
+    exportPdfBtn.onclick = () => {
+        const summary = document.getElementById('summaryContent');
+        if (summary) {
+            summary.setAttribute('data-emit-date', new Date().toLocaleString());
+            window.print();
+        }
+    };
+
     wizardForm.addEventListener('change', updateVisibility);
 
     wizardForm.onsubmit = (e) => {

@@ -47,6 +47,7 @@ header h1 {
     font-weight: 700;
     background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
 }
@@ -504,4 +505,129 @@ tr:hover td {
 .new-val {
     color: var(--primary);
     font-weight: 600;
+}
+
+/* Print / PDF Styles */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    header, .progress-bar-container, .wizard-navigation, a, .secondary-btn {
+        display: none !important;
+    }
+
+    .glass-panel {
+        background: white !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .wizard-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    #patientWizardForm {
+        display: block !important;
+    }
+
+    .wizard-step-content {
+        display: none !important;
+    }
+
+    /* Only show the summary step during print */
+    #stepContent_7 { 
+        display: block !important;
+    }
+
+    #stepContent_7 h2 {
+        display: none; /* Hide 'Resumo do Registro' */
+    }
+
+    #stepContent_7 p {
+        display: none;
+    }
+
+    /* Print Header */
+    #summaryContent::before {
+        content: "RELATÓRIO MÉDICO NEONATAL";
+        display: block;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: black;
+        border-bottom: 2px solid black;
+        padding-bottom: 0.5rem;
+    }
+
+    #summaryContent::after {
+        content: "Emitido eletronicamente em " attr(data-emit-date);
+        display: block;
+        text-align: right;
+        font-size: 0.7rem;
+        color: #666;
+        margin-top: 2rem;
+    }
+
+    .summary-container {
+        display: block !important; /* Stack columns for print */
+    }
+
+    .summary-group {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem !important;
+        padding: 1rem !important;
+    }
+
+    .summary-group h3 {
+        color: black !important;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.3rem;
+        font-size: 1rem !important;
+    }
+
+    .summary-item {
+        border-bottom: 1px solid #f0f0f0 !important;
+        padding: 0.4rem 0 !important;
+    }
+
+    .summary-item .label {
+        color: #444 !important;
+        font-weight: 600;
+    }
+
+    .summary-item .value {
+        color: black !important;
+    }
+
+    /* Hide changes highlights in print */
+    .summary-item.highlight-change {
+        background: none !important;
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+    
+    .old-val {
+        display: none !important;
+    }
+
+    .new-val {
+        color: black !important;
+        font-weight: normal !important;
+    }
 }
