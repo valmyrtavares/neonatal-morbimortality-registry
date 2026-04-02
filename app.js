@@ -2,15 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('tableBody');
     const counter = document.getElementById('counter');
 
-    const initialPatients = [
-        { id: 1, identificacao_nome: "RN Geisli Batista Rodrigues", idade_gestacional: 28, peso_nascimento: 1015, sexo: "feminino", apgar_1: 4, apgar_5: 8, desfecho: "alta", timestamp: "01/01/2026 10:00:00" },
-        { id: 2, identificacao_nome: "RN Ana Flávia Ferreira dos Santos", idade_gestacional: 32, peso_nascimento: 2235, sexo: "masculino", apgar_1: 5, apgar_5: 9, desfecho: "alta", timestamp: "02/01/2026 11:30:00" }
-    ];
+    const initialPatients = [];
 
     let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2'));
-    if (!patients || patients.length === 0) {
+    if (!patients) {
         patients = initialPatients;
         localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
+    } else {
+        // Cleanup specific test patients if they exist
+        const originalCount = patients.length;
+        patients = patients.filter(p => 
+            p.identificacao_nome !== "RN Geisli Batista Rodrigues" && 
+            p.identificacao_nome !== "RN Ana Flávia Ferreira dos Santos"
+        );
+        if (patients.length !== originalCount) {
+             localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
+        }
     }
     
     renderRecentTable();
