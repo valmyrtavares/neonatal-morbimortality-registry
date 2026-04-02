@@ -39,6 +39,7 @@ const schema = {
                 { "name": "sexo", "label": "Sexo" },
                 { "name": "apgar_1", "label": "Apgar 1'" },
                 { "name": "apgar_5", "label": "Apgar 5'" },
+                { "name": "apgar_10", "label": "Apgar 10'" },
                 { "name": "reanimacao", "label": "Reanimação" },
                 { "name": "tipo_reanimacao", "label": "Tipo Reanim." },
                 { "name": "temperatura", "label": "Temp" },
@@ -53,12 +54,45 @@ const schema = {
             ]
         },
         {
-            "title": "Infecção",
+            "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
-                { "name": "sepse_precoce", "label": "Sepse Prec." },
-                { "name": "sepse_tardia", "label": "Sepse Tard." },
-                { "name": "hemocultura", "label": "Hemocultura" },
-                { "name": "outra_infeccao", "label": "Outra Infec." }
+                { "name": "procedimento_acesso_central", "label": "Tipo Acesso" },
+                { "name": "procedimento_instalacao", "label": "Idade Inst." },
+                { "name": "procedimento_tempo_uso", "label": "Tempo Uso" },
+                { "name": "oxig_vm", "label": "VM" },
+                { "name": "oxig_vni", "label": "VNI" },
+                { "name": "oxig_cpap", "label": "CPAP" },
+                { "name": "oxig_cnaf", "label": "CNAF" },
+                { "name": "oxig_cat_nasal", "label": "Cat Nasal" },
+                { "name": "oxig_o2_inalat", "label": "O2 Inalat" },
+                { "name": "procedimento_hipotermia", "label": "Hipotermia" },
+                { "name": "procedimento_fototerapia_tipo", "label": "Fotot. Tipo" },
+                { "name": "procedimento_fototerapia_duracao", "label": "Fotot. Dur" }
+            ]
+        },
+        {
+            "title": "MEDICAMENTOS",
+            "fields": [
+                { "name": "med_surf_1_dose", "label": "Surf. 1ª" },
+                { "name": "med_atb_ampicilina", "label": "Ampicilina" },
+                { "name": "med_atb_gentamicina", "label": "Gentamicina" }
+            ]
+        },
+        {
+            "title": "MEDICAMENTOS (Outros)",
+            "fields": [
+                { "name": "med_cafeina", "label": "Cafeína" },
+                { "name": "med_drogas_vasoativas", "label": "Vasoativas" }
+            ]
+        },
+        {
+            "title": "INFECÇÃO",
+            "fields": [
+                { "name": "infeccao_sepse", "label": "Sepse" },
+                { "name": "infeccao_hmc", "label": "HMC" },
+                { "name": "infeccao_lcr", "label": "LCR" },
+                { "name": "infeccao_urc", "label": "URC" },
+                { "name": "infeccao_outras", "label": "Outras Infec." }
             ]
         },
         {

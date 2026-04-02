@@ -131,23 +131,57 @@ header p {
 
 .form-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
 .form-group-half {
-    flex: 1;
+    flex: 1 1 calc(50% - 0.5rem);
     margin-bottom: 0;
 }
 
-@media (max-width: 600px) {
+.form-group-third {
+    flex: 1 1 calc(33.33% - 0.7rem);
+    margin-bottom: 0;
+}
+
+.form-group-quarter {
+    flex: 1 1 calc(25% - 0.8rem);
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
     .form-row {
         flex-direction: column;
         gap: 0;
     }
-    .form-group-half {
+.form-group-half, .form-group-third, .form-group-quarter {
+        flex: 1 1 100%;
         margin-bottom: 1rem;
     }
+}
+
+/* Subtitles within section */
+.form-subtitle {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Disabled state */
+.disabled-group {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(1);
+    transition: opacity 0.3s ease;
 }
 
 label {

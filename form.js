@@ -37,8 +37,9 @@ const schema = {
                 { "name": "idade_gestacional", "label": "Idade Gestacional (semanas)", "type": "number", "min": 20, "max": 45 },
                 { "name": "peso_nascimento", "label": "Peso (g)", "type": "number", "min": 300, "max": 6000 },
                 { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"] },
-                { "name": "apgar_1", "label": "Apgar 1 min", "type": "number", "min": 0, "max": 10 },
-                { "name": "apgar_5", "label": "Apgar 5 min", "type": "number", "min": 0, "max": 10 },
+                { "name": "apgar_1", "label": "Apgar 1 min", "type": "number", "min": 0, "max": 10, "width": "third" },
+                { "name": "apgar_5", "label": "Apgar 5 min", "type": "number", "min": 0, "max": 10, "width": "third" },
+                { "name": "apgar_10", "label": "Apgar 10 min", "type": "number", "min": 0, "max": 10, "width": "third" },
                 { "name": "reanimacao", "label": "Reanimação", "type": "boolean" },
                 { "name": "tipo_reanimacao", "label": "Tipo de Reanimação", "type": "text", "showIf": { "field": "reanimacao", "equals": true } },
                 { "name": "temperatura", "label": "Temperatura", "type": "number", "min": 30, "max": 42 },
@@ -53,12 +54,135 @@ const schema = {
             ]
         },
         {
-            "title": "Infecção",
+            "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
-                { "name": "sepse_precoce", "label": "Sepse Precoce", "type": "boolean" },
-                { "name": "sepse_tardia", "label": "Sepse Tardia", "type": "boolean" },
-                { "name": "hemocultura", "label": "Hemocultura", "type": "select", "options": ["positiva", "negativa", "não realizada"] },
-                { "name": "outra_infeccao", "label": "Outra Infecção", "type": "boolean" }
+                { "name": "procedimento_acesso_central", "label": "1- Tipo de acesso venoso central", "type": "select", "options": ["Cateter Umbilical Venoso", "Cateter Umbilical Arterial", "Pic", "Flepotomia", "Acesso venoso periférico"], "width": "half" },
+                { "name": "procedimento_instalacao", "label": "idade de instalação", "type": "number", "width": "quarter" },
+                { "name": "procedimento_tempo_uso", "label": "Tempo de uso", "type": "number", "width": "quarter" },
+                { "type": "subtitle", "label": "Oxigenação/ventilação:" },
+                { "name": "oxig_vm", "label": "VM", "type": "boolean", "width": "half" },
+                { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
+                { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
+
+                { "name": "oxig_vni", "label": "VNI", "type": "boolean", "width": "half" },
+                { "name": "oxig_vni_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
+                { "name": "oxig_vni_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
+
+                { "name": "oxig_cpap", "label": "CPAP", "type": "boolean", "width": "half" },
+                { "name": "oxig_cpap_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
+                { "name": "oxig_cpap_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
+
+                { "name": "oxig_cnaf", "label": "CNAF", "type": "boolean", "width": "half" },
+                { "name": "oxig_cnaf_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
+                { "name": "oxig_cnaf_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
+
+                { "name": "oxig_cat_nasal", "label": "Cat nasal", "type": "boolean", "width": "half" },
+                { "name": "oxig_cat_nasal_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
+                { "name": "oxig_cat_nasal_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
+
+                { "name": "oxig_o2_inalat", "label": "O2 inalat", "type": "boolean", "width": "half" },
+                { "name": "oxig_o2_inalat_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
+                { "name": "oxig_o2_inalat_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
+
+                { "name": "procedimento_hipotermia", "label": "3- Hipotermia terapêutica:", "type": "boolean", "width": "half", "marginTop": true },
+                { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
+                { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
+
+                { "name": "procedimento_fototerapia_tipo", "label": "4- Fototerapia (tipo):", "type": "select", "options": ["Bilisky", "Bilibed", "Bilitron", "Bilispot"], "width": "quarter" },
+                { "name": "procedimento_fototerapia_irradiacao", "label": "Irradiação:", "type": "text", "width": "quarter" },
+                { "name": "procedimento_fototerapia_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
+                { "name": "procedimento_fototerapia_duracao", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } }
+            ]
+        },
+        {
+            "title": "MEDICAMENTOS",
+            "fields": [
+                { "type": "subtitle", "label": "1- Surfactante:" },
+                { "name": "med_surf_1_dose", "label": "1º dose:", "type": "boolean", "width": "half" },
+                { "name": "med_surf_1_idade", "label": "Idade de adm:", "type": "number", "width": "half", "enableIf": { "field": "med_surf_1_dose", "equals": true } },
+                { "name": "med_surf_2_dose", "label": "2º dose:", "type": "boolean", "width": "half" },
+                { "name": "med_surf_2_idade", "label": "Idade de adm:", "type": "number", "width": "half", "enableIf": { "field": "med_surf_2_dose", "equals": true } },
+                { "name": "med_surf_outras_dose", "label": "Outras doses:", "type": "boolean", "width": "half" },
+                { "name": "med_surf_outras_idade", "label": "Idade de adm:", "type": "number", "width": "half", "enableIf": { "field": "med_surf_outras_dose", "equals": true } },
+
+                { "type": "subtitle", "label": "2- Antibióticos:" },
+                { "name": "med_atb_ampicilina", "label": "Ampicilina", "type": "boolean", "width": "half" },
+                { "name": "med_atb_ampicilina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
+                { "name": "med_atb_ampicilina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
+
+                { "name": "med_atb_gentamicina", "label": "Gentamicina", "type": "boolean", "width": "half" },
+                { "name": "med_atb_gentamicina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
+                { "name": "med_atb_gentamicina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
+
+                { "name": "med_atb_peni_benz", "label": "Peni Benz", "type": "boolean", "width": "half" },
+                { "name": "med_atb_peni_benz_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
+                { "name": "med_atb_peni_benz_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
+
+                { "name": "med_atb_amicacina", "label": "Amicacina", "type": "boolean", "width": "half" },
+                { "name": "med_atb_amicacina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
+                { "name": "med_atb_amicacina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
+
+                { "name": "med_atb_oxacilina", "label": "Oxacilina", "type": "boolean", "width": "half" },
+                { "name": "med_atb_oxacilina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
+                { "name": "med_atb_oxacilina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
+
+                { "name": "med_atb_outros", "label": "Outros", "type": "boolean", "width": "half" },
+                { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_outros", "equals": true } },
+                { "name": "med_atb_outros_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_outros", "equals": true } }
+            ]
+        },
+        {
+            "title": "MEDICAMENTOS (Outros)",
+            "fields": [
+                { "type": "subtitle", "label": "3- Outros medicamentos:" },
+                { "name": "med_cafeina", "label": "Cafeína", "type": "boolean", "width": "half" },
+                { "name": "med_cafeina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
+                { "name": "med_cafeina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
+
+                { "name": "med_dexametasona", "label": "Dexametasona", "type": "boolean", "width": "half" },
+                { "name": "med_dexametasona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
+                { "name": "med_dexametasona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
+
+                { "name": "med_inalacao_adrenalina", "label": "Inalação com Adrenalina", "type": "boolean", "width": "half" },
+                { "name": "med_inalacao_adrenalina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
+                { "name": "med_inalacao_adrenalina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
+
+                { "name": "med_omeprazol", "label": "Omeprazol", "type": "boolean", "width": "half" },
+                { "name": "med_omeprazol_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
+                { "name": "med_omeprazol_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
+
+                { "name": "med_domperidona", "label": "Domperidona", "type": "boolean", "width": "half" },
+                { "name": "med_domperidona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
+                { "name": "med_domperidona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
+
+                { "name": "med_simeticona", "label": "Simeticona", "type": "boolean", "width": "half" },
+                { "name": "med_simeticona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
+                { "name": "med_simeticona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
+
+                { "name": "med_nistatina_oral", "label": "Nistatina oral", "type": "boolean", "width": "half" },
+                { "name": "med_nistatina_oral_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
+                { "name": "med_nistatina_oral_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
+
+                { "name": "med_anticonvulsivante", "label": "Anticonvulsivante", "type": "boolean", "width": "quarter" },
+                { "name": "med_anticonvulsivante_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_anticonvulsivante", "equals": true } },
+                { "name": "med_anticonvulsivante_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_anticonvulsivante", "equals": true } },
+                { "name": "med_anticonvulsivante_quais", "label": "Quais?", "type": "text", "width": "quarter", "enableIf": { "field": "med_anticonvulsivante", "equals": true } },
+
+                { "name": "med_drogas_vasoativas", "label": "Drogas vasoativas", "type": "boolean", "width": "quarter" },
+                { "name": "med_drogas_vasoativas_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_drogas_vasoativas", "equals": true } },
+                { "name": "med_drogas_vasoativas_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_drogas_vasoativas", "equals": true } },
+                { "name": "med_drogas_vasoativas_quais", "label": "Quais?", "type": "text", "width": "quarter", "enableIf": { "field": "med_drogas_vasoativas", "equals": true } }
+            ]
+        },
+        {
+            "title": "INFECÇÃO",
+            "fields": [
+                { "name": "infeccao_sepse", "label": "Sepse", "type": "select", "options": ["precoce", "tardia"] },
+                { "name": "infeccao_hmc", "label": "HMC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
+                { "name": "infeccao_lcr", "label": "LCR", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
+                { "name": "infeccao_urc", "label": "URC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
+                { "name": "infeccao_outras", "label": "Outras infecções?", "type": "boolean", "width": "half" },
+                { "name": "infeccao_outras_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "infeccao_outras", "equals": true } }
             ]
         },
         {
@@ -106,15 +230,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let currentRow = null;
             section.fields.forEach(field => {
+                if (field.type === 'subtitle') {
+                    currentRow = null;
+                    const sub = document.createElement('div');
+                    sub.className = 'form-subtitle';
+                    sub.innerText = field.label;
+                    stepDiv.appendChild(sub);
+                    return;
+                }
+
                 const group = document.createElement('div');
-                group.className = field.width === 'half' ? 'form-group form-group-half' : 'form-group';
+                const isSmallColumn = field.width === 'half' || field.width === 'third' || field.width === 'quarter';
+                group.className = field.width ? `form-group form-group-${field.width}` : 'form-group';
                 if (field.showIf) group.classList.add('hidden-field');
+                if (field.enableIf) group.classList.add('disabled-group');
                 group.dataset.name = field.name;
 
                 let inputHtml = '';
                 if (field.type === 'boolean') {
-                    group.className = field.width === 'half' ? 'form-group form-group-half boolean-group' : 'form-group boolean-group';
+                    group.className = field.width ? `form-group form-group-${field.width} boolean-group` : 'form-group boolean-group';
                     if (field.showIf) group.classList.add('hidden-field');
+                    if (field.enableIf) group.classList.add('disabled-group');
                     inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="checkbox" id="f_${field.name}" name="${field.name}" style="width: 20px; height: 20px;">`;
                 } else if (field.type === 'select' && field.multiple) {
                     inputHtml = `<label>${field.label}</label><div class="checkbox-grid">`;
@@ -123,17 +259,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     inputHtml += `</div>`;
                 } else if (field.type === 'select') {
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><select id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''}><option value="">Selecione</option>${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><select id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''}><option value="">Selecione</option>${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
                 } else {
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="Digite aqui...">`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="Digite aqui...">`;
                 }
 
                 group.innerHTML = inputHtml;
 
-                if (field.width === 'half') {
-                    if (!currentRow) {
+                if (isSmallColumn) {
+                    if (!currentRow || field.marginTop) {
                         currentRow = document.createElement('div');
                         currentRow.className = 'form-row';
+                        if (field.marginTop) currentRow.style.marginTop = '2rem';
                         stepDiv.appendChild(currentRow);
                     }
                     currentRow.appendChild(group);
@@ -290,8 +427,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let firstErrorInput = null;
 
         section.fields.forEach(f => {
+            if (f.type === 'subtitle') return;
             const group = document.querySelector(`.form-group[data-name="${f.name}"]`);
-            if (!group.classList.contains('hidden-field')) {
+            if (group && !group.classList.contains('hidden-field')) {
                 const input = document.getElementById(`f_${f.name}`);
                 if (!input) return;
 
@@ -394,6 +532,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function evaluateCondition(condition, value) {
+        if (condition.notEmpty) {
+            return value !== "" && value !== null && value !== undefined;
+        }
+        return value === condition.equals;
+    }
+
     function updateVisibility() {
         const formData = getFormData();
         schema.sections.forEach(section => {
@@ -403,10 +548,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     const condition = field.showIf;
                     const dependentValue = formData[condition.field];
                     
-                    if (dependentValue === condition.equals) {
+                    if (evaluateCondition(condition, dependentValue)) {
                         group.classList.remove('hidden-field');
                     } else {
                         group.classList.add('hidden-field');
+                    }
+                }
+
+                if (field.enableIf) {
+                    const group = document.querySelector(`.form-group[data-name="${field.name}"]`);
+                    const input = document.getElementById(`f_${field.name}`);
+                    const condition = field.enableIf;
+                    const dependentValue = formData[condition.field];
+                    
+                    if (evaluateCondition(condition, dependentValue)) {
+                        group.classList.remove('disabled-group');
+                        if (input) input.disabled = false;
+                    } else {
+                        group.classList.add('disabled-group');
+                        if (input) {
+                            input.disabled = true;
+                            input.value = '';
+                        }
                     }
                 }
             });
