@@ -96,6 +96,18 @@ const schema = {
             ]
         },
         {
+            "title": "NUTRIÇÃO",
+            "fields": [
+                { "name": "nutricao_inicio", "label": "Nutrição Início" },
+                { "name": "nutricao_duracao", "label": "Nutrição Duração" },
+                { "name": "nutricao_imunoterapia_colostro", "label": "Colostro" },
+                { "name": "nutricao_enteral_trofica_inicio", "label": "Enteral Trófica" },
+                { "name": "nutricao_enteral_nutritiva_inicio", "label": "Enteral Nutritiva" },
+                { "name": "nutricao_npp_padrao_inicio", "label": "NPP Início" },
+                { "name": "nutricao_npp_total_duracao", "label": "NPP Duração" }
+            ]
+        },
+        {
             "title": "Desfecho",
             "fields": [
                 { "name": "desfecho", "label": "Desfecho" },

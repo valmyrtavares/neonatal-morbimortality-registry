@@ -186,6 +186,19 @@ const schema = {
             ]
         },
         {
+            "title": "NUTRIÇÃO",
+            "fields": [
+                { "name": "nutricao_inicio", "label": "Nutrição (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_duracao", "label": "Duração (dias):", "type": "number", "width": "half" },
+                { "name": "nutricao_imunoterapia_colostro", "label": "Imunoterapia com colostro:", "type": "boolean", "width": "half" },
+                { "name": "nutricao_imunoterapia_duracao", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_imunoterapia_colostro", "equals": true } },
+                { "name": "nutricao_enteral_trofica_inicio", "label": "Enteral trófica (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_enteral_nutritiva_inicio", "label": "Enteral nutritiva (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_npp_padrao_inicio", "label": "NPP padrão (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_npp_total_duracao", "label": "NPP total (duração em dias):", "type": "number", "width": "half" }
+            ]
+        },
+        {
             "title": "Desfecho",
             "fields": [
                 { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["alta", "óbito", "transferência"] },
