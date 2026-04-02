@@ -600,14 +600,17 @@ tr:hover td:first-child {
         color: black !important;
         padding: 0 !important;
         margin: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
     }
 
     .container {
         max-width: 100% !important;
         margin: 0 !important;
+        padding: 0 !important;
     }
 
-    header, .progress-bar-container, .wizard-navigation, a, .secondary-btn {
+    header, .progress-bar-container, .wizard-navigation, a, .secondary-btn, .bottom-nav {
         display: none !important;
     }
 
@@ -634,15 +637,15 @@ tr:hover td:first-child {
     }
 
     /* Only show the summary step during print */
-    #stepContent_7 { 
+    .summary-step { 
         display: block !important;
     }
 
-    #stepContent_7 h2 {
+    .summary-step h2 {
         display: none; /* Hide 'Resumo do Registro' */
     }
 
-    #stepContent_7 p {
+    .summary-step p {
         display: none;
     }
 
@@ -669,7 +672,9 @@ tr:hover td:first-child {
     }
 
     .summary-container {
-        display: block !important; /* Stack columns for print */
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
     }
 
     .summary-group {

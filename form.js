@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Summary Step
         const summaryDiv = document.createElement('div');
-        summaryDiv.className = 'wizard-step-content fade-in-up';
+        summaryDiv.className = 'wizard-step-content summary-step fade-in-up';
         summaryDiv.id = `stepContent_${schema.sections.length}`;
         summaryDiv.style.display = 'none';
         
@@ -561,8 +561,10 @@ document.addEventListener('DOMContentLoaded', () => {
             group.innerHTML = `<h3>${section.title}</h3>`;
             
             section.fields.forEach(f => {
+                if (f.type === 'subtitle') return;
+                
                 const groupEl = document.querySelector(`.form-group[data-name="${f.name}"]`);
-                if (!groupEl.classList.contains('hidden-field')) {
+                if (groupEl && !groupEl.classList.contains('hidden-field')) {
                     let val = currentData[f.name];
                     let originalVal = originalPatientData ? originalPatientData[f.name] : undefined;
 
