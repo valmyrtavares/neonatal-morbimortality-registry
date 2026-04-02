@@ -4,15 +4,17 @@ const schema = {
             "title": "Identificação",
             "fields": [
                 { "name": "identificacao_nome", "label": "Nome" },
-                { "name": "identificacao_rh", "label": "RH" }
+                { "name": "identificacao_rh", "label": "RH" },
+                { "name": "identificacao_nascimento", "label": "Nascimento (DN)" }
             ]
         },
         {
             "title": "História Gestacional",
             "fields": [
                 { "name": "idade_materna", "label": "Idade Materna" },
+                { "name": "consultas_pn", "label": "Consultas PN" },
                 { "name": "patologias_maternas", "label": "Patologias Maternas" },
-                { "name": "corticoide_antental", "label": "Corticóide Antenatal" },
+                { "name": "corticoide_antenatal", "label": "Corticóide Antenatal" },
                 { "name": "corticoide_ciclos", "label": "Ciclos" },
                 { "name": "outras_medicacoes_maternas", "label": "Outras Medicações" }
             ]
@@ -21,10 +23,12 @@ const schema = {
             "title": "Dados do Parto",
             "fields": [
                 { "name": "apresentacao_parto", "label": "Apresentação" },
-                { "name": "tempo_amniorrexe_horas", "label": "Tempo Amniorrexe" },
+                { "name": "tempo_amniorrexe_horas", "label": "Bolsa Rota" },
                 { "name": "tipo_parto", "label": "Tipo de Parto" },
                 { "name": "local_parto", "label": "Local" },
-                { "name": "streptococcus_b", "label": "Strep B" }
+                { "name": "streptococcus_b", "label": "Strep B" },
+                { "name": "profilaxia", "label": "Profilaxia" },
+                { "name": "tipo_profilaxia", "label": "Tipo Profilax" }
             ]
         },
         {
@@ -188,6 +192,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (Array.isArray(val)) val = val.join(', ');
                 if (typeof val === 'boolean') val = val ? 'Sim' : 'Não';
                 if (val === null || val === undefined || val === '') val = '-';
+                
+                // Format datetime-local
+                if (typeof val === 'string' && val.includes('T')) {
+                    const parts = val.split('T');
+                    const datePart = parts[0];
+                    const timePart = parts[1];
+                    const dateParts = datePart.split('-');
+                    if (dateParts.length === 3) {
+                        const [year, month, day] = dateParts;
+                        if (day && month && year) {
+                            val = `${day}/${month}/${year} ${timePart}`;
+                        }
+                    }
+                }
                 
                 td.textContent = val;
                 row.appendChild(td);

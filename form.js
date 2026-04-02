@@ -3,36 +3,40 @@ const schema = {
         {
             "title": "Identificação",
             "fields": [
-                { "name": "identificacao_nome", "label": "Nome", "type": "text", "required": true },
-                { "name": "identificacao_rh", "label": "RH", "type": "text", "required": true }
+                { "name": "identificacao_nome", "label": "Nome", "type": "text" },
+                { "name": "identificacao_rh", "label": "RH", "type": "text" },
+                { "name": "identificacao_nascimento", "label": "DN (data de nascimento)", "type": "datetime-local" }
             ]
         },
         {
             "title": "História Gestacional",
             "fields": [
-                { "name": "idade_materna", "label": "Idade Materna", "type": "number", "required": true, "min": 10, "max": 60 },
+                { "name": "idade_materna", "label": "Idade Materna", "type": "number", "min": 10, "max": 60, "width": "half" },
+                { "name": "consultas_pn", "label": "Números de consultas PN", "type": "number", "min": 0, "max": 30, "width": "half" },
                 { "name": "patologias_maternas", "label": "Patologias Maternas", "type": "select", "multiple": true, "options": ["colo curto", "obesidade", "HAC", "DMG", "ITU", "TPP", "pré-eclâmpsia", "sífilis", "bipolaridade", "esquizofrenia", "uso de drogas", "diabetes", "HAS", "eclâmpsia", "vaginose bacteriana"] },
-                { "name": "corticoide_antental", "label": "Corticóide Antenatal", "type": "boolean" },
-                { "name": "corticoide_ciclos", "label": "Ciclos", "type": "number", "min": 0, "max": 10, "showIf": { "field": "corticoide_antental", "equals": true } },
+                { "name": "corticoide_antenatal", "label": "Corticóide Antenatal", "type": "boolean", "width": "half" },
+                { "name": "corticoide_ciclos", "label": "Ciclos", "type": "number", "min": 0, "max": 10, "showIf": { "field": "corticoide_antenatal", "equals": true }, "width": "half" },
                 { "name": "outras_medicacoes_maternas", "label": "Outras Medicações", "type": "text" }
             ]
         },
         {
             "title": "Dados do Parto",
             "fields": [
-                { "name": "apresentacao_parto", "label": "Apresentação", "type": "select", "options": ["cefálica", "pélvica", "transversa", "outra"], "required": true },
-                { "name": "tempo_amniorrexe_horas", "label": "Tempo de Amniorrexe (h)", "type": "number", "min": 0, "max": 1000 },
-                { "name": "tipo_parto", "label": "Tipo de Parto", "type": "select", "options": ["normal", "cesárea", "fórceps"], "required": true },
+                { "name": "apresentacao_parto", "label": "Apresentação", "type": "select", "options": ["cefálica", "pélvica", "transversa", "outra"] },
+                { "name": "tempo_amniorrexe_horas", "label": "Tempo de bolsa rota:", "type": "number", "min": 0, "max": 1000 },
+                { "name": "tipo_parto", "label": "Tipo de Parto", "type": "select", "options": ["normal", "cesárea", "fórceps", "vácuo"] },
                 { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospital", "não hospitalar"] },
-                { "name": "streptococcus_b", "label": "Streptococcus B", "type": "select", "options": ["positivo", "negativo", "desconhecido"] }
+                { "name": "streptococcus_b", "label": "Streptococcus B", "type": "select", "options": ["positivo", "negativo", "desconhecido"] },
+                { "name": "profilaxia", "label": "Profilaxia:", "type": "boolean", "width": "half" },
+                { "name": "tipo_profilaxia", "label": "Tipo de Profilaxia:", "type": "select", "options": ["Adequada", "Inadequada"], "width": "half", "showIf": { "field": "profilaxia", "equals": true } }
             ]
         },
         {
             "title": "Recém-Nascido",
             "fields": [
-                { "name": "idade_gestacional", "label": "Idade Gestacional (semanas)", "type": "number", "required": true, "min": 20, "max": 45 },
-                { "name": "peso_nascimento", "label": "Peso (g)", "type": "number", "required": true, "min": 300, "max": 6000 },
-                { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"], "required": true },
+                { "name": "idade_gestacional", "label": "Idade Gestacional (semanas)", "type": "number", "min": 20, "max": 45 },
+                { "name": "peso_nascimento", "label": "Peso (g)", "type": "number", "min": 300, "max": 6000 },
+                { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"] },
                 { "name": "apgar_1", "label": "Apgar 1 min", "type": "number", "min": 0, "max": 10 },
                 { "name": "apgar_5", "label": "Apgar 5 min", "type": "number", "min": 0, "max": 10 },
                 { "name": "reanimacao", "label": "Reanimação", "type": "boolean" },
@@ -60,7 +64,7 @@ const schema = {
         {
             "title": "Desfecho",
             "fields": [
-                { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["alta", "óbito", "transferência"], "required": true },
+                { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["alta", "óbito", "transferência"] },
                 { "name": "data_alta", "label": "Data da Alta", "type": "date", "showIf": { "field": "desfecho", "equals": "alta" } },
                 { "name": "idade_alta", "label": "Idade (dias)", "type": "number", "min": 0, "max": 3650 }
             ]
@@ -100,17 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
             stepDiv.style.display = idx === 0 ? 'block' : 'none';
             stepDiv.innerHTML = `<h2>${section.title}</h2><p style="color: var(--text-secondary); margin-bottom: 2rem;">Passo ${idx + 1} de ${totalSteps}</p>`;
 
+            let currentRow = null;
             section.fields.forEach(field => {
                 const group = document.createElement('div');
-                group.className = 'form-group';
+                group.className = field.width === 'half' ? 'form-group form-group-half' : 'form-group';
                 if (field.showIf) group.classList.add('hidden-field');
                 group.dataset.name = field.name;
 
                 let inputHtml = '';
                 if (field.type === 'boolean') {
-                    group.className = 'form-group boolean-group';
+                    group.className = field.width === 'half' ? 'form-group form-group-half boolean-group' : 'form-group boolean-group';
                     if (field.showIf) group.classList.add('hidden-field');
-                    inputHtml = `<label>${field.label}</label><input type="checkbox" id="f_${field.name}" name="${field.name}" style="width: 20px; height: 20px;">`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="checkbox" id="f_${field.name}" name="${field.name}" style="width: 20px; height: 20px;">`;
                 } else if (field.type === 'select' && field.multiple) {
                     inputHtml = `<label>${field.label}</label><div class="checkbox-grid">`;
                     field.options.forEach(opt => {
@@ -124,7 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 group.innerHTML = inputHtml;
-                stepDiv.appendChild(group);
+
+                if (field.width === 'half') {
+                    if (!currentRow) {
+                        currentRow = document.createElement('div');
+                        currentRow.className = 'form-row';
+                        stepDiv.appendChild(currentRow);
+                    }
+                    currentRow.appendChild(group);
+                } else {
+                    currentRow = null;
+                    stepDiv.appendChild(group);
+                }
             });
             stepsContainer.appendChild(stepDiv);
 
@@ -341,6 +357,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (Array.isArray(v)) return v.length > 0 ? v.join(', ') : 'Nenhum';
                         if (typeof v === 'boolean') return v ? 'Sim' : 'Não';
                         if (v === null || v === '' || v === undefined) return '-';
+                        
+                        // Handle datetime-local strings (YYYY-MM-DDTHH:mm)
+                        if (typeof v === 'string' && v.includes('T')) {
+                            const parts = v.split('T');
+                            const datePart = parts[0];
+                            const timePart = parts[1];
+                            const dateParts = datePart.split('-');
+                            if (dateParts.length === 3) {
+                                const [year, month, day] = dateParts;
+                                // Simple check to ensure we have digits
+                                if (day && month && year) {
+                                    return `${day}/${month}/${year} ${timePart}`;
+                                }
+                            }
+                        }
+                        
                         return v;
                     };
 

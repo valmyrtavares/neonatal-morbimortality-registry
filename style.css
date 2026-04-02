@@ -129,6 +129,27 @@ header p {
     margin-bottom: 1rem;
 }
 
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group-half {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .form-group-half {
+        margin-bottom: 1rem;
+    }
+}
+
 label {
     display: block;
     font-size: 0.85rem;
