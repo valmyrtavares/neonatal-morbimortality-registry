@@ -151,6 +151,11 @@ header p {
     margin-bottom: 0;
 }
 
+.form-group-full {
+    flex: 1 1 100%;
+    margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;

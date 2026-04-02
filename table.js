@@ -108,11 +108,56 @@ const schema = {
             ]
         },
         {
-            "title": "Desfecho",
+            "title": "HEMODERIVADOS",
             "fields": [
+                { "name": "hemod_hemacias", "label": "Hemácias" },
+                { "name": "hemod_hemacias_data", "label": "Quando?" },
+                { "name": "hemod_plasma", "label": "Plasma" },
+                { "name": "hemod_plasma_data", "label": "Quando?" },
+                { "name": "hemod_plaquetas", "label": "Plaquetas" },
+                { "name": "hemod_plaquetas_data", "label": "Quando?" },
+                { "name": "hemod_crio", "label": "Crioprecipitado" },
+                { "name": "hemod_crio_data", "label": "Quando?" },
+                { "name": "hemod_outros", "label": "Outros" },
+                { "name": "hemod_outros_qual", "label": "Qual?" }
+            ]
+        },
+        {
+            "title": "EXAMES SUBMETIDOS",
+            "fields": [
+                { "name": "exames_lcr", "label": "LCR" },
+                { "name": "exames_fo", "label": "FO" },
+                { "name": "exames_eot", "label": "EOT" },
+                { "name": "exames_peate", "label": "PEATE" },
+                { "name": "exames_ustf", "label": "USTF" },
+                { "name": "exames_eco", "label": "ECO" },
+                { "name": "exames_aeeg", "label": "aEEG" },
+                { "name": "exames_usg_abd", "label": "USG abd" },
+                { "name": "exames_usg_renal", "label": "USG renal" },
+                { "name": "exames_outros", "label": "Outros" },
+                { "name": "exames_outros_qual", "label": "Qual?" }
+            ]
+        },
+        {
+            "title": "CIRURGIA",
+            "fields": [
+                { "name": "cirurgia_realizada", "label": "Cirurgia" },
+                { "name": "cirurgia_tipo", "label": "Tipo" },
+                { "name": "cirurgia_idade", "label": "Idade Cir." },
+                { "name": "escore_escolhido", "label": "Escore Gravidade" },
+                { "name": "diagnostico", "label": "Diagnóstico" },
                 { "name": "desfecho", "label": "Desfecho" },
-                { "name": "data_alta", "label": "Data Alta" },
-                { "name": "idade_alta", "label": "Idade Alta (dias)" }
+                { "name": "desfecho_idade", "label": "Idade Desfecho" },
+                { "name": "desfecho_igc", "label": "IGC" },
+                { "name": "desfecho_data", "label": "Data Desfecho" },
+                { "name": "desfecho_peso", "label": "Peso Desfecho" }
+            ]
+        },
+        {
+            "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
+            "fields": [
+                { "name": "alta_lm", "label": "Nutrição Alta" },
+                { "name": "alta_lm_outros", "label": "Leite Espec." }
             ]
         }
     ]

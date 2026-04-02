@@ -199,11 +199,57 @@ const schema = {
             ]
         },
         {
-            "title": "Desfecho",
+            "title": "HEMODERIVADOS",
             "fields": [
-                { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["alta", "óbito", "transferência"] },
-                { "name": "data_alta", "label": "Data da Alta", "type": "date", "showIf": { "field": "desfecho", "equals": "alta" } },
-                { "name": "idade_alta", "label": "Idade (dias)", "type": "number", "min": 0, "max": 3650 }
+                { "name": "hemod_hemacias", "label": "Hemácias", "type": "boolean", "width": "half" },
+                { "name": "hemod_hemacias_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_hemacias", "equals": true } },
+                { "name": "hemod_plasma", "label": "Plasma", "type": "boolean", "width": "half" },
+                { "name": "hemod_plasma_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_plasma", "equals": true } },
+                { "name": "hemod_plaquetas", "label": "Plaquetas", "type": "boolean", "width": "half" },
+                { "name": "hemod_plaquetas_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_plaquetas", "equals": true } },
+                { "name": "hemod_crio", "label": "Crioprecipitado", "type": "boolean", "width": "half" },
+                { "name": "hemod_crio_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_crio", "equals": true } },
+                { "name": "hemod_outros", "label": "Outros", "type": "boolean", "width": "half" },
+                { "name": "hemod_outros_data", "label": "Quando?", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_outros", "equals": true } },
+                { "name": "hemod_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "hemod_outros", "equals": true } }
+            ]
+        },
+        {
+            "title": "EXAMES SUBMETIDOS",
+            "fields": [
+                { "name": "exames_lcr", "label": "LCR", "type": "boolean", "width": "quarter" },
+                { "name": "exames_fo", "label": "FO", "type": "boolean", "width": "quarter" },
+                { "name": "exames_eot", "label": "EOT", "type": "boolean", "width": "quarter" },
+                { "name": "exames_peate", "label": "PEATE", "type": "boolean", "width": "quarter" },
+                { "name": "exames_ustf", "label": "USTF", "type": "boolean", "width": "quarter" },
+                { "name": "exames_eco", "label": "ECO", "type": "boolean", "width": "quarter" },
+                { "name": "exames_aeeg", "label": "aEEG", "type": "boolean", "width": "quarter" },
+                { "name": "exames_usg_abd", "label": "USG abd", "type": "boolean", "width": "quarter" },
+                { "name": "exames_usg_renal", "label": "USG renal", "type": "boolean", "width": "half" },
+                { "name": "exames_outros", "label": "Outros", "type": "boolean", "width": "quarter" },
+                { "name": "exames_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros", "equals": true } }
+            ]
+        },
+        {
+            "title": "CIRURGIA",
+            "fields": [
+                { "name": "cirurgia_realizada", "label": "Realizou Cirurgia?", "type": "boolean", "width": "half" },
+                { "name": "cirurgia_tipo", "label": "Tipo", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
+                { "name": "cirurgia_idade", "label": "Idade RN no procedimento", "type": "number", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
+                { "name": "escore_escolhido", "label": "Escore de Gravidade", "type": "select", "options": ["CRIB", "SNAP", "Risco de morte"], "width": "half" },
+                { "name": "diagnostico", "label": "DIAGNOSTICO", "type": "textarea", "width": "full" },
+                { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["Alta", "Transf", "Óbito"], "width": "half" },
+                { "name": "desfecho_idade", "label": "Idade", "type": "number", "width": "quarter" },
+                { "name": "desfecho_igc", "label": "IGC", "type": "text", "width": "quarter" },
+                { "name": "desfecho_data", "label": "Data", "type": "date", "width": "quarter" },
+                { "name": "desfecho_peso", "label": "Peso", "type": "number", "width": "quarter" }
+            ]
+        },
+        {
+            "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
+            "fields": [
+                { "name": "alta_lm", "label": "LM", "type": "select", "options": ["LM própria mãe exclusivo", "Fórmula Láctea segmento", "Aleitamento Misto", "Outros leites"], "width": "half" },
+                { "name": "alta_lm_outros", "label": "Qual leite?", "type": "text", "width": "half", "enableIf": { "field": "alta_lm", "equals": "Outros leites" } }
             ]
         }
     ]
@@ -273,6 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     inputHtml += `</div>`;
                 } else if (field.type === 'select') {
                     inputHtml = `<label for="f_${field.name}">${field.label}</label><select id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''}><option value="">Selecione</option>${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
+                } else if (field.type === 'textarea') {
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><textarea id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} placeholder="Digite aqui..." rows="4"></textarea>`;
                 } else {
                     inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="Digite aqui...">`;
                 }
