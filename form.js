@@ -135,8 +135,9 @@ const schema = {
                 { "name": "med_atb_oxacilina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
 
                 { "name": "med_atb_outros", "label": "Outros", "type": "boolean", "width": "half" },
-                { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_outros", "equals": true } },
-                { "name": "med_atb_outros_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_outros", "equals": true } }
+                { "name": "med_atb_outros_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
+                { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "number", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
+                { "name": "med_atb_outros_dura", "label": "Duração:", "type": "number", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } }
             ]
         },
         {
