@@ -49,8 +49,16 @@ const schema = {
         {
             "title": "Ventilação",
             "fields": [
-                { "name": "tipo_ventilacao", "label": "Tipo Ventilação" },
-                { "name": "tempo_ventilacao", "label": "Tempo Vent. (dias)" }
+                { "name": "vent_vm", "label": "VM" },
+                { "name": "vent_vm_tempo", "label": "VM (dias)" },
+                { "name": "vent_vni", "label": "VNI" },
+                { "name": "vent_vni_tempo", "label": "VNI (dias)" },
+                { "name": "vent_cpap", "label": "CPAP" },
+                { "name": "vent_cpap_tempo", "label": "CPAP (dias)" },
+                { "name": "vent_cateter", "label": "Cateter Nasal" },
+                { "name": "vent_cateter_tempo", "label": "Cateter (dias)" },
+                { "name": "vent_o2", "label": "O2" },
+                { "name": "vent_o2_tempo", "label": "O2 (dias)" }
             ]
         },
         {

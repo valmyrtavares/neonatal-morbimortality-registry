@@ -49,8 +49,16 @@ const schema = {
         {
             "title": "Ventilação",
             "fields": [
-                { "name": "tipo_ventilacao", "label": "Tipo de Ventilação", "type": "select", "multiple": true, "options": ["VM", "VNI", "CPAP", "cateter nasal", "O2"] },
-                { "name": "tempo_ventilacao", "label": "Tempo (dias)", "type": "number", "min": 0, "max": 365 }
+                { "name": "vent_vm", "label": "1- VM", "type": "boolean", "width": "half" },
+                { "name": "vent_vm_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_vm", "equals": true } },
+                { "name": "vent_vni", "label": "2- VNI", "type": "boolean", "width": "half" },
+                { "name": "vent_vni_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_vni", "equals": true } },
+                { "name": "vent_cpap", "label": "3- CPAP", "type": "boolean", "width": "half" },
+                { "name": "vent_cpap_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_cpap", "equals": true } },
+                { "name": "vent_cateter", "label": "4- Cateter Nasal", "type": "boolean", "width": "half" },
+                { "name": "vent_cateter_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_cateter", "equals": true } },
+                { "name": "vent_o2", "label": "5- O2", "type": "boolean", "width": "half" },
+                { "name": "vent_o2_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_o2", "equals": true } }
             ]
         },
         {
