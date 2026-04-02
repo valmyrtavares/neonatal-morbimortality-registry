@@ -207,8 +207,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 label.appendChild(document.createTextNode(field.label));
                 list.appendChild(label);
             });
+
+            // "Marcar/Desmarcar Tudo" Option
+            const sectionFieldNames = section.fields.map(f => f.name);
+            const isAllSelected = sectionFieldNames.every(name => selectedColumns.includes(name));
+            
+            const bulkLabel = document.createElement('label');
+            bulkLabel.className = `column-option ${isAllSelected ? 'active' : ''}`;
+            bulkLabel.style.borderTop = "1px solid var(--border-color)";
+            bulkLabel.style.marginTop = "0.5rem";
+            bulkLabel.style.paddingTop = "0.5rem";
+            bulkLabel.style.fontWeight = "600";
+            bulkLabel.style.fontSize = "0.75rem";
+
+            const bulkCheckbox = document.createElement('input');
+            bulkCheckbox.type = 'checkbox';
+            bulkCheckbox.checked = isAllSelected;
+            bulkCheckbox.onchange = () => toggleSection(sectionFieldNames, isAllSelected);
+
+            bulkLabel.appendChild(bulkCheckbox);
+            bulkLabel.appendChild(document.createTextNode(isAllSelected ? '[-] Limpar Seção' : '[+] Marcar Seção'));
+            list.appendChild(bulkLabel);
+
             selectorContainer.appendChild(group);
         });
+    }
+
+    function toggleSection(fieldNames, isAllSelected) {
+        if (isAllSelected) {
+            selectedColumns = selectedColumns.filter(c => !fieldNames.includes(c));
+        } else {
+            // Add what is not there
+            fieldNames.forEach(name => {
+                if (!selectedColumns.includes(name)) selectedColumns.push(name);
+            });
+        }
+        localStorage.setItem('table_selected_columns', JSON.stringify(selectedColumns));
+        renderSelector();
+        renderTable();
+        updateCounter();
     }
 
     function toggleColumn(fieldName) {
