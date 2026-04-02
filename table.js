@@ -157,7 +157,10 @@ const schema = {
             "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
             "fields": [
                 { "name": "alta_lm", "label": "Nutrição Alta" },
-                { "name": "alta_lm_outros", "label": "Leite Espec." }
+                { "name": "alta_lm_outros", "label": "Leite Espec." },
+                { "name": "alta_acompanhamento", "label": "Acompanhamento" },
+                { "name": "alta_acompanhamento_outros", "label": "Quais Ambs?" },
+                { "name": "alta_medicamentos", "label": "Meds Alta" }
             ]
         }
     ]

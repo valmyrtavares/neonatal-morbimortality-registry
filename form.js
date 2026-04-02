@@ -249,7 +249,10 @@ const schema = {
             "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
             "fields": [
                 { "name": "alta_lm", "label": "LM", "type": "select", "options": ["LM própria mãe exclusivo", "Fórmula Láctea segmento", "Aleitamento Misto", "Outros leites"], "width": "half" },
-                { "name": "alta_lm_outros", "label": "Qual leite?", "type": "text", "width": "half", "enableIf": { "field": "alta_lm", "equals": "Outros leites" } }
+                { "name": "alta_lm_outros", "label": "Qual leite?", "type": "text", "width": "half", "enableIf": { "field": "alta_lm", "equals": "Outros leites" } },
+                { "name": "alta_acompanhamento", "label": "Acompanhamento", "type": "select", "options": ["AMB Prematuro (Dra Fernanda)", "AMB Canguru (Dra Adriana)", "UBS", "AMB amamentação (Fono/Enf)", "Outros acompanhamentos"], "width": "half" },
+                { "name": "alta_acompanhamento_outros", "label": "Quais?", "type": "text", "width": "half", "enableIf": { "field": "alta_acompanhamento", "equals": "Outros acompanhamentos" } },
+                { "name": "alta_medicamentos", "label": "Medicamentos da Alta", "type": "textarea", "width": "full" }
             ]
         }
     ]
