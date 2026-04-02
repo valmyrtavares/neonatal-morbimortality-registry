@@ -165,7 +165,7 @@ const schema = {
     ]
 };
 
-const MAX_COLUMNS = 10;
+
 let selectedColumns = JSON.parse(localStorage.getItem('table_selected_columns')) || ['identificacao_nome', 'idade_gestacional', 'peso_nascimento', 'desfecho_c'];
 let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
 let allFields = [];
@@ -215,10 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedColumns.includes(fieldName)) {
             selectedColumns = selectedColumns.filter(c => c !== fieldName);
         } else {
-            if (selectedColumns.length >= MAX_COLUMNS) {
-                // FIFO: Remove the first one
-                selectedColumns.shift();
-            }
             selectedColumns.push(fieldName);
         }
         localStorage.setItem('table_selected_columns', JSON.stringify(selectedColumns));
@@ -228,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCounter() {
-        columnCounter.textContent = `(${selectedColumns.length}/${MAX_COLUMNS})`;
+        columnCounter.textContent = `(${selectedColumns.length})`;
     }
 
     function renderTable() {
@@ -242,11 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
         actionTh.style.width = '80px';
         headerRow.appendChild(actionTh);
 
-        // Get labels for selected columns
-        selectedColumns.forEach(colName => {
-            const field = allFields.find(f => f.name === colName);
+        // Get labels for selected columns in schema order
+        const visibleFields = allFields.filter(f => selectedColumns.includes(f.name));
+        visibleFields.forEach(field => {
             const th = document.createElement('th');
-            th.textContent = field ? field.label : colName;
+            th.textContent = field.label;
             headerRow.appendChild(th);
         });
         tableHeader.appendChild(headerRow);
@@ -278,9 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
             actionTd.innerHTML = `<a href="form.html?id=${p.id}" class="edit-link" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--primary); padding: 0.3rem 0.6rem; border-radius: 0.4rem; transition: var(--transition);">Editar</a>`;
             row.appendChild(actionTd);
 
-            selectedColumns.forEach(colName => {
+            const visibleFields = allFields.filter(f => selectedColumns.includes(f.name));
+            visibleFields.forEach(field => {
+                const colName = field.name;
                 const td = document.createElement('td');
-                const fieldDef = allFields.find(f => f.name === colName);
+                const fieldDef = field;
                 let val = '-';
 
                 if (fieldDef && fieldDef.composite) {

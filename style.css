@@ -308,32 +308,58 @@ button:active {
 /* Table Styles */
 .table-container {
     overflow-x: auto;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    background: rgba(15, 23, 42, 0.5); /* Semi-opaque background for the container */
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    border-collapse: separate; /* Important for sticky borders */
+    border-spacing: 0;
 }
 
 th {
     text-align: left;
     padding: 1rem;
-    color: var(--text-secondary);
+    color: var(--primary);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     border-bottom: 2px solid var(--border-color);
+    background: #1e293b; /* Solid background for header */
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 td {
     padding: 1.2rem 1rem;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
+    white-space: nowrap; /* Prevent text wrapping in cells */
+}
+
+/* Sticky Action Column */
+th:first-child, td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background: #1e293b; /* Ensure solid background so data doesn't overlap when scrolling */
+    border-right: 1px solid var(--border-color);
+    width: 80px;
+    min-width: 80px;
+    text-align: center;
 }
 
 tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+tr:hover td:first-child {
+    background: #2a3547; /* Highlight sticky cell on hover too */
 }
 
 .status-badge {
