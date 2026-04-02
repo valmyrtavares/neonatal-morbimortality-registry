@@ -485,6 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function validateStep(stepIdx) {
+        // Desativado a pedido para testes - permitindo avançar sempre.
+        return true; 
+        
         if (stepIdx === schema.sections.length) return true;
         const section = schema.sections[stepIdx];
         let isValid = true;
