@@ -49,48 +49,55 @@ const schema = {
         {
             "title": "Ventilação",
             "fields": [
-                { "name": "vent_vm", "label": "VM" },
-                { "name": "vent_vm_tempo", "label": "VM (dias)" },
-                { "name": "vent_vni", "label": "VNI" },
-                { "name": "vent_vni_tempo", "label": "VNI (dias)" },
-                { "name": "vent_cpap", "label": "CPAP" },
-                { "name": "vent_cpap_tempo", "label": "CPAP (dias)" },
-                { "name": "vent_cateter", "label": "Cateter Nasal" },
-                { "name": "vent_cateter_tempo", "label": "Cateter (dias)" },
-                { "name": "vent_o2", "label": "O2" },
-                { "name": "vent_o2_tempo", "label": "O2 (dias)" }
+                { "name": "vent_vm_comp", "label": "VM", "composite": ["vent_vm", "vent_vm_tempo"] },
+                { "name": "vent_vni_comp", "label": "VNI", "composite": ["vent_vni", "vent_vni_tempo"] },
+                { "name": "vent_cpap_comp", "label": "CPAP", "composite": ["vent_cpap", "vent_cpap_tempo"] },
+                { "name": "vent_cateter_comp", "label": "Cateter Nasal", "composite": ["vent_cateter", "vent_cateter_tempo"] },
+                { "name": "vent_o2_comp", "label": "O2", "composite": ["vent_o2", "vent_o2_tempo"] }
             ]
         },
         {
             "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
-                { "name": "procedimento_acesso_central", "label": "Tipo Acesso" },
-                { "name": "procedimento_instalacao", "label": "Idade Inst." },
-                { "name": "procedimento_tempo_uso", "label": "Tempo Uso" },
-                { "name": "oxig_vm", "label": "VM" },
-                { "name": "oxig_vni", "label": "VNI" },
-                { "name": "oxig_cpap", "label": "CPAP" },
-                { "name": "oxig_cnaf", "label": "CNAF" },
-                { "name": "oxig_cat_nasal", "label": "Cat Nasal" },
-                { "name": "oxig_o2_inalat", "label": "O2 Inalat" },
-                { "name": "procedimento_hipotermia", "label": "Hipotermia" },
-                { "name": "procedimento_fototerapia_tipo", "label": "Fotot. Tipo" },
-                { "name": "procedimento_fototerapia_duracao", "label": "Fotot. Dur" }
+                { "name": "proc_acesso", "label": "Acesso", "composite": ["procedimento_acesso_central", "procedimento_instalacao", "procedimento_tempo_uso"] },
+                { "name": "proc_vm", "label": "VM (p)", "composite": ["oxig_vm", "oxig_vm_instalacao", "oxig_vm_tempo"] },
+                { "name": "proc_vni", "label": "VNI (p)", "composite": ["oxig_vni", "oxig_vni_instalacao", "oxig_vni_tempo"] },
+                { "name": "proc_cpap", "label": "CPAP (p)", "composite": ["oxig_cpap", "oxig_cpap_instalacao", "oxig_cpap_tempo"] },
+                { "name": "proc_cnaf", "label": "CNAF (p)", "composite": ["oxig_cnaf", "oxig_cnaf_instalacao", "oxig_cnaf_tempo"] },
+                { "name": "proc_cat", "label": "Cat Nasal (p)", "composite": ["oxig_cat_nasal", "oxig_cat_nasal_instalacao", "oxig_cat_nasal_tempo"] },
+                { "name": "proc_o2", "label": "O2 Inal.", "composite": ["oxig_o2_inalat", "oxig_o2_inalat_instalacao", "oxig_o2_inalat_tempo"] },
+                { "name": "proc_hipo", "label": "Hipotermia", "composite": ["procedimento_hipotermia", "procedimento_hipotermia_inicio", "procedimento_hipotermia_retirada"] },
+                { "name": "proc_foto", "label": "Fototerapia", "composite": ["procedimento_fototerapia_tipo", "procedimento_fototerapia_irradiacao", "procedimento_fototerapia_duracao"] }
             ]
         },
         {
             "title": "MEDICAMENTOS",
             "fields": [
-                { "name": "med_surf_1_dose", "label": "Surf. 1ª" },
-                { "name": "med_atb_ampicilina", "label": "Ampicilina" },
-                { "name": "med_atb_gentamicina", "label": "Gentamicina" }
+                { "name": "med_surf_1", "label": "Surf 1", "composite": ["med_surf_1_dose", "med_surf_1_idade"] },
+                { "name": "med_surf_2", "label": "Surf 2", "composite": ["med_surf_2_dose", "med_surf_2_idade"] },
+                { "name": "med_surf_out", "label": "Surf Out", "composite": ["med_surf_outras_dose", "med_surf_outras_idade"] },
+                { "name": "med_atb_amp", "label": "Ampicilina", "composite": ["med_atb_ampicilina", "med_atb_ampicilina_inicio", "med_atb_ampicilina_dura"] },
+                { "name": "med_atb_gen", "label": "Gentamicina", "composite": ["med_atb_gentamicina", "med_atb_gentamicina_inicio", "med_atb_gentamicina_dura"] },
+                { "name": "med_atb_pen", "label": "Peni Benz", "composite": ["med_atb_peni_benz", "med_atb_peni_benz_inicio", "med_atb_peni_benz_dura"] },
+                { "name": "med_atb_ami", "label": "Amicacina", "composite": ["med_atb_amicacina", "med_atb_amicacina_inicio", "med_atb_amicacina_dura"] },
+                { "name": "med_atb_oxa", "label": "Oxacilina", "composite": ["med_atb_oxacilina", "med_atb_oxacilina_inicio", "med_atb_oxacilina_dura"] },
+                { "name": "med_atb_out", "label": "Outro ATB", "composite": ["med_atb_outros", "med_atb_outros_qual", "med_atb_outros_inicio", "med_atb_outros_dura"] }
             ]
         },
         {
             "title": "MEDICAMENTOS (Outros)",
             "fields": [
-                { "name": "med_cafeina", "label": "Cafeína" },
-                { "name": "med_drogas_vasoativas", "label": "Vasoativas" }
+                { "name": "med_caf", "label": "Cafeína", "composite": ["med_cafeina", "med_cafeina_inicio", "med_cafeina_dura"] },
+                { "name": "med_dex", "label": "Dexametasona", "composite": ["med_dexametasona", "med_dexametasona_inicio", "med_dexametasona_dura"] },
+                { "name": "med_hyd", "label": "Hydrocortisona", "composite": ["med_hydrocortisona", "med_hydrocortisona_inicio", "med_hydrocortisona_dura"] },
+                { "name": "med_ibu", "label": "Ibuprofeno", "composite": ["med_ibuprofeno", "med_ibuprofeno_inicio", "med_ibuprofeno_dura"] },
+                { "name": "med_par", "label": "Paracetamol", "composite": ["med_paracetamol", "med_paracetamol_inicio", "med_paracetamol_dura"] },
+                { "name": "med_ome", "label": "Omeprazol", "composite": ["med_omeprazol", "med_omeprazol_inicio", "med_omeprazol_dura"] },
+                { "name": "med_dom", "label": "Domperidona", "composite": ["med_domperidona", "med_domperidona_inicio", "med_domperidona_dura"] },
+                { "name": "med_sim", "label": "Simeticona", "composite": ["med_simeticona", "med_simeticona_inicio", "med_simeticona_dura"] },
+                { "name": "med_nist", "label": "Nistatina", "composite": ["med_nistatina_oral", "med_nistatina_oral_inicio", "med_nistatina_oral_dura"] },
+                { "name": "med_ant", "label": "Anticonv.", "composite": ["med_anticonvulsivante", "med_anticonvulsivante_quais", "med_anticonvulsivante_inicio", "med_anticonvulsivante_dura"] },
+                { "name": "med_vaso", "label": "Vasoativas", "composite": ["med_drogas_vasoativas", "med_drogas_vasoativas_quais", "med_drogas_vasoativas_inicio", "med_drogas_vasoativas_dura"] }
             ]
         },
         {
@@ -100,74 +107,58 @@ const schema = {
                 { "name": "infeccao_hmc", "label": "HMC" },
                 { "name": "infeccao_lcr", "label": "LCR" },
                 { "name": "infeccao_urc", "label": "URC" },
-                { "name": "infeccao_outras", "label": "Outras Infec." }
+                { "name": "infeccao_out", "label": "Outras Inf.", "composite": ["infeccao_outras", "infeccao_outras_qual"] }
             ]
         },
         {
             "title": "NUTRIÇÃO",
             "fields": [
-                { "name": "nutricao_inicio", "label": "Nutrição Início" },
-                { "name": "nutricao_duracao", "label": "Nutrição Duração" },
-                { "name": "nutricao_imunoterapia_colostro", "label": "Colostro" },
-                { "name": "nutricao_enteral_trofica_inicio", "label": "Enteral Trófica" },
-                { "name": "nutricao_enteral_nutritiva_inicio", "label": "Enteral Nutritiva" },
-                { "name": "nutricao_npp_padrao_inicio", "label": "NPP Início" },
-                { "name": "nutricao_npp_total_duracao", "label": "NPP Duração" }
+                { "name": "nut_padr", "label": "NPP Padrão", "composite": ["nutricao_npp_padrao_inicio"] },
+                { "name": "nut_total", "label": "NPP Total", "composite": ["nutricao_npp_total_duracao"] },
+                { "name": "nut_col", "label": "Colostro", "composite": ["nutricao_imunoterapia_colostro", "nutricao_imunoterapia_duracao"] },
+                { "name": "nut_ent_tr", "label": "Enteral Trófica", "composite": ["nutricao_enteral_trofica_inicio"] },
+                { "name": "nut_ent_nutr", "label": "Enteral Nutritiva", "composite": ["nutricao_enteral_nutritiva_inicio"] }
             ]
         },
         {
             "title": "HEMODERIVADOS",
             "fields": [
-                { "name": "hemod_hemacias", "label": "Hemácias" },
-                { "name": "hemod_hemacias_data", "label": "Quando?" },
-                { "name": "hemod_plasma", "label": "Plasma" },
-                { "name": "hemod_plasma_data", "label": "Quando?" },
-                { "name": "hemod_plaquetas", "label": "Plaquetas" },
-                { "name": "hemod_plaquetas_data", "label": "Quando?" },
-                { "name": "hemod_crio", "label": "Crioprecipitado" },
-                { "name": "hemod_crio_data", "label": "Quando?" },
-                { "name": "hemod_outros", "label": "Outros" },
-                { "name": "hemod_outros_qual", "label": "Qual?" }
+                { "name": "hemod_hem", "label": "Hemácias", "composite": ["hemod_hemacias", "hemod_hemacias_data"] },
+                { "name": "hemod_plas", "label": "Plasma", "composite": ["hemod_plasma", "hemod_plasma_data"] },
+                { "name": "hemod_plaq", "label": "Plaquetas", "composite": ["hemod_plaquetas", "hemod_plaquetas_data"] },
+                { "name": "hemod_crio_c", "label": "Crioprec.", "composite": ["hemod_crio", "hemod_crio_data"] },
+                { "name": "hemod_out_c", "label": "Outros Hem.", "composite": ["hemod_outros", "hemod_outros_qual", "hemod_outros_data"] }
             ]
         },
         {
             "title": "EXAMES SUBMETIDOS",
             "fields": [
-                { "name": "exames_lcr", "label": "LCR" },
-                { "name": "exames_fo", "label": "FO" },
-                { "name": "exames_eot", "label": "EOT" },
-                { "name": "exames_peate", "label": "PEATE" },
-                { "name": "exames_ustf", "label": "USTF" },
-                { "name": "exames_eco", "label": "ECO" },
-                { "name": "exames_aeeg", "label": "aEEG" },
-                { "name": "exames_usg_abd", "label": "USG abd" },
-                { "name": "exames_usg_renal", "label": "USG renal" },
-                { "name": "exames_outros", "label": "Outros" },
-                { "name": "exames_outros_qual", "label": "Qual?" }
+                { "name": "ex_lcr", "label": "LCR" },
+                { "name": "ex_fo", "label": "FO" },
+                { "name": "ex_eot", "label": "EOT" },
+                { "name": "ex_peate", "label": "PEATE" },
+                { "name": "ex_ustf", "label": "USTF" },
+                { "name": "ex_eco", "label": "ECO" },
+                { "name": "ex_aeeg", "label": "aEEG" },
+                { "name": "ex_usg_abd", "label": "USG abd" },
+                { "name": "ex_usg_ren", "label": "USG renal" },
+                { "name": "ex_out_c", "label": "Outro Exame", "composite": ["exames_outros", "exames_outros_qual"] }
             ]
         },
         {
             "title": "CIRURGIA",
             "fields": [
-                { "name": "cirurgia_realizada", "label": "Cirurgia" },
-                { "name": "cirurgia_tipo", "label": "Tipo" },
-                { "name": "cirurgia_idade", "label": "Idade Cir." },
+                { "name": "cir_c", "label": "Cirurgia", "composite": ["cirurgia_realizada", "cirurgia_tipo", "cirurgia_idade"] },
                 { "name": "escore_escolhido", "label": "Escore Gravidade" },
                 { "name": "diagnostico", "label": "Diagnóstico" },
-                { "name": "desfecho", "label": "Desfecho" },
-                { "name": "desfecho_idade", "label": "Idade Desfecho" },
-                { "name": "desfecho_igc", "label": "IGC" },
-                { "name": "desfecho_data", "label": "Data Desfecho" },
-                { "name": "desfecho_peso", "label": "Peso Desfecho" }
+                { "name": "desfecho_c", "label": "Desfecho (Completo)", "composite": ["desfecho", "desfecho_data", "desfecho_peso", "desfecho_idade", "desfecho_igc"] }
             ]
         },
         {
             "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
             "fields": [
-                { "name": "alta_lm", "label": "Nutrição Alta" },
-                { "name": "alta_lm_outros", "label": "Leite Espec." },
-                { "name": "alta_acompanhamento", "label": "Acompanhamento" },
-                { "name": "alta_acompanhamento_outros", "label": "Quais Ambs?" },
+                { "name": "alta_nut", "label": "Nutrição Alta", "composite": ["alta_lm", "alta_lm_outros"] },
+                { "name": "alta_amb", "label": "Acompanhamento", "composite": ["alta_acompanhamento", "alta_acompanhamento_outros"] },
                 { "name": "alta_medicamentos", "label": "Meds Alta" }
             ]
         }
@@ -175,10 +166,12 @@ const schema = {
 };
 
 const MAX_COLUMNS = 10;
-let selectedColumns = JSON.parse(localStorage.getItem('table_selected_columns')) || ['identificacao_nome', 'idade_gestacional', 'peso_nascimento', 'desfecho'];
+let selectedColumns = JSON.parse(localStorage.getItem('table_selected_columns')) || ['identificacao_nome', 'idade_gestacional', 'peso_nascimento', 'desfecho_c'];
 let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
+let allFields = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+    allFields = schema.sections.flatMap(s => s.fields);
     const selectorContainer = document.getElementById('columnSelectorContainer');
     const tableHeader = document.getElementById('tableHeader');
     const tableBody = document.getElementById('tableBody');
@@ -250,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
         headerRow.appendChild(actionTh);
 
         // Get labels for selected columns
-        const allFields = schema.sections.flatMap(s => s.fields);
         selectedColumns.forEach(colName => {
             const field = allFields.find(f => f.name === colName);
             const th = document.createElement('th');
@@ -288,9 +280,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             selectedColumns.forEach(colName => {
                 const td = document.createElement('td');
-                let val = p[colName];
+                const fieldDef = allFields.find(f => f.name === colName);
+                let val = '-';
+
+                if (fieldDef && fieldDef.composite) {
+                    const parts = fieldDef.composite;
+                    const mainVal = p[parts[0]];
+                    
+                    if (mainVal && mainVal !== 'false' && mainVal !== '-') {
+                        const detail = parts.slice(1).map(k => p[k] || '-').join(' / ');
+                        val = (typeof mainVal === 'boolean') ? `Sim (${detail})` : `${mainVal} (${detail})`;
+                    } else {
+                        val = '-';
+                    }
+                } else {
+                    val = p[colName];
+                }
                 
-                // Format values
+                // Format values for display
                 if (Array.isArray(val)) val = val.join(', ');
                 if (typeof val === 'boolean') val = val ? 'Sim' : 'Não';
                 if (val === null || val === undefined || val === '') val = '-';
