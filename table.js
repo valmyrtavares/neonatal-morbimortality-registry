@@ -14,6 +14,8 @@ const schema = {
                 { "name": "idade_materna", "label": "Idade Materna" },
                 { "name": "consultas_pn", "label": "Consultas PN" },
                 { "name": "patologias_maternas", "label": "Patologias Maternas" },
+                { "name": "patologias_psiquiatrica_qual", "label": "Detalhamento Psiq." },
+                { "name": "patologias_drogas_qual", "label": "Detalhamento Drogas" },
                 { "name": "corticoide_antenatal", "label": "Corticóide Antenatal" },
                 { "name": "corticoide_ciclos", "label": "Ciclos" },
                 { "name": "outras_medicacoes_maternas", "label": "Outras Medicações" }
@@ -25,6 +27,8 @@ const schema = {
                 { "name": "apresentacao_parto", "label": "Apresentação" },
                 { "name": "tempo_amniorrexe_horas", "label": "Bolsa Rota" },
                 { "name": "tipo_parto", "label": "Tipo de Parto" },
+                { "name": "causas_cesarea", "label": "Causas Cesárea" },
+                { "name": "causas_cesarea_outro", "label": "Qual Causa Cesárea?" },
                 { "name": "local_parto", "label": "Local" },
                 { "name": "streptococcus_b", "label": "Strep B" },
                 { "name": "profilaxia", "label": "Profilaxia" },
@@ -35,14 +39,16 @@ const schema = {
             "title": "Recém-Nascido",
             "fields": [
                 { "name": "idade_gestacional", "label": "IG" },
-                { "name": "peso_nascimento", "label": "Peso (g)" },
+                { "name": "peso_nascimento", "label": "Peso de nascimento (g)" },
                 { "name": "sexo", "label": "Sexo" },
                 { "name": "apgar_1", "label": "Apgar 1'" },
                 { "name": "apgar_5", "label": "Apgar 5'" },
                 { "name": "apgar_10", "label": "Apgar 10'" },
                 { "name": "reanimacao", "label": "Reanimação" },
                 { "name": "tipo_reanimacao", "label": "Tipo Reanim." },
+                { "name": "reanimacao_iot_fora_por_que", "label": "Motivo IOT fora" },
                 { "name": "temperatura", "label": "Temp" },
+                { "name": "dispositivo_usado", "label": "Disp. Térmico" },
                 { "name": "pam", "label": "PAM" }
             ]
         },

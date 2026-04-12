@@ -39,14 +39,16 @@ const schema = {
             "title": "Recém-Nascido",
             "fields": [
                 { "name": "idade_gestacional", "label": "Idade Gestacional", "type": "text" },
-                { "name": "peso_nascimento", "label": "Peso (g)", "type": "number", "min": 300, "max": 6000 },
+                { "name": "peso_nascimento", "label": "Peso de nascimento (g)", "type": "number", "min": 300, "max": 6000 },
                 { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"] },
                 { "name": "apgar_1", "label": "Apgar 1 min", "type": "number", "min": 0, "max": 10, "width": "third" },
                 { "name": "apgar_5", "label": "Apgar 5 min", "type": "number", "min": 0, "max": 10, "width": "third" },
                 { "name": "apgar_10", "label": "Apgar 10 min", "type": "number", "min": 0, "max": 10, "width": "third" },
                 { "name": "reanimacao", "label": "Reanimação", "type": "boolean" },
-                { "name": "tipo_reanimacao", "label": "Tipo de Reanimação", "type": "text", "showIf": { "field": "reanimacao", "equals": true } },
+                { "name": "tipo_reanimacao", "label": "Tipo de Reanimação", "type": "select", "multiple": true, "options": ["Aspiração", "VPP com balão e máscara", "VPP com Baby Puff", "Massagem cardíaca", "IOT na reanimação", "Cateterismo umbilical", "Expansão", "Adrenalina", "Bicarbonato", "IOT fora da reanimação"], "showIf": { "field": "reanimacao", "equals": true } },
+                { "name": "reanimacao_iot_fora_por_que", "label": "Por que IOT fora da reanimação?", "type": "text", "showIf": { "field": "tipo_reanimacao", "includes": "IOT fora da reanimação" }, "placeholder": "Qual?" },
                 { "name": "temperatura", "label": "Temperatura", "type": "number", "min": 30, "max": 42 },
+                { "name": "dispositivo_usado", "label": "Dispositivo usado:", "type": "select", "options": ["saco plástico", "Colchão térmico"] },
                 { "name": "pam", "label": "PAM", "type": "number", "min": 10, "max": 120 }
             ]
         },
