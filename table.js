@@ -79,7 +79,8 @@ const schema = {
                 { "name": "proc_o2", "label": "O2 Inal.", "composite": ["oxig_o2_inalat", "oxig_o2_inalat_instalacao", "oxig_o2_inalat_tempo"] },
                 { "name": "proc_oxig_retorno_vent", "label": "Retorno Vent. (Oxig)", "composite": ["oxig_retorno_vent", "oxig_retorno_vent_qual", "oxig_retorno_vent_tempo"] },
                 { "name": "proc_hipo", "label": "Hipotermia terapêutica", "composite": ["procedimento_hipotermia", "procedimento_hipotermia_inicio", "procedimento_hipotermia_retirada"] },
-                { "name": "proc_foto", "label": "Fototerapia", "composite": ["procedimento_fototerapia_tipo", "procedimento_fototerapia_irradiacao", "procedimento_fototerapia_duracao"] }
+                { "name": "proc_foto", "label": "Fototerapia", "composite": ["procedimento_fototerapia_tipo", "procedimento_fototerapia_irradiacao", "procedimento_fototerapia_duracao"] },
+                { "name": "proc_outros_utin", "label": "Outros Proc. UTIN", "composite": ["procedimento_outros", "procedimento_outros_qual", "procedimento_outros_inst", "procedimento_outros_tempo"] }
             ]
         },
         {
@@ -87,13 +88,29 @@ const schema = {
             "fields": [
                 { "name": "med_surf_1", "label": "Surf 1", "composite": ["med_surf_1_dose", "med_surf_1_idade"] },
                 { "name": "med_surf_2", "label": "Surf 2", "composite": ["med_surf_2_dose", "med_surf_2_idade"] },
-                { "name": "med_surf_out", "label": "Surf Out", "composite": ["med_surf_outras_dose", "med_surf_outras_idade"] },
+                { "name": "med_surf_out", "label": "Surf Out", "composite": ["med_surf_outras_dose", "med_surf_outras_idade", "med_surf_outras_motivo"] },
                 { "name": "med_atb_amp", "label": "Ampicilina", "composite": ["med_atb_ampicilina", "med_atb_ampicilina_inicio", "med_atb_ampicilina_dura"] },
                 { "name": "med_atb_gen", "label": "Gentamicina", "composite": ["med_atb_gentamicina", "med_atb_gentamicina_inicio", "med_atb_gentamicina_dura"] },
                 { "name": "med_atb_pen", "label": "Peni Benz", "composite": ["med_atb_peni_benz", "med_atb_peni_benz_inicio", "med_atb_peni_benz_dura"] },
                 { "name": "med_atb_ami", "label": "Amicacina", "composite": ["med_atb_amicacina", "med_atb_amicacina_inicio", "med_atb_amicacina_dura"] },
                 { "name": "med_atb_oxa", "label": "Oxacilina", "composite": ["med_atb_oxacilina", "med_atb_oxacilina_inicio", "med_atb_oxacilina_dura"] },
-                { "name": "med_atb_out", "label": "Outro ATB", "composite": ["med_atb_outros", "med_atb_outros_qual", "med_atb_outros_inicio", "med_atb_outros_dura"] }
+                { "name": "med_atb_pec", "label": "Peni Crist", "composite": ["med_atb_peni_cristal", "med_atb_peni_cristal_inicio", "med_atb_peni_cristal_dura"] },
+                { "name": "med_atb_cef", "label": "Cefepima", "composite": ["med_atb_cefepima", "med_atb_cefepima_inicio", "med_atb_cefepima_dura"] },
+                { "name": "med_atb_out", "label": "Outro ATB", "composite": ["med_atb_outros", "med_atb_outros_qual", "med_atb_outros_inicio", "med_atb_outros_dura"] },
+
+                { "name": "med_vaso_dopa", "label": "Dopamina", "composite": ["med_vaso_dopamina", "med_vaso_dopamina_inicio", "med_vaso_dopamina_dura"] },
+                { "name": "med_vaso_dobu", "label": "Dobutamina", "composite": ["med_vaso_dobutamina", "med_vaso_dobutamina_inicio", "med_vaso_dobutamina_dura"] },
+                { "name": "med_vaso_adre", "label": "Adrenalina", "composite": ["med_vaso_adrenalina", "med_vaso_adrenalina_inicio", "med_vaso_adrenalina_dura"] },
+                { "name": "med_vaso_nora", "label": "Noradrenalina", "composite": ["med_vaso_noradrenalina", "med_vaso_noradrenalina_inicio", "med_vaso_noradrenalina_dura"] },
+                { "name": "med_vaso_milri", "label": "Milrinona", "composite": ["med_vaso_milrinona", "med_vaso_milrinona_inicio", "med_vaso_milrinona_dura"] },
+                { "name": "med_vaso_vaso", "label": "Vasopressina", "composite": ["med_vaso_vasopressina", "med_vaso_vasopressina_inicio", "med_vaso_vasopressina_dura"] },
+                { "name": "med_vaso_oxido", "label": "Óxido Nítrico", "composite": ["med_vaso_oxido_nitrico", "med_vaso_oxido_nitrico_inicio", "med_vaso_oxido_nitrico_dura"] },
+
+                { "name": "med_conv_feno", "label": "Fenobarb.", "composite": ["med_conv_fenobarbital", "med_conv_fenobarbital_inicio", "med_conv_fenobarbital_dura"] },
+                { "name": "med_conv_feni", "label": "Fenitoína", "composite": ["med_conv_fenitoina", "med_conv_fenitoina_inicio", "med_conv_fenitoina_dura"] },
+                { "name": "med_conv_mida", "label": "Midazolan", "composite": ["med_conv_midazolan", "med_conv_midazolan_inicio", "med_conv_midazolan_dura"] },
+                { "name": "med_conv_leve", "label": "Levetira.", "composite": ["med_conv_levetiracetam", "med_conv_levetiracetam_inicio", "med_conv_levetiracetam_dura"] },
+                { "name": "med_conv_out", "label": "Outro Conv.", "composite": ["med_conv_outros", "med_conv_outros_qual", "med_conv_outros_inicio", "med_conv_outros_dura"] }
             ]
         },
         {
@@ -108,14 +125,15 @@ const schema = {
                 { "name": "med_dom", "label": "Domperidona", "composite": ["med_domperidona", "med_domperidona_inicio", "med_domperidona_dura"] },
                 { "name": "med_sim", "label": "Simeticona", "composite": ["med_simeticona", "med_simeticona_inicio", "med_simeticona_dura"] },
                 { "name": "med_nist", "label": "Nistatina", "composite": ["med_nistatina_oral", "med_nistatina_oral_inicio", "med_nistatina_oral_dura"] },
-                { "name": "med_ant", "label": "Anticonv.", "composite": ["med_anticonvulsivante", "med_anticonvulsivante_quais", "med_anticonvulsivante_inicio", "med_anticonvulsivante_dura"] },
-                { "name": "med_vaso", "label": "Vasoativas", "composite": ["med_drogas_vasoativas", "med_drogas_vasoativas_quais", "med_drogas_vasoativas_inicio", "med_drogas_vasoativas_dura"] }
+                { "name": "med_sil", "label": "Sildenafil", "composite": ["med_sildenafil", "med_sildenafil_inicio", "med_sildenafil_dura"] },
+                { "name": "med_out_med", "label": "Outros Med.", "composite": ["med_outros_medicamentos", "med_outros_medicamentos_qual", "med_outros_medicamentos_inicio", "med_outros_medicamentos_dura"] }
             ]
         },
         {
             "title": "INFECÇÃO",
             "fields": [
-                { "name": "infeccao_sepse", "label": "Sepse" },
+                 { "name": "infeccao_sepse", "label": "Sepse" },
+                 { "name": "infeccao_pneumonia", "label": "Pneumonia" },
                 { "name": "infeccao_hmc", "label": "HMC" },
                 { "name": "infeccao_lcr", "label": "LCR" },
                 { "name": "infeccao_urc", "label": "URC" },
