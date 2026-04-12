@@ -143,11 +143,11 @@ const schema = {
         {
             "title": "NUTRIÇÃO",
             "fields": [
-                { "name": "nut_padr", "label": "NPP Padrão", "composite": ["nutricao_npp_padrao_inicio"] },
-                { "name": "nut_total", "label": "NPP Total", "composite": ["nutricao_npp_total_duracao"] },
+                { "name": "nut_padr", "label": "NPP Padrão", "composite": ["nutricao_npp_padrao_inicio", "nutricao_npp_padrao_dura"] },
+                { "name": "nut_total", "label": "NPP Total", "composite": ["nutricao_npp_total_inicio", "nutricao_npp_total_dura"] },
                 { "name": "nut_col", "label": "Colostro", "composite": ["nutricao_imunoterapia_colostro", "nutricao_imunoterapia_duracao"] },
-                { "name": "nut_ent_tr", "label": "Enteral Trófica", "composite": ["nutricao_enteral_trofica_inicio"] },
-                { "name": "nut_ent_nutr", "label": "Enteral Nutritiva", "composite": ["nutricao_enteral_nutritiva_inicio"] }
+                { "name": "nut_ent_tr", "label": "Enteral Trófica", "composite": ["nutricao_enteral_trofica_inicio", "nutricao_enteral_trofica_dura"] },
+                { "name": "nut_ent_nutr", "label": "Enteral Nutritiva", "composite": ["nutricao_enteral_nutritiva_inicio", "nutricao_enteral_nutritiva_tipo"] }
             ]
         },
         {

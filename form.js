@@ -294,14 +294,20 @@ const schema = {
         {
             "title": "NUTRIÇÃO",
             "fields": [
-                { "name": "nutricao_inicio", "label": "Nutrição (início):", "type": "date", "width": "half" },
-                { "name": "nutricao_duracao", "label": "Duração (dias):", "type": "number", "width": "half" },
                 { "name": "nutricao_imunoterapia_colostro", "label": "Imunoterapia com colostro:", "type": "boolean", "width": "half" },
                 { "name": "nutricao_imunoterapia_duracao", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_imunoterapia_colostro", "equals": true } },
+
                 { "name": "nutricao_enteral_trofica_inicio", "label": "Enteral trófica (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_enteral_trofica_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_enteral_trofica_inicio", "notEmpty": true } },
+
                 { "name": "nutricao_enteral_nutritiva_inicio", "label": "Enteral nutritiva (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_enteral_nutritiva_tipo", "label": "Tipo de dieta:", "type": "select", "options": ["LM própria mãe exclusivo", "LM BLH exclusivo", "Ambos", "Fórmula Láctea exclusiva", "Aleitamento Misto"], "width": "half" },
+
                 { "name": "nutricao_npp_padrao_inicio", "label": "NPP padrão (início):", "type": "date", "width": "half" },
-                { "name": "nutricao_npp_total_duracao", "label": "NPP total (duração em dias):", "type": "number", "width": "half" }
+                { "name": "nutricao_npp_padrao_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_npp_padrao_inicio", "notEmpty": true } },
+
+                { "name": "nutricao_npp_total_inicio", "label": "NPP total (início):", "type": "date", "width": "half" },
+                { "name": "nutricao_npp_total_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_npp_total_inicio", "notEmpty": true } }
             ]
         },
         {
