@@ -18,14 +18,14 @@ const schema = {
                 { "name": "patologias_drogas_qual", "label": "Qual droga?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "uso de drogas" }, "placeholder": "Qual?" },
                 { "name": "corticoide_antenatal", "label": "Corticóide Antenatal", "type": "boolean", "width": "half" },
                 { "name": "corticoide_ciclos", "label": "Ciclos", "type": "number", "min": 0, "max": 10, "showIf": { "field": "corticoide_antenatal", "equals": true }, "width": "half" },
-                { "name": "outras_medicacoes_maternas", "label": "Outras Medicações", "type": "text" }
+                { "name": "outras_medicacoes_maternas", "label": "Medicações", "type": "text" }
             ]
         },
         {
             "title": "Dados do Parto",
             "fields": [
                 { "name": "apresentacao_parto", "label": "Apresentação", "type": "select", "options": ["cefálica", "pélvica", "transversa", "outra"] },
-                { "name": "tempo_amniorrexe_horas", "label": "Tempo de bolsa rota:", "type": "number", "min": 0, "max": 1000 },
+                { "name": "tempo_amniorrexe_horas", "label": "Tempo de bolsa rota (em horas) :", "type": "number", "min": 0, "max": 1000 },
                 { "name": "tipo_parto", "label": "Tipo de Parto", "type": "select", "options": ["normal", "cesárea", "fórceps", "vácuo"] },
                 { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospital", "não hospitalar"] },
                 { "name": "streptococcus_b", "label": "Streptococcus B", "type": "select", "options": ["positivo", "negativo", "desconhecido"] },
