@@ -65,14 +65,20 @@ const schema = {
         {
             "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
-                { "name": "proc_acesso", "label": "Acesso", "composite": ["procedimento_acesso_central", "procedimento_instalacao", "procedimento_tempo_uso"] },
+                { "name": "proc_umb_venoso", "label": "Cat. Umb. Veno", "composite": ["acesso_umb_venoso", "acesso_umb_venoso_inst", "acesso_umb_venoso_tempo"] },
+                { "name": "proc_umb_arterial", "label": "Cat. Umb. Art", "composite": ["acesso_umb_arterial", "acesso_umb_arterial_inst", "acesso_umb_arterial_tempo"] },
+                { "name": "proc_pic", "label": "PICC", "composite": ["acesso_pic", "acesso_pic_inst", "acesso_pic_tempo"] },
+                { "name": "proc_flepo", "label": "Flebo", "composite": ["acesso_flepotomia", "acesso_flepotomia_inst", "acesso_flepotomia_tempo"] },
+                { "name": "proc_perif", "label": "Acesso Perif.", "composite": ["acesso_venoso_perif", "acesso_venoso_perif_inst", "acesso_venoso_perif_tempo"] },
+                { "name": "proc_retorno_vent", "label": "Retorno Vent.", "composite": ["acesso_retorno_vent", "acesso_retorno_vent_qual", "acesso_retorno_vent_tempo"] },
                 { "name": "proc_vm", "label": "VM (p)", "composite": ["oxig_vm", "oxig_vm_instalacao", "oxig_vm_tempo"] },
                 { "name": "proc_vni", "label": "VNI (p)", "composite": ["oxig_vni", "oxig_vni_instalacao", "oxig_vni_tempo"] },
                 { "name": "proc_cpap", "label": "CPAP (p)", "composite": ["oxig_cpap", "oxig_cpap_instalacao", "oxig_cpap_tempo"] },
                 { "name": "proc_cnaf", "label": "CNAF (p)", "composite": ["oxig_cnaf", "oxig_cnaf_instalacao", "oxig_cnaf_tempo"] },
                 { "name": "proc_cat", "label": "Cat Nasal (p)", "composite": ["oxig_cat_nasal", "oxig_cat_nasal_instalacao", "oxig_cat_nasal_tempo"] },
                 { "name": "proc_o2", "label": "O2 Inal.", "composite": ["oxig_o2_inalat", "oxig_o2_inalat_instalacao", "oxig_o2_inalat_tempo"] },
-                { "name": "proc_hipo", "label": "Hipotermia", "composite": ["procedimento_hipotermia", "procedimento_hipotermia_inicio", "procedimento_hipotermia_retirada"] },
+                { "name": "proc_oxig_retorno_vent", "label": "Retorno Vent. (Oxig)", "composite": ["oxig_retorno_vent", "oxig_retorno_vent_qual", "oxig_retorno_vent_tempo"] },
+                { "name": "proc_hipo", "label": "Hipotermia terapêutica", "composite": ["procedimento_hipotermia", "procedimento_hipotermia_inicio", "procedimento_hipotermia_retirada"] },
                 { "name": "proc_foto", "label": "Fototerapia", "composite": ["procedimento_fototerapia_tipo", "procedimento_fototerapia_irradiacao", "procedimento_fototerapia_duracao"] }
             ]
         },

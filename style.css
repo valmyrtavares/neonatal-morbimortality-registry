@@ -177,7 +177,6 @@ header p {
     color: var(--secondary-color);
     font-size: 1.1rem;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 

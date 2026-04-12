@@ -70,10 +70,31 @@ const schema = {
         {
             "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
-                { "name": "procedimento_acesso_central", "label": "1- Tipo de acesso venoso central", "type": "select", "options": ["Cateter Umbilical Venoso", "Cateter Umbilical Arterial", "Pic", "Flepotomia", "Acesso venoso periférico"], "width": "half" },
-                { "name": "procedimento_instalacao", "label": "idade de instalação", "type": "number", "width": "quarter" },
-                { "name": "procedimento_tempo_uso", "label": "Tempo de uso", "type": "number", "width": "quarter" },
-                { "type": "subtitle", "label": "Oxigenação/ventilação:" },
+                { "type": "subtitle", "label": "1- Tipo de acesso venoso central:" },
+                { "name": "acesso_umb_venoso", "label": "Cateter Umbilical Venoso", "type": "boolean", "width": "half" },
+                { "name": "acesso_umb_venoso_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
+                { "name": "acesso_umb_venoso_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
+
+                { "name": "acesso_umb_arterial", "label": "Cateter Umbilical Arterial", "type": "boolean", "width": "half" },
+                { "name": "acesso_umb_arterial_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
+                { "name": "acesso_umb_arterial_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
+
+                { "name": "acesso_pic", "label": "PICC", "type": "boolean", "width": "half" },
+                { "name": "acesso_pic_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
+                { "name": "acesso_pic_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
+
+                { "name": "acesso_flepotomia", "label": "Flebotomia", "type": "boolean", "width": "half" },
+                { "name": "acesso_flepotomia_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
+                { "name": "acesso_flepotomia_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
+
+                { "name": "acesso_venoso_perif", "label": "Acesso venoso periférico", "type": "boolean", "width": "half" },
+                { "name": "acesso_venoso_perif_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
+                { "name": "acesso_venoso_perif_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
+
+                { "name": "acesso_retorno_vent", "label": "Retorno a algum tipo de ventilação", "type": "boolean", "width": "half" },
+                { "name": "acesso_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
+                { "name": "acesso_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
+                { "type": "subtitle", "label": "Oxigenação/ventilação" },
                 { "name": "oxig_vm", "label": "VM", "type": "boolean", "width": "half" },
                 { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
                 { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
@@ -98,7 +119,11 @@ const schema = {
                 { "name": "oxig_o2_inalat_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
                 { "name": "oxig_o2_inalat_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
 
-                { "name": "procedimento_hipotermia", "label": "3- Hipotermia terapêutica:", "type": "boolean", "width": "half", "marginTop": true },
+                { "name": "oxig_retorno_vent", "label": "Retorno a algum tipo de ventilação", "type": "boolean", "width": "half" },
+                { "name": "oxig_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
+                { "name": "oxig_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
+
+                { "name": "procedimento_hipotermia", "label": "Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
                 { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
                 { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
 
