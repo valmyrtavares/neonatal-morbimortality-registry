@@ -156,23 +156,21 @@ const schema = {
                 { "name": "hemod_hem", "label": "Hemácias", "composite": ["hemod_hemacias", "hemod_hemacias_data"] },
                 { "name": "hemod_plas", "label": "Plasma", "composite": ["hemod_plasma", "hemod_plasma_data"] },
                 { "name": "hemod_plaq", "label": "Plaquetas", "composite": ["hemod_plaquetas", "hemod_plaquetas_data"] },
-                { "name": "hemod_crio_c", "label": "Crioprec.", "composite": ["hemod_crio", "hemod_crio_data"] },
-                { "name": "hemod_out_c", "label": "Outros Hem.", "composite": ["hemod_outros", "hemod_outros_qual", "hemod_outros_data"] }
+                { "name": "hemod_crio_c", "label": "Crioprec.", "composite": ["hemod_crio", "hemod_crio_data"] }
             ]
         },
         {
             "title": "EXAMES SUBMETIDOS",
             "fields": [
-                { "name": "ex_lcr", "label": "LCR" },
-                { "name": "ex_fo", "label": "FO" },
-                { "name": "ex_eot", "label": "EOT" },
-                { "name": "ex_peate", "label": "PEATE" },
-                { "name": "ex_ustf", "label": "USTF" },
-                { "name": "ex_eco", "label": "ECO" },
-                { "name": "ex_aeeg", "label": "aEEG" },
-                { "name": "ex_usg_abd", "label": "USG abd" },
-                { "name": "ex_usg_ren", "label": "USG renal" },
-                { "name": "ex_out_c", "label": "Outro Exame", "composite": ["exames_outros", "exames_outros_qual"] }
+                { "name": "ex_fo", "label": "FO", "composite": ["exames_fo", "exames_fo_res"] },
+                { "name": "ex_eoa", "label": "EOA", "composite": ["exames_eoa", "exames_eoa_res"] },
+                { "name": "ex_peate", "label": "PEATE", "composite": ["exames_peate", "exames_peate_res"] },
+                { "name": "ex_ustf", "label": "USTF", "composite": ["exames_ustf", "exames_ustf_res"] },
+                { "name": "ex_eco", "label": "ECO", "composite": ["exames_eco", "exames_eco_res"] },
+                { "name": "ex_aeeg", "label": "aEEG", "composite": ["exames_aeeg", "exames_aeeg_res"] },
+                { "name": "ex_usg_abd", "label": "USG abd", "composite": ["exames_usg_abd", "exames_usg_abd_res"] },
+                { "name": "ex_usg_ren", "label": "USG renal", "composite": ["exames_usg_renal", "exames_usg_renal_res"] },
+                { "name": "ex_out_c", "label": "Outro Exame", "composite": ["exames_outros", "exames_outros_qual", "exames_outros_res"] }
             ]
         },
         {
