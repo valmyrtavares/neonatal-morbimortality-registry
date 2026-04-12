@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td style="font-weight: 500;">${p.identificacao_nome || '-'}</td>
                 <td>${sexoBadge}</td>
-                <td><span style="color: var(--primary);">${p.idade_gestacional || '-'} s</span> / ${p.peso_nascimento || '-'}g</td>
+                <td><span style="color: var(--primary);">${p.idade_gestacional || '-'}</span> / ${p.peso_nascimento || '-'}g</td>
                 <td><span class="status-badge ${statusClass}">${p.desfecho || 'Outro'}</span></td>
                 <td><span style="color: var(--text-secondary); font-size: 0.8rem;">${p.timestamp || '-'}</span></td>
             `;

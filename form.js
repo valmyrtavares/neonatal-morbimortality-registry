@@ -27,7 +27,9 @@ const schema = {
                 { "name": "apresentacao_parto", "label": "Apresentação", "type": "select", "options": ["cefálica", "pélvica", "transversa", "outra"] },
                 { "name": "tempo_amniorrexe_horas", "label": "Tempo de bolsa rota (em horas) :", "type": "number", "min": 0, "max": 1000 },
                 { "name": "tipo_parto", "label": "Tipo de Parto", "type": "select", "options": ["normal", "cesárea", "fórceps", "vácuo"] },
-                { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospital", "não hospitalar"] },
+                { "name": "causas_cesarea", "label": "Causas de cesárea", "type": "select", "multiple": true, "options": ["Mecônio", "Sofrimento fetal agudo", "CIUR", "Doença materna descompensada", "Pré Eclâmpsia", "Eclâmpsia", "Síndrome HELLP", "Apresentação anômala", "Falha de indução", "Desproporção céfalo-pélvica", "Parada de descida", "Cesárea a pedido", "Outro"], "showIf": { "field": "tipo_parto", "equals": "cesárea" } },
+                { "name": "causas_cesarea_outro", "label": "Qual causa de cesária?", "type": "text", "showIf": { "field": "causas_cesarea", "includes": "Outro" }, "placeholder": "Especifique a causa" },
+                { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospitalar", "não hospitalar"] },
                 { "name": "streptococcus_b", "label": "Streptococcus B", "type": "select", "options": ["positivo", "negativo", "desconhecido"] },
                 { "name": "profilaxia", "label": "Profilaxia:", "type": "boolean", "width": "half" },
                 { "name": "tipo_profilaxia", "label": "Tipo de Profilaxia:", "type": "select", "options": ["Adequada", "Inadequada"], "width": "half", "showIf": { "field": "profilaxia", "equals": true } }
@@ -36,7 +38,7 @@ const schema = {
         {
             "title": "Recém-Nascido",
             "fields": [
-                { "name": "idade_gestacional", "label": "Idade Gestacional (semanas)", "type": "number", "min": 20, "max": 45 },
+                { "name": "idade_gestacional", "label": "Idade Gestacional", "type": "text" },
                 { "name": "peso_nascimento", "label": "Peso (g)", "type": "number", "min": 300, "max": 6000 },
                 { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"] },
                 { "name": "apgar_1", "label": "Apgar 1 min", "type": "number", "min": 0, "max": 10, "width": "third" },

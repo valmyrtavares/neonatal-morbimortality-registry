@@ -34,7 +34,7 @@ const schema = {
         {
             "title": "Recém-Nascido",
             "fields": [
-                { "name": "idade_gestacional", "label": "IG (sem)" },
+                { "name": "idade_gestacional", "label": "IG" },
                 { "name": "peso_nascimento", "label": "Peso (g)" },
                 { "name": "sexo", "label": "Sexo" },
                 { "name": "apgar_1", "label": "Apgar 1'" },
