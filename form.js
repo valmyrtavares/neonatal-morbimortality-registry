@@ -12,8 +12,10 @@ const schema = {
             "title": "História Gestacional",
             "fields": [
                 { "name": "idade_materna", "label": "Idade Materna", "type": "number", "min": 10, "max": 60, "width": "half" },
-                { "name": "consultas_pn", "label": "Números de consultas PN", "type": "number", "min": 0, "max": 30, "width": "half" },
-                { "name": "patologias_maternas", "label": "Patologias Maternas", "type": "select", "multiple": true, "options": ["colo curto", "obesidade", "HAC", "DMG", "ITU", "TPP", "pré-eclâmpsia", "sífilis", "bipolaridade", "esquizofrenia", "uso de drogas", "diabetes", "HAS", "eclâmpsia", "vaginose bacteriana"] },
+                { "name": "consultas_pn", "label": "Número de consultas pré natal", "type": "number", "min": 0, "max": 30, "width": "half" },
+                { "name": "patologias_maternas", "label": "Patologias Maternas", "type": "select", "multiple": true, "options": ["colo curto", "obesidade", "HAC", "DMG", "ITU", "TPP", "pré-eclâmpsia", "sífilis", "hipotireoidismo", "tabagismo", "VAP", "Narguilé", "Doença psiquiátrica", "uso de drogas", "diabetes", "HAS", "eclâmpsia", "vaginose bacteriana"] },
+                { "name": "patologias_psiquiatrica_qual", "label": "Qual doença psiquiátrica?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "Doença psiquiátrica" }, "placeholder": "Qual?" },
+                { "name": "patologias_drogas_qual", "label": "Qual droga?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "uso de drogas" }, "placeholder": "Qual?" },
                 { "name": "corticoide_antenatal", "label": "Corticóide Antenatal", "type": "boolean", "width": "half" },
                 { "name": "corticoide_ciclos", "label": "Ciclos", "type": "number", "min": 0, "max": 10, "showIf": { "field": "corticoide_antenatal", "equals": true }, "width": "half" },
                 { "name": "outras_medicacoes_maternas", "label": "Outras Medicações", "type": "text" }
@@ -332,9 +334,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (field.type === 'select') {
                     inputHtml = `<label for="f_${field.name}">${field.label}</label><select id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''}><option value="">Selecione</option>${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
                 } else if (field.type === 'textarea') {
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><textarea id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} placeholder="Digite aqui..." rows="4"></textarea>`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><textarea id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} placeholder="${field.placeholder || 'Digite aqui...'}" rows="4"></textarea>`;
                 } else {
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="Digite aqui...">`;
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="${field.type}" id="f_${field.name}" name="${field.name}" ${field.required ? 'required' : ''} ${field.enableIf ? 'disabled' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} step="any" placeholder="${field.placeholder || 'Digite aqui...'}">`;
                 }
 
                 group.innerHTML = inputHtml;
@@ -613,6 +615,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function evaluateCondition(condition, value) {
         if (condition.notEmpty) {
             return value !== "" && value !== null && value !== undefined;
+        }
+        if (condition.includes !== undefined) {
+            return Array.isArray(value) && value.includes(condition.includes);
         }
         return value === condition.equals;
     }
