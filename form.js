@@ -362,8 +362,8 @@ const schema = {
                 { "name": "cirurgia_realizada", "label": "Realizou Cirurgia?", "type": "boolean", "width": "half" },
                 { "name": "cirurgia_tipo", "label": "Tipo", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
                 { "name": "cirurgia_idade", "label": "Idade RN no procedimento", "type": "number", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
-                { "name": "escore_escolhido", "label": "Escore de Gravidade", "type": "select", "options": ["CRIB", "SNAP", "Risco de morte"], "width": "half" },
-                { "name": "diagnostico", "label": "DIAGNOSTICO", "type": "textarea", "width": "full" },
+                { "name": "escore_escolhido", "label": "Escore de Gravidade", "type": "select", "options": ["nSOFA", "SNAP", "Risco de morte"], "width": "half" },
+                { "name": "diagnostico", "label": "DIAGNÓSTICOS:", "type": "textarea", "width": "full" },
                 { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["Alta", "Transf", "Óbito"], "width": "half" },
                 { "name": "desfecho_idade", "label": "Idade", "type": "number", "width": "quarter" },
                 { "name": "desfecho_igc", "label": "IGC", "type": "text", "width": "quarter" },
@@ -374,7 +374,7 @@ const schema = {
         {
             "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
             "fields": [
-                { "name": "alta_lm", "label": "LM", "type": "select", "options": ["LM própria mãe exclusivo", "Fórmula Láctea segmento", "Aleitamento Misto", "Outros leites"], "width": "half" },
+                { "name": "alta_lm", "label": "Nutrição", "type": "select", "options": ["LM própria mãe exclusivo", "Fórmula Láctea segmento", "Aleitamento Misto", "Outros leites"], "width": "half" },
                 { "name": "alta_lm_outros", "label": "Qual leite?", "type": "text", "width": "half", "enableIf": { "field": "alta_lm", "equals": "Outros leites" } },
                 { "name": "alta_acompanhamento", "label": "Acompanhamento", "type": "select", "options": ["AMB Prematuro (Dra Fernanda)", "AMB Canguru (Dra Adriana)", "UBS", "AMB amamentação (Fono/Enf)", "Outros acompanhamentos"], "width": "half" },
                 { "name": "alta_acompanhamento_outros", "label": "Quais?", "type": "text", "width": "half", "enableIf": { "field": "alta_acompanhamento", "equals": "Outros acompanhamentos" } },

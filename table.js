@@ -178,14 +178,14 @@ const schema = {
             "fields": [
                 { "name": "cir_c", "label": "Cirurgia", "composite": ["cirurgia_realizada", "cirurgia_tipo", "cirurgia_idade"] },
                 { "name": "escore_escolhido", "label": "Escore Gravidade" },
-                { "name": "diagnostico", "label": "Diagnóstico" },
+                { "name": "diagnostico", "label": "Diagnósticos" },
                 { "name": "desfecho_c", "label": "Desfecho (Completo)", "composite": ["desfecho", "desfecho_data", "desfecho_peso", "desfecho_idade", "desfecho_igc"] }
             ]
         },
         {
             "title": "ENCAMINHAMENTOS / MEDICAÇÃO / NUTRIÇÃO NA ALTA",
             "fields": [
-                { "name": "alta_nut", "label": "Nutrição Alta", "composite": ["alta_lm", "alta_lm_outros"] },
+                { "name": "alta_nut", "label": "Nutrição", "composite": ["alta_lm", "alta_lm_outros"] },
                 { "name": "alta_amb", "label": "Acompanhamento", "composite": ["alta_acompanhamento", "alta_acompanhamento_outros"] },
                 { "name": "alta_medicamentos", "label": "Meds Alta" }
             ]
