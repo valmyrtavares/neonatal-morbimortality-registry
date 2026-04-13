@@ -334,19 +334,19 @@ const schema = {
                 { "name": "exames_peate_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_peate", "equals": true } },
 
                 { "name": "exames_ustf", "label": "USTF", "type": "boolean", "width": "half" },
-                { "name": "exames_ustf_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_ustf", "equals": true } },
+                { "name": "exames_ustf_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_ustf", "equals": true } },
 
                 { "name": "exames_eco", "label": "ECO", "type": "boolean", "width": "half" },
-                { "name": "exames_eco_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_eco", "equals": true } },
+                { "name": "exames_eco_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_eco", "equals": true } },
 
                 { "name": "exames_aeeg", "label": "aEEG", "type": "boolean", "width": "half" },
-                { "name": "exames_aeeg_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_aeeg", "equals": true } },
+                { "name": "exames_aeeg_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_aeeg", "equals": true } },
 
                 { "name": "exames_usg_abd", "label": "USG abd", "type": "boolean", "width": "half" },
-                { "name": "exames_usg_abd_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_usg_abd", "equals": true } },
+                { "name": "exames_usg_abd_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_usg_abd", "equals": true } },
 
                 { "name": "exames_usg_renal", "label": "USG renal", "type": "boolean", "width": "half" },
-                { "name": "exames_usg_renal_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_usg_renal", "equals": true } },
+                { "name": "exames_usg_renal_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_usg_renal", "equals": true } },
 
                 { "name": "exames_outros", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "exames_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros", "equals": true } },
