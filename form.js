@@ -388,6 +388,11 @@ let currentStep = 0;
 const totalSteps = schema.sections.length + 1; // +1 for Summary
 let editingPatientId = null;
 let originalPatientData = null;
+const DRAFT_PREFIX = 'neonatal_draft_';
+
+function getDraftKey() {
+    return editingPatientId ? `${DRAFT_PREFIX}edit_${editingPatientId}` : `${DRAFT_PREFIX}new`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const wizardForm = document.getElementById('patientWizardForm');
@@ -504,6 +509,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateWizardUI();
         setupMasks();
+        
+        // Iniciar verificação de rascunho após carregar dados (se houver edição)
+        setTimeout(checkDraft, 1000); 
+    }
+
+    async function checkDraft() {
+        const key = getDraftKey();
+        const saved = localStorage.getItem(key);
+        
+        if (saved) {
+            const confirmRestore = confirm("Encontramos um preenchimento em andamento. Deseja continuar de onde parou?");
+            
+            if (confirmRestore) {
+                restoreDraft(JSON.parse(saved));
+            } else {
+                const confirmDelete = confirm("Atenção: Os dados não salvos da sessão anterior serão excluídos permanentemente. Tem certeza?");
+                if (confirmDelete) {
+                    localStorage.removeItem(key);
+                } else {
+                    // Se desistiu de excluir, melhor carregar por segurança
+                    restoreDraft(JSON.parse(saved));
+                }
+            }
+        }
+    }
+
+    function saveDraft() {
+        if (currentStep === totalSteps - 1) return; // Não salvar no passo de Resumo
+        const data = getFormData();
+        localStorage.setItem(getDraftKey(), JSON.stringify(data));
+        console.log("Rascunho salvo automaticamente...");
+    }
+
+    function restoreDraft(draftData) {
+        if (!draftData) return;
+        
+        console.log("Restaurando rascunho...");
+        schema.sections.forEach(s => {
+            s.fields.forEach(f => {
+                const val = draftData[f.name];
+                if (val !== undefined && val !== null) {
+                    if (f.type === 'boolean') {
+                        const el = document.getElementById(`f_${f.name}`);
+                        if (el) el.checked = val;
+                    } else if (f.type === 'select' && f.multiple) {
+                        const checks = document.querySelectorAll(`input[name="${f.name}"]`);
+                        checks.forEach(c => {
+                            if (Array.isArray(val) && val.includes(c.value)) c.checked = true;
+                        });
+                    } else {
+                        const el = document.getElementById(`f_${f.name}`);
+                        if (el) el.value = val;
+                    }
+                }
+            });
+        });
+        updateVisibility();
+        alert("Rascunho restaurado com sucesso!");
     }
 
     function setupMasks() {
@@ -522,9 +585,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function loadPatientForEdit() {
-        const patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
-        originalPatientData = patients.find(p => p.id == editingPatientId);
+    async function loadPatientForEdit() {
+        if (!supabase) return;
+
+        const { data, error } = await supabase
+            .from('pacientes')
+            .select('*')
+            .eq('id', editingPatientId)
+            .single();
+        
+        if (error) {
+            console.error('Erro ao buscar paciente:', error);
+            return;
+        }
+
+        originalPatientData = data;
         
         if (originalPatientData) {
             document.querySelector('header h1').textContent = 'Editar Registro';
@@ -540,8 +615,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else if (f.type === 'select' && f.multiple) {
                             const checks = document.querySelectorAll(`input[name="${f.name}"]`);
                             checks.forEach(c => {
-                                if (val.includes(c.value)) c.checked = true;
+                                if (val && Array.isArray(val) && val.includes(c.value)) c.checked = true;
                             });
+                        } else if (f.type === 'datetime-local' || f.type === 'date') {
+                            const el = document.getElementById(`f_${f.name}`);
+                            if (el && val) {
+                                // Formatar data para o input (YYYY-MM-DD ou YYYY-MM-DDTHH:mm)
+                                const d = new Date(val);
+                                if (!isNaN(d.getTime())) {
+                                    if (f.type === 'datetime-local') {
+                                        el.value = d.toISOString().slice(0, 16);
+                                    } else {
+                                        el.value = d.toISOString().slice(0, 10);
+                                    }
+                                }
+                            }
                         } else {
                             const el = document.getElementById(`f_${f.name}`);
                             if (el) el.value = val;
@@ -549,6 +637,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+            
+            // Re-executar visibilidade após carregar dados
+            updateVisibility();
         }
     }
 
@@ -787,7 +878,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const el = document.getElementById(`f_${f.name}`);
                     if (el) {
-                        data[f.name] = f.type === 'number' ? (el.value === '' ? null : Number(el.value)) : el.value;
+                        const val = el.value;
+                        if (val === '') {
+                            data[f.name] = null;
+                        } else {
+                            data[f.name] = f.type === 'number' ? Number(val) : val;
+                        }
                     }
                 }
             });
@@ -807,9 +903,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    wizardForm.addEventListener('change', updateVisibility);
+    wizardForm.addEventListener('change', () => {
+        updateVisibility();
+        saveDraft();
+    });
 
-    wizardForm.onsubmit = (e) => {
+    wizardForm.addEventListener('input', () => {
+        // Debounce simples para não salvar a cada tecla
+        if (window.saveDraftTimer) clearTimeout(window.saveDraftTimer);
+        window.saveDraftTimer = setTimeout(saveDraft, 1000);
+    });
+
+    wizardForm.onsubmit = async (e) => {
         e.preventDefault();
         console.log("Iniciando processo de salvamento...");
 
@@ -818,33 +923,48 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const formData = getFormData();
-        console.log("Dados coletados do formulário:", formData);
+        if (!supabase) {
+            alert('Erro: Conexão com Supabase não estabelecida.');
+            return;
+        }
 
+        const submitBtn = document.getElementById('submitBtn');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Salvando...';
+
+        const formData = getFormData();
+        
         const fullData = {
-            id: editingPatientId ? Number(editingPatientId) : Date.now(),
             ...formData,
-            timestamp: originalPatientData ? originalPatientData.timestamp : new Date().toLocaleString(),
-            lastUpdate: new Date().toLocaleString()
+            timestamp: originalPatientData ? originalPatientData.timestamp : new Date().toLocaleString()
         };
 
-        let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
-        
+        // Se estiver editando, incluir o ID para fazer UPSERT
         if (editingPatientId) {
-            const index = patients.findIndex(p => p.id == editingPatientId);
-            if (index !== -1) patients[index] = fullData;
-        } else {
-            patients.push(fullData);
+            fullData.id = editingPatientId;
         }
-        
+
         try {
-            console.log("Salvando no LocalStorage...", fullData);
-            localStorage.setItem('neonatal_patients_v2', JSON.stringify(patients));
+            const { data, error } = await supabase
+                .from('pacientes')
+                .upsert(fullData)
+                .select();
+
+            if (error) throw error;
+
+            console.log("Salvo no Supabase com sucesso:", data);
+            
+            // Limpa o rascunho após sucesso
+            localStorage.removeItem(getDraftKey());
+            
             alert(editingPatientId ? 'Registro atualizado com sucesso!' : 'Registro salvo com sucesso!');
             window.location.href = 'index.html';
         } catch (err) {
-            console.error('Erro crítico ao salvar no LocalStorage:', err);
-            alert('Erro ao salvar os dados. O armazenamento local pode estar cheio ou corrompido.');
+            console.error('Erro ao salvar no Supabase:', err);
+            alert('Erro ao salvar os dados no banco: ' + (err.message || 'Erro desconhecido'));
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
         }
     };
 

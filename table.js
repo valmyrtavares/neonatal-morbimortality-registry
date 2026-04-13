@@ -195,7 +195,7 @@ const schema = {
 
 
 let selectedColumns = JSON.parse(localStorage.getItem('table_selected_columns')) || ['identificacao_nome', 'idade_gestacional', 'peso_nascimento', 'desfecho_c'];
-let patients = JSON.parse(localStorage.getItem('neonatal_patients_v2')) || [];
+let patients = [];
 let allFields = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -208,10 +208,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const exportBtn = document.getElementById('exportAllBtn');
     const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
-    function init() {
+    async function init() {
         renderSelector();
-        renderTable();
+        await loadPatients();
         updateCounter();
+    }
+
+    async function loadPatients() {
+        if (!supabase) return;
+        
+        tableBody.innerHTML = `<tr><td colspan="${selectedColumns.length + 1}" style="text-align: center; padding: 3rem; color: var(--text-secondary);">Carregando dados do banco...</td></tr>`;
+
+        try {
+            const { data, error } = await supabase
+                .from('pacientes')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            patients = data || [];
+            
+            if (patients.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="${selectedColumns.length + 1}" style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+                    <strong>Banco de dados vazio</strong><br>
+                    Os dados aparecerão aqui assim que você realizar o primeiro cadastro.
+                </td></tr>`;
+                return;
+            }
+
+            renderTable();
+        } catch (err) {
+            console.error('Erro detalhado Supabase:', err);
+            tableBody.innerHTML = `<tr><td colspan="${selectedColumns.length + 1}" style="text-align: center; padding: 3rem; color: #ef4444;">
+                <strong>Erro ao conectar com o banco de dados</strong><br>
+                <span style="font-size: 0.8rem; opacity: 0.8;">${err.message || 'Verifique sua conexão ou as chaves do Supabase.'}</span>
+            </td></tr>`;
+        }
     }
 
     function renderSelector() {
@@ -316,10 +349,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTableBody();
     }
 
-    function renderTableBody(query = searchInput.value) {
+    async function renderTableBody(query = searchInput.value) {
         tableBody.innerHTML = '';
         const q = query.toLowerCase();
 
+        // Se tiver query, podemos filtrar localmente ou no Supabase. 
+        // Para uma base de dados neonatal (geralmente pequena < 10k), filtro local é mais rápido.
         const filtered = patients.filter(p => {
             return Object.values(p).some(val => 
                 String(val).toLowerCase().includes(q)
