@@ -143,10 +143,10 @@ const schema = {
         {
             "title": "HEMODERIVADOS",
             "fields": [
-                { "name": "hemod_hem", "label": "Hemácias", "composite": ["hemod_hemacias", "hemod_hemacias_data"] },
-                { "name": "hemod_plas", "label": "Plasma", "composite": ["hemod_plasma", "hemod_plasma_data"] },
-                { "name": "hemod_plaq", "label": "Plaquetas", "composite": ["hemod_plaquetas", "hemod_plaquetas_data"] },
-                { "name": "hemod_crio_c", "label": "Crioprec.", "composite": ["hemod_crio", "hemod_crio_data"] }
+                { "name": "hemod_hem", "label": "Hemácias", "composite": ["hemod_hemacias", "hemod_hemacias_data_1", "hemod_hemacias_data_2", "hemod_hemacias_data_3"] },
+                { "name": "hemod_plas", "label": "Plasma", "composite": ["hemod_plasma", "hemod_plasma_data_1", "hemod_plasma_data_2", "hemod_plasma_data_3"] },
+                { "name": "hemod_plaq", "label": "Plaquetas", "composite": ["hemod_plaquetas", "hemod_plaquetas_data_1", "hemod_plaquetas_data_2", "hemod_plaquetas_data_3"] },
+                { "name": "hemod_crio_c", "label": "Crioprec.", "composite": ["hemod_crio", "hemod_crio_data_1", "hemod_crio_data_2", "hemod_crio_data_3"] }
             ]
         },
         {

@@ -300,15 +300,25 @@ const schema = {
         {
             "title": "HEMODERIVADOS",
             "fields": [
-                { "name": "hemod_hemacias", "label": "Hemácias", "type": "boolean", "width": "half" },
-                { "name": "hemod_hemacias_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_hemacias", "equals": true } },
-                { "name": "hemod_plasma", "label": "Plasma", "type": "boolean", "width": "half" },
-                { "name": "hemod_plasma_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_plasma", "equals": true } },
-                { "name": "hemod_plaquetas", "label": "Plaquetas", "type": "boolean", "width": "half" },
-                { "name": "hemod_plaquetas_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_plaquetas", "equals": true } },
-                { "name": "hemod_crio", "label": "Crioprecipitado", "type": "boolean", "width": "half" },
-                { "name": "hemod_crio_data", "label": "Quando?", "type": "date", "width": "half", "enableIf": { "field": "hemod_crio", "equals": true } },
+                { "name": "hemod_hemacias", "label": "Hemácias", "type": "boolean", "width": "quarter" },
+                { "name": "hemod_hemacias_data_1", "label": "Data 1", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_hemacias", "equals": true } },
+                { "name": "hemod_hemacias_data_2", "label": "Data 2", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_hemacias", "equals": true } },
+                { "name": "hemod_hemacias_data_3", "label": "Data 3", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_hemacias", "equals": true } },
 
+                { "name": "hemod_plasma", "label": "Plasma", "type": "boolean", "width": "quarter", "marginTop": true },
+                { "name": "hemod_plasma_data_1", "label": "Data 1", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plasma", "equals": true } },
+                { "name": "hemod_plasma_data_2", "label": "Data 2", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plasma", "equals": true } },
+                { "name": "hemod_plasma_data_3", "label": "Data 3", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plasma", "equals": true } },
+
+                { "name": "hemod_plaquetas", "label": "Plaquetas", "type": "boolean", "width": "quarter", "marginTop": true },
+                { "name": "hemod_plaquetas_data_1", "label": "Data 1", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plaquetas", "equals": true } },
+                { "name": "hemod_plaquetas_data_2", "label": "Data 2", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plaquetas", "equals": true } },
+                { "name": "hemod_plaquetas_data_3", "label": "Data 3", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_plaquetas", "equals": true } },
+
+                { "name": "hemod_crio", "label": "Crioprec.", "type": "boolean", "width": "quarter", "marginTop": true },
+                { "name": "hemod_crio_data_1", "label": "Data 1", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_crio", "equals": true } },
+                { "name": "hemod_crio_data_2", "label": "Data 2", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_crio", "equals": true } },
+                { "name": "hemod_crio_data_3", "label": "Data 3", "type": "date", "width": "quarter", "enableIf": { "field": "hemod_crio", "equals": true } },
             ]
         },
         {
