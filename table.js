@@ -53,16 +53,6 @@ const schema = {
             ]
         },
         {
-            "title": "Ventilação",
-            "fields": [
-                { "name": "vent_vm_comp", "label": "VM", "composite": ["vent_vm", "vent_vm_tempo"] },
-                { "name": "vent_vni_comp", "label": "VNI", "composite": ["vent_vni", "vent_vni_tempo"] },
-                { "name": "vent_cpap_comp", "label": "CPAP", "composite": ["vent_cpap", "vent_cpap_tempo"] },
-                { "name": "vent_cateter_comp", "label": "Cateter Nasal", "composite": ["vent_cateter", "vent_cateter_tempo"] },
-                { "name": "vent_o2_comp", "label": "O2", "composite": ["vent_o2", "vent_o2_tempo"] }
-            ]
-        },
-        {
             "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
                 { "name": "proc_umb_venoso", "label": "Cat. Umb. Veno", "composite": ["acesso_umb_venoso", "acesso_umb_venoso_inst", "acesso_umb_venoso_tempo"] },

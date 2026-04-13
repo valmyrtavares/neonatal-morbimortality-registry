@@ -53,21 +53,6 @@ const schema = {
             ]
         },
         {
-            "title": "Ventilação",
-            "fields": [
-                { "name": "vent_vm", "label": "1- VM", "type": "boolean", "width": "half" },
-                { "name": "vent_vm_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_vm", "equals": true } },
-                { "name": "vent_vni", "label": "2- VNI", "type": "boolean", "width": "half" },
-                { "name": "vent_vni_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_vni", "equals": true } },
-                { "name": "vent_cpap", "label": "3- CPAP", "type": "boolean", "width": "half" },
-                { "name": "vent_cpap_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_cpap", "equals": true } },
-                { "name": "vent_cateter", "label": "4- Cateter Nasal", "type": "boolean", "width": "half" },
-                { "name": "vent_cateter_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_cateter", "equals": true } },
-                { "name": "vent_o2", "label": "5- O2", "type": "boolean", "width": "half" },
-                { "name": "vent_o2_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_o2", "equals": true } }
-            ]
-        },
-        {
             "title": "PROCEDIMENTOS NA UTIN",
             "fields": [
                 { "type": "subtitle", "label": "1- Tipo de acesso venoso central:" },
@@ -95,7 +80,7 @@ const schema = {
                 { "name": "acesso_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "name": "acesso_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "name": "acesso_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
-                { "type": "subtitle", "label": "Oxigenação/ventilação" },
+                { "type": "subtitle", "label": "2- Oxigenação/ventilação" },
                 { "name": "oxig_vm", "label": "VM", "type": "boolean", "width": "half" },
                 { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
                 { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
@@ -125,7 +110,7 @@ const schema = {
                 { "name": "oxig_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
                 { "name": "oxig_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
 
-                { "name": "procedimento_hipotermia", "label": "Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
+                { "name": "procedimento_hipotermia", "label": "3- Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
                 { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
                 { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
 
