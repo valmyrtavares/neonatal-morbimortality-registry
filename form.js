@@ -56,15 +56,15 @@ const schema = {
             "title": "Ventilação",
             "fields": [
                 { "name": "vent_vm", "label": "1- VM", "type": "boolean", "width": "half" },
-                { "name": "vent_vm_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_vm", "equals": true } },
+                { "name": "vent_vm_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_vm", "equals": true } },
                 { "name": "vent_vni", "label": "2- VNI", "type": "boolean", "width": "half" },
-                { "name": "vent_vni_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_vni", "equals": true } },
+                { "name": "vent_vni_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_vni", "equals": true } },
                 { "name": "vent_cpap", "label": "3- CPAP", "type": "boolean", "width": "half" },
-                { "name": "vent_cpap_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_cpap", "equals": true } },
+                { "name": "vent_cpap_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_cpap", "equals": true } },
                 { "name": "vent_cateter", "label": "4- Cateter Nasal", "type": "boolean", "width": "half" },
-                { "name": "vent_cateter_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_cateter", "equals": true } },
+                { "name": "vent_cateter_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_cateter", "equals": true } },
                 { "name": "vent_o2", "label": "5- O2", "type": "boolean", "width": "half" },
-                { "name": "vent_o2_tempo", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "vent_o2", "equals": true } }
+                { "name": "vent_o2_tempo", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "vent_o2", "equals": true } }
             ]
         },
         {
@@ -72,70 +72,72 @@ const schema = {
             "fields": [
                 { "type": "subtitle", "label": "1- Tipo de acesso venoso central:" },
                 { "name": "acesso_umb_venoso", "label": "Cateter Umbilical Venoso", "type": "boolean", "width": "half" },
-                { "name": "acesso_umb_venoso_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
-                { "name": "acesso_umb_venoso_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
+                { "name": "acesso_umb_venoso_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
+                { "name": "acesso_umb_venoso_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_umb_venoso", "equals": true } },
 
                 { "name": "acesso_umb_arterial", "label": "Cateter Umbilical Arterial", "type": "boolean", "width": "half" },
-                { "name": "acesso_umb_arterial_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
-                { "name": "acesso_umb_arterial_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
+                { "name": "acesso_umb_arterial_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
+                { "name": "acesso_umb_arterial_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_umb_arterial", "equals": true } },
 
                 { "name": "acesso_pic", "label": "PICC", "type": "boolean", "width": "half" },
-                { "name": "acesso_pic_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
-                { "name": "acesso_pic_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
+                { "name": "acesso_pic_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
+                { "name": "acesso_pic_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_pic", "equals": true } },
 
                 { "name": "acesso_flepotomia", "label": "Flebotomia", "type": "boolean", "width": "half" },
-                { "name": "acesso_flepotomia_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
-                { "name": "acesso_flepotomia_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
+                { "name": "acesso_flepotomia_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
+                { "name": "acesso_flepotomia_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_flepotomia", "equals": true } },
 
                 { "name": "acesso_venoso_perif", "label": "Acesso venoso periférico", "type": "boolean", "width": "half" },
-                { "name": "acesso_venoso_perif_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
-                { "name": "acesso_venoso_perif_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
+                { "name": "acesso_venoso_perif_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
+                { "name": "acesso_venoso_perif_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_venoso_perif", "equals": true } },
 
-                { "name": "acesso_retorno_vent", "label": "Retorno a algum tipo de ventilação", "type": "boolean", "width": "half" },
+                { "name": "acesso_retorno_vent", "label": "retorno algum tipo de acesso venoso central", "type": "boolean", "width": "half" },
                 { "name": "acesso_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "name": "acesso_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
+                { "name": "acesso_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "type": "subtitle", "label": "Oxigenação/ventilação" },
                 { "name": "oxig_vm", "label": "VM", "type": "boolean", "width": "half" },
-                { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
-                { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
+                { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
+                { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
 
                 { "name": "oxig_vni", "label": "VNI", "type": "boolean", "width": "half" },
-                { "name": "oxig_vni_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
-                { "name": "oxig_vni_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
+                { "name": "oxig_vni_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
+                { "name": "oxig_vni_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vni", "equals": true } },
 
                 { "name": "oxig_cpap", "label": "CPAP", "type": "boolean", "width": "half" },
-                { "name": "oxig_cpap_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
-                { "name": "oxig_cpap_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
+                { "name": "oxig_cpap_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
+                { "name": "oxig_cpap_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cpap", "equals": true } },
 
                 { "name": "oxig_cnaf", "label": "CNAF", "type": "boolean", "width": "half" },
-                { "name": "oxig_cnaf_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
-                { "name": "oxig_cnaf_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
+                { "name": "oxig_cnaf_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
+                { "name": "oxig_cnaf_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cnaf", "equals": true } },
 
                 { "name": "oxig_cat_nasal", "label": "Cat nasal", "type": "boolean", "width": "half" },
-                { "name": "oxig_cat_nasal_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
-                { "name": "oxig_cat_nasal_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
+                { "name": "oxig_cat_nasal_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
+                { "name": "oxig_cat_nasal_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_cat_nasal", "equals": true } },
 
                 { "name": "oxig_o2_inalat", "label": "O2 inalat", "type": "boolean", "width": "half" },
-                { "name": "oxig_o2_inalat_instalacao", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
-                { "name": "oxig_o2_inalat_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
+                { "name": "oxig_o2_inalat_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
+                { "name": "oxig_o2_inalat_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_o2_inalat", "equals": true } },
 
                 { "name": "oxig_retorno_vent", "label": "Retorno a algum tipo de ventilação", "type": "boolean", "width": "half" },
                 { "name": "oxig_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
                 { "name": "oxig_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
+                { "name": "oxig_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
 
                 { "name": "procedimento_hipotermia", "label": "Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
-                { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
-                { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
+                { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
+                { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
 
                 { "name": "procedimento_fototerapia_tipo", "label": "4- Fototerapia (tipo):", "type": "select", "options": ["Bilisky", "Bilibed"], "width": "quarter" },
                 { "name": "procedimento_fototerapia_irradiacao", "label": "Irradiação:", "type": "text", "width": "quarter" },
-                { "name": "procedimento_fototerapia_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
-                { "name": "procedimento_fototerapia_duracao", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
+                { "name": "procedimento_fototerapia_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
+                { "name": "procedimento_fototerapia_duracao", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
 
                 { "name": "procedimento_outros", "label": "5- Outros procedimentos", "type": "boolean", "width": "quarter", "marginTop": true },
                 { "name": "procedimento_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } },
-                { "name": "procedimento_outros_inst", "label": "Idade instalação:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } },
-                { "name": "procedimento_outros_tempo", "label": "Tempo de uso:", "type": "number", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } }
+                { "name": "procedimento_outros_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } },
+                { "name": "procedimento_outros_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } }
             ]
         },
         {
@@ -144,97 +146,97 @@ const schema = {
                  { "type": "subtitle", "label": "1- Surfactante:" },
 
                  { "name": "med_surf_1_dose", "label": "1º dose:", "type": "boolean", "width": "half" },
-                { "name": "med_surf_1_idade", "label": "Idade de adm:", "type": "number", "width": "half", "enableIf": { "field": "med_surf_1_dose", "equals": true } },
+                { "name": "med_surf_1_idade", "label": "Idade de adm:", "type": "text", "width": "half", "enableIf": { "field": "med_surf_1_dose", "equals": true } },
                 { "name": "med_surf_2_dose", "label": "2º dose:", "type": "boolean", "width": "half" },
-                { "name": "med_surf_2_idade", "label": "Idade de adm:", "type": "number", "width": "half", "enableIf": { "field": "med_surf_2_dose", "equals": true } },
+                { "name": "med_surf_2_idade", "label": "Idade de adm:", "type": "text", "width": "half", "enableIf": { "field": "med_surf_2_dose", "equals": true } },
                  { "name": "med_surf_outras_dose", "label": "Outras doses:", "type": "boolean", "width": "half" },
-                 { "name": "med_surf_outras_idade", "label": "Idade de adm:", "type": "number", "width": "quarter", "enableIf": { "field": "med_surf_outras_dose", "equals": true } },
+                 { "name": "med_surf_outras_idade", "label": "Idade de adm:", "type": "text", "width": "quarter", "enableIf": { "field": "med_surf_outras_dose", "equals": true } },
                  { "name": "med_surf_outras_motivo", "label": "Motivo:", "type": "text", "width": "quarter", "enableIf": { "field": "med_surf_outras_dose", "equals": true } },
 
                 { "type": "subtitle", "label": "2- Antibióticos:" },
                 { "name": "med_atb_ampicilina", "label": "Ampicilina", "type": "boolean", "width": "half" },
-                { "name": "med_atb_ampicilina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
-                { "name": "med_atb_ampicilina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
+                { "name": "med_atb_ampicilina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
+                { "name": "med_atb_ampicilina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_ampicilina", "equals": true } },
 
                 { "name": "med_atb_gentamicina", "label": "Gentamicina", "type": "boolean", "width": "half" },
-                { "name": "med_atb_gentamicina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
-                { "name": "med_atb_gentamicina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
+                { "name": "med_atb_gentamicina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
+                { "name": "med_atb_gentamicina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_gentamicina", "equals": true } },
 
                 { "name": "med_atb_peni_benz", "label": "Peni Benz", "type": "boolean", "width": "half" },
-                { "name": "med_atb_peni_benz_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
-                { "name": "med_atb_peni_benz_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
+                { "name": "med_atb_peni_benz_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
+                { "name": "med_atb_peni_benz_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_peni_benz", "equals": true } },
 
                 { "name": "med_atb_amicacina", "label": "Amicacina", "type": "boolean", "width": "half" },
-                { "name": "med_atb_amicacina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
-                { "name": "med_atb_amicacina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
+                { "name": "med_atb_amicacina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
+                { "name": "med_atb_amicacina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_amicacina", "equals": true } },
 
                 { "name": "med_atb_oxacilina", "label": "Oxacilina", "type": "boolean", "width": "half" },
-                { "name": "med_atb_oxacilina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
-                { "name": "med_atb_oxacilina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
+                { "name": "med_atb_oxacilina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
+                { "name": "med_atb_oxacilina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_oxacilina", "equals": true } },
 
                 { "name": "med_atb_peni_cristal", "label": "Penicilina Cristalina", "type": "boolean", "width": "half" },
-                { "name": "med_atb_peni_cristal_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_cristal", "equals": true } },
-                { "name": "med_atb_peni_cristal_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_peni_cristal", "equals": true } },
+                { "name": "med_atb_peni_cristal_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_peni_cristal", "equals": true } },
+                { "name": "med_atb_peni_cristal_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_peni_cristal", "equals": true } },
 
                 { "name": "med_atb_cefepima", "label": "Cefepima", "type": "boolean", "width": "half" },
-                { "name": "med_atb_cefepima_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
-                { "name": "med_atb_cefepima_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
+                { "name": "med_atb_cefepima_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
+                { "name": "med_atb_cefepima_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
 
                 { "name": "med_atb_outros", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_atb_outros_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
-                { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "number", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
-                { "name": "med_atb_outros_dura", "label": "Duração:", "type": "number", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
+                { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
+                { "name": "med_atb_outros_dura", "label": "Duração:", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
 
                 { "type": "subtitle", "label": "3- Drogas vasoativas:" },
                 { "name": "med_vaso_dopamina", "label": "Dopamina", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_dopamina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_dopamina", "equals": true } },
-                { "name": "med_vaso_dopamina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_dopamina", "equals": true } },
+                { "name": "med_vaso_dopamina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_dopamina", "equals": true } },
+                { "name": "med_vaso_dopamina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_dopamina", "equals": true } },
 
                 { "name": "med_vaso_dobutamina", "label": "Dobutamina", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_dobutamina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_dobutamina", "equals": true } },
-                { "name": "med_vaso_dobutamina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_dobutamina", "equals": true } },
+                { "name": "med_vaso_dobutamina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_dobutamina", "equals": true } },
+                { "name": "med_vaso_dobutamina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_dobutamina", "equals": true } },
 
                 { "name": "med_vaso_adrenalina", "label": "Adrenalina", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_adrenalina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_adrenalina", "equals": true } },
-                { "name": "med_vaso_adrenalina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_adrenalina", "equals": true } },
+                { "name": "med_vaso_adrenalina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_adrenalina", "equals": true } },
+                { "name": "med_vaso_adrenalina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_adrenalina", "equals": true } },
 
                 { "name": "med_vaso_noradrenalina", "label": "Noradrenalina", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_noradrenalina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_noradrenalina", "equals": true } },
-                { "name": "med_vaso_noradrenalina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_noradrenalina", "equals": true } },
+                { "name": "med_vaso_noradrenalina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_noradrenalina", "equals": true } },
+                { "name": "med_vaso_noradrenalina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_noradrenalina", "equals": true } },
 
                 { "name": "med_vaso_milrinona", "label": "Milrinona", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_milrinona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_milrinona", "equals": true } },
-                { "name": "med_vaso_milrinona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_milrinona", "equals": true } },
+                { "name": "med_vaso_milrinona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_milrinona", "equals": true } },
+                { "name": "med_vaso_milrinona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_milrinona", "equals": true } },
 
                 { "name": "med_vaso_vasopressina", "label": "Vasopressina", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_vasopressina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_vasopressina", "equals": true } },
-                { "name": "med_vaso_vasopressina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_vasopressina", "equals": true } },
+                { "name": "med_vaso_vasopressina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_vasopressina", "equals": true } },
+                { "name": "med_vaso_vasopressina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_vasopressina", "equals": true } },
 
                 { "name": "med_vaso_oxido_nitrico", "label": "Óxido nítrico", "type": "boolean", "width": "half" },
-                { "name": "med_vaso_oxido_nitrico_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_oxido_nitrico", "equals": true } },
-                { "name": "med_vaso_oxido_nitrico_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_vaso_oxido_nitrico", "equals": true } },
+                { "name": "med_vaso_oxido_nitrico_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_oxido_nitrico", "equals": true } },
+                { "name": "med_vaso_oxido_nitrico_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_vaso_oxido_nitrico", "equals": true } },
 
                 { "type": "subtitle", "label": "4- Anticonvulsivantes:" },
                 { "name": "med_conv_fenobarbital", "label": "Fenobarbital", "type": "boolean", "width": "half" },
-                { "name": "med_conv_fenobarbital_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_fenobarbital", "equals": true } },
-                { "name": "med_conv_fenobarbital_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_fenobarbital", "equals": true } },
+                { "name": "med_conv_fenobarbital_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_fenobarbital", "equals": true } },
+                { "name": "med_conv_fenobarbital_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_fenobarbital", "equals": true } },
 
                 { "name": "med_conv_fenitoina", "label": "Fenitoína", "type": "boolean", "width": "half" },
-                { "name": "med_conv_fenitoina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_fenitoina", "equals": true } },
-                { "name": "med_conv_fenitoina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_fenitoina", "equals": true } },
+                { "name": "med_conv_fenitoina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_fenitoina", "equals": true } },
+                { "name": "med_conv_fenitoina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_fenitoina", "equals": true } },
 
                 { "name": "med_conv_midazolan", "label": "Midazolan", "type": "boolean", "width": "half" },
-                { "name": "med_conv_midazolan_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_midazolan", "equals": true } },
-                { "name": "med_conv_midazolan_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_midazolan", "equals": true } },
+                { "name": "med_conv_midazolan_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_midazolan", "equals": true } },
+                { "name": "med_conv_midazolan_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_midazolan", "equals": true } },
 
                 { "name": "med_conv_levetiracetam", "label": "Levetiracetam", "type": "boolean", "width": "half" },
-                { "name": "med_conv_levetiracetam_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_levetiracetam", "equals": true } },
-                { "name": "med_conv_levetiracetam_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_conv_levetiracetam", "equals": true } },
+                { "name": "med_conv_levetiracetam_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_levetiracetam", "equals": true } },
+                { "name": "med_conv_levetiracetam_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_conv_levetiracetam", "equals": true } },
 
                 { "name": "med_conv_outros", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_conv_outros_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
-                { "name": "med_conv_outros_inicio", "label": "Idade início:", "type": "number", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
-                { "name": "med_conv_outros_dura", "label": "Duração:", "type": "number", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } }
+                { "name": "med_conv_outros_inicio", "label": "Idade início:", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
+                { "name": "med_conv_outros_dura", "label": "Duração:", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } }
             ]
         },
         {
@@ -242,41 +244,41 @@ const schema = {
             "fields": [
                 { "type": "subtitle", "label": "5- Outros medicamentos:" },
                 { "name": "med_cafeina", "label": "Cafeína", "type": "boolean", "width": "half" },
-                { "name": "med_cafeina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
-                { "name": "med_cafeina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
+                { "name": "med_cafeina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
+                { "name": "med_cafeina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_cafeina", "equals": true } },
 
                 { "name": "med_dexametasona", "label": "Dexametasona", "type": "boolean", "width": "half" },
-                { "name": "med_dexametasona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
-                { "name": "med_dexametasona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
+                { "name": "med_dexametasona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
+                { "name": "med_dexametasona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_dexametasona", "equals": true } },
 
                 { "name": "med_inalacao_adrenalina", "label": "Inalação com Adrenalina", "type": "boolean", "width": "half" },
-                { "name": "med_inalacao_adrenalina_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
-                { "name": "med_inalacao_adrenalina_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
+                { "name": "med_inalacao_adrenalina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
+                { "name": "med_inalacao_adrenalina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_inalacao_adrenalina", "equals": true } },
 
                 { "name": "med_omeprazol", "label": "Omeprazol", "type": "boolean", "width": "half" },
-                { "name": "med_omeprazol_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
-                { "name": "med_omeprazol_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
+                { "name": "med_omeprazol_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
+                { "name": "med_omeprazol_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_omeprazol", "equals": true } },
 
                 { "name": "med_domperidona", "label": "Domperidona", "type": "boolean", "width": "half" },
-                { "name": "med_domperidona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
-                { "name": "med_domperidona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
+                { "name": "med_domperidona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
+                { "name": "med_domperidona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_domperidona", "equals": true } },
 
                 { "name": "med_simeticona", "label": "Simeticona", "type": "boolean", "width": "half" },
-                { "name": "med_simeticona_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
-                { "name": "med_simeticona_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
+                { "name": "med_simeticona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
+                { "name": "med_simeticona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_simeticona", "equals": true } },
 
                 { "name": "med_nistatina_oral", "label": "Nistatina oral", "type": "boolean", "width": "half" },
-                { "name": "med_nistatina_oral_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
-                { "name": "med_nistatina_oral_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
+                { "name": "med_nistatina_oral_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
+                { "name": "med_nistatina_oral_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_nistatina_oral", "equals": true } },
 
                 { "name": "med_sildenafil", "label": "Sildenafil", "type": "boolean", "width": "half" },
-                { "name": "med_sildenafil_inicio", "label": "Idade início:", "type": "number", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
-                { "name": "med_sildenafil_dura", "label": "Duração:", "type": "number", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
+                { "name": "med_sildenafil_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
+                { "name": "med_sildenafil_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
 
                 { "name": "med_outros_medicamentos", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_outros_medicamentos_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } },
-                { "name": "med_outros_medicamentos_inicio", "label": "Idade início:", "type": "number", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } },
-                { "name": "med_outros_medicamentos_dura", "label": "Duração:", "type": "number", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } }
+                { "name": "med_outros_medicamentos_inicio", "label": "Idade início:", "type": "text", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } },
+                { "name": "med_outros_medicamentos_dura", "label": "Duração:", "type": "text", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } }
             ]
         },
         {
@@ -295,19 +297,19 @@ const schema = {
             "title": "NUTRIÇÃO",
             "fields": [
                 { "name": "nutricao_imunoterapia_colostro", "label": "Imunoterapia com colostro:", "type": "boolean", "width": "half" },
-                { "name": "nutricao_imunoterapia_duracao", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_imunoterapia_colostro", "equals": true } },
+                { "name": "nutricao_imunoterapia_duracao", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "nutricao_imunoterapia_colostro", "equals": true } },
 
                 { "name": "nutricao_enteral_trofica_inicio", "label": "Enteral trófica (início):", "type": "date", "width": "half" },
-                { "name": "nutricao_enteral_trofica_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_enteral_trofica_inicio", "notEmpty": true } },
+                { "name": "nutricao_enteral_trofica_dura", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "nutricao_enteral_trofica_inicio", "notEmpty": true } },
 
                 { "name": "nutricao_enteral_nutritiva_inicio", "label": "Enteral nutritiva (início):", "type": "date", "width": "half" },
                 { "name": "nutricao_enteral_nutritiva_tipo", "label": "Tipo de dieta:", "type": "select", "options": ["LM própria mãe exclusivo", "LM BLH exclusivo", "Ambos", "Fórmula Láctea exclusiva", "Aleitamento Misto"], "width": "half" },
 
                 { "name": "nutricao_npp_padrao_inicio", "label": "NPP padrão (início):", "type": "date", "width": "half" },
-                { "name": "nutricao_npp_padrao_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_npp_padrao_inicio", "notEmpty": true } },
+                { "name": "nutricao_npp_padrao_dura", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "nutricao_npp_padrao_inicio", "notEmpty": true } },
 
                 { "name": "nutricao_npp_total_inicio", "label": "NPP total (início):", "type": "date", "width": "half" },
-                { "name": "nutricao_npp_total_dura", "label": "Duração (dias):", "type": "number", "width": "half", "enableIf": { "field": "nutricao_npp_total_inicio", "notEmpty": true } }
+                { "name": "nutricao_npp_total_dura", "label": "Duração (dias):", "type": "text", "width": "half", "enableIf": { "field": "nutricao_npp_total_inicio", "notEmpty": true } }
             ]
         },
         {
@@ -361,11 +363,11 @@ const schema = {
             "fields": [
                 { "name": "cirurgia_realizada", "label": "Realizou Cirurgia?", "type": "boolean", "width": "half" },
                 { "name": "cirurgia_tipo", "label": "Tipo", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
-                { "name": "cirurgia_idade", "label": "Idade RN no procedimento", "type": "number", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
+                { "name": "cirurgia_idade", "label": "Idade RN no procedimento", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
                 { "name": "escore_escolhido", "label": "Escore de Gravidade", "type": "select", "options": ["nSOFA", "SNAP", "Risco de morte"], "width": "half" },
                 { "name": "diagnostico", "label": "DIAGNÓSTICOS:", "type": "textarea", "width": "full" },
                 { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["Alta", "Transf", "Óbito"], "width": "half" },
-                { "name": "desfecho_idade", "label": "Idade", "type": "number", "width": "quarter" },
+                { "name": "desfecho_idade", "label": "Idade", "type": "text", "width": "quarter" },
                 { "name": "desfecho_igc", "label": "IGC", "type": "text", "width": "quarter" },
                 { "name": "desfecho_data", "label": "Data", "type": "date", "width": "quarter" },
                 { "name": "desfecho_peso", "label": "Peso", "type": "number", "width": "quarter" }
