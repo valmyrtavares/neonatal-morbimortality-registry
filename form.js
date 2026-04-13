@@ -514,17 +514,59 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(checkDraft, 1000); 
     }
 
+    function showConfirmModal(title, message, confirmText = "Sim", cancelText = "Não") {
+        return new Promise((resolve) => {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            overlay.innerHTML = `
+                <div class="custom-modal">
+                    <div class="modal-title">${title}</div>
+                    <div class="modal-message">${message}</div>
+                    <div class="modal-actions">
+                        <button type="button" class="modal-btn modal-btn-cancel" id="modalCancelBtn">${cancelText}</button>
+                        <button type="button" class="modal-btn modal-btn-confirm" id="modalConfirmBtn">${confirmText}</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            const confirmBtn = overlay.querySelector('#modalConfirmBtn');
+            const cancelBtn = overlay.querySelector('#modalCancelBtn');
+            
+            confirmBtn.onclick = () => {
+                document.body.removeChild(overlay);
+                resolve(true);
+            };
+            
+            cancelBtn.onclick = () => {
+                document.body.removeChild(overlay);
+                resolve(false);
+            };
+        });
+    }
+
     async function checkDraft() {
         const key = getDraftKey();
         const saved = localStorage.getItem(key);
         
         if (saved) {
-            const confirmRestore = confirm("Encontramos um preenchimento em andamento. Deseja continuar de onde parou?");
+            const confirmRestore = await showConfirmModal(
+                "Rascunho Encontrado", 
+                "Encontramos um preenchimento em andamento. Deseja continuar de onde parou?"
+            );
             
             if (confirmRestore) {
                 restoreDraft(JSON.parse(saved));
             } else {
-                const confirmDelete = confirm("Atenção: Os dados não salvos da sessão anterior serão excluídos permanentemente. Tem certeza?");
+                const confirmDelete = await showConfirmModal(
+                    "Atenção!", 
+                    "Os dados não salvos da sessão anterior serão excluídos permanentemente. Tem certeza que deseja apagar o rascunho?",
+                    "Sim, Apagar",
+                    "Não, Voltar"
+                );
+                
                 if (confirmDelete) {
                     localStorage.removeItem(key);
                 } else {
