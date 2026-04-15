@@ -1,11 +1,20 @@
 (function() {
-    const AUTH_KEY = 'neonatal_auth_access';
-    const CORRECT_PASSWORD = '18102025';
+    const FIXED_EMAIL = 'registro@neonatal.com';
 
-    function checkAuth() {
-        if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+    async function checkAuth() {
+        if (!window.supabase) {
+            console.error("Supabase não carregado para autenticação.");
+            return;
+        }
+
+        // Verifica se existe uma sessão ativa no Supabase
+        const { data: { session } } = await window.supabase.auth.getSession();
+        
+        if (session) {
+            console.log("Sessão ativa encontrada.");
             return true;
         }
+
         showAuthScreen();
         return false;
     }
@@ -29,7 +38,7 @@
                 </div>
                 
                 <button type="button" id="authSubmitBtn">Entrar no Sistema</button>
-                <div id="authError" class="auth-error">Senha incorreta. Tente novamente.</div>
+                <div id="authError" class="auth-error">Senha incorreta ou erro de conexão.</div>
             </div>
         `;
 
@@ -40,15 +49,35 @@
         const toggleBtn = overlay.querySelector('#togglePassword');
         const errorMsg = overlay.querySelector('#authError');
 
-        function attemptLogin() {
-            if (input.value === CORRECT_PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, 'true');
+        async function attemptLogin() {
+            const password = input.value;
+            if (!password) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verificando...';
+            errorMsg.classList.remove('visible');
+
+            try {
+                const { data, error } = await window.supabase.auth.signInWithPassword({
+                    email: FIXED_EMAIL,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                // Sucesso no login
                 overlay.style.opacity = '0';
                 overlay.style.transition = 'opacity 0.4s ease';
                 setTimeout(() => {
-                    document.body.removeChild(overlay);
+                    window.location.reload(); // Recarrega para garantir que todos os componentes vejam a sessão
                 }, 400);
-            } else {
+
+            } catch (err) {
+                console.error("Erro no login:", err.message);
+                errorMsg.textContent = err.message.includes('Invalid login credentials') 
+                    ? 'Senha incorreta. Tente novamente.' 
+                    : 'Erro ao conectar. Verifique sua internet.';
+                
                 errorMsg.classList.add('visible');
                 input.style.borderColor = '#ef4444';
                 input.value = '';
@@ -59,6 +88,9 @@
                 card.style.animation = 'none';
                 void card.offsetWidth; // trigger reflow
                 card.style.animation = 'authShake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Entrar no Sistema';
             }
         }
 
@@ -79,7 +111,7 @@
         };
     }
 
-    // Add Shake Animation to CSS dynamically if not present
+    // Add Shake Animation to CSS dynamically
     const style = document.createElement('style');
     style.textContent = `
         @keyframes authShake {
@@ -93,6 +125,7 @@
 
     // Initial check
     window.addEventListener('DOMContentLoaded', () => {
-        checkAuth();
+        // Pequeno delay para garantir que o supabaseClient.js inicializou o window.supabase
+        setTimeout(checkAuth, 100);
     });
 })();
