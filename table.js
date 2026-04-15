@@ -105,7 +105,12 @@ const schema = {
                 { "name": "med_conv_feni", "label": "Fenitoína", "composite": ["med_conv_fenitoina", "med_conv_fenitoina_inicio", "med_conv_fenitoina_dura"] },
                 { "name": "med_conv_mida", "label": "Midazolan", "composite": ["med_conv_midazolan", "med_conv_midazolan_inicio", "med_conv_midazolan_dura"] },
                 { "name": "med_conv_leve", "label": "Levetira.", "composite": ["med_conv_levetiracetam", "med_conv_levetiracetam_inicio", "med_conv_levetiracetam_dura"] },
-                { "name": "med_conv_out", "label": "Outro Conv.", "composite": ["med_conv_outros", "med_conv_outros_qual", "med_conv_outros_inicio", "med_conv_outros_dura"] }
+                { "name": "med_conv_out", "label": "Outro Conv.", "composite": ["med_conv_outros", "med_conv_outros_qual", "med_conv_outros_inicio", "med_conv_outros_dura"] },
+                { "name": "med_sed_fen", "label": "Fentanila", "composite": ["med_sed_fentanila", "med_sed_fentanila_inicio", "med_sed_fentanila_dura"] },
+                { "name": "med_sed_pan", "label": "Pancurônio", "composite": ["med_sed_pancuronio", "med_sed_pancuronio_inicio", "med_sed_pancuronio_dura"] },
+                { "name": "med_sed_cet", "label": "Cetamina", "composite": ["med_sed_cetamina", "med_sed_cetamina_inicio", "med_sed_cetamina_dura"] },
+                { "name": "med_sed_pre", "label": "Precedex", "composite": ["med_sed_precedex", "med_sed_precedex_inicio", "med_sed_precedex_dura"] },
+                { "name": "med_sed_met", "label": "Metadona", "composite": ["med_sed_metadona", "med_sed_metadona_inicio", "med_sed_metadona_dura"] }
             ]
         },
         {
@@ -121,6 +126,11 @@ const schema = {
                 { "name": "med_sim", "label": "Simeticona", "composite": ["med_simeticona", "med_simeticona_inicio", "med_simeticona_dura"] },
                 { "name": "med_nist", "label": "Nistatina", "composite": ["med_nistatina_oral", "med_nistatina_oral_inicio", "med_nistatina_oral_dura"] },
                 { "name": "med_sil", "label": "Sildenafil", "composite": ["med_sildenafil", "med_sildenafil_inicio", "med_sildenafil_dura"] },
+                { "name": "med_fur", "label": "Furosemida", "composite": ["med_furosemida", "med_furosemida_inicio", "med_furosemida_dura"] },
+                { "name": "med_htz", "label": "Hidroclorotiazida", "composite": ["med_hidroclorotiazida", "med_hidroclorotiazida_inicio", "med_hidroclorotiazida_dura"] },
+                { "name": "med_esp", "label": "Espironolactona", "composite": ["med_espironolactona", "med_espironolactona_inicio", "med_espironolactona_dura"] },
+                { "name": "med_cor", "label": "Corticóide", "composite": ["med_corticoide", "med_corticoide_inicio", "med_corticoide_dura"] },
+                { "name": "med_cin", "label": "Corticóide inal.", "composite": ["med_corticoide_inalatorio", "med_corticoide_inalatorio_inicio", "med_corticoide_inalatorio_dura"] },
                 { "name": "med_out_med", "label": "Outros Med.", "composite": ["med_outros_medicamentos", "med_outros_medicamentos_qual", "med_outros_medicamentos_inicio", "med_outros_medicamentos_dura"] }
             ]
         },

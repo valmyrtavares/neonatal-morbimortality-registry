@@ -241,7 +241,28 @@ const schema = {
                 { "name": "med_conv_outros", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_conv_outros_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
                 { "name": "med_conv_outros_inicio", "label": "Idade início:", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
-                { "name": "med_conv_outros_dura", "label": "Duração:", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } }
+                { "name": "med_conv_outros_dura", "label": "Duração:", "type": "text", "width": "half", "enableIf": { "field": "med_conv_outros", "equals": true } },
+
+                { "type": "subtitle", "label": "5- Sedativos:" },
+                { "name": "med_sed_fentanila", "label": "Fentanila", "type": "boolean", "width": "half" },
+                { "name": "med_sed_fentanila_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_fentanila", "equals": true } },
+                { "name": "med_sed_fentanila_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_fentanila", "equals": true } },
+
+                { "name": "med_sed_pancuronio", "label": "Pancurônio", "type": "boolean", "width": "half" },
+                { "name": "med_sed_pancuronio_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_pancuronio", "equals": true } },
+                { "name": "med_sed_pancuronio_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_pancuronio", "equals": true } },
+
+                { "name": "med_sed_cetamina", "label": "Cetamina", "type": "boolean", "width": "half" },
+                { "name": "med_sed_cetamina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_cetamina", "equals": true } },
+                { "name": "med_sed_cetamina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_cetamina", "equals": true } },
+
+                { "name": "med_sed_precedex", "label": "Precedex", "type": "boolean", "width": "half" },
+                { "name": "med_sed_precedex_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_precedex", "equals": true } },
+                { "name": "med_sed_precedex_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_precedex", "equals": true } },
+
+                { "name": "med_sed_metadona", "label": "Metadona", "type": "boolean", "width": "half" },
+                { "name": "med_sed_metadona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_metadona", "equals": true } },
+                { "name": "med_sed_metadona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sed_metadona", "equals": true } }
             ]
         },
         {
@@ -279,6 +300,26 @@ const schema = {
                 { "name": "med_sildenafil", "label": "Sildenafil", "type": "boolean", "width": "half" },
                 { "name": "med_sildenafil_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
                 { "name": "med_sildenafil_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_sildenafil", "equals": true } },
+
+                { "name": "med_furosemida", "label": "Furosemida", "type": "boolean", "width": "half" },
+                { "name": "med_furosemida_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_furosemida", "equals": true } },
+                { "name": "med_furosemida_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_furosemida", "equals": true } },
+
+                { "name": "med_hidroclorotiazida", "label": "Hidroclorotiazida", "type": "boolean", "width": "half" },
+                { "name": "med_hidroclorotiazida_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_hidroclorotiazida", "equals": true } },
+                { "name": "med_hidroclorotiazida_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_hidroclorotiazida", "equals": true } },
+
+                { "name": "med_espironolactona", "label": "Espironolactona", "type": "boolean", "width": "half" },
+                { "name": "med_espironolactona_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_espironolactona", "equals": true } },
+                { "name": "med_espironolactona_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_espironolactona", "equals": true } },
+
+                { "name": "med_corticoide", "label": "Corticóide", "type": "boolean", "width": "half" },
+                { "name": "med_corticoide_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_corticoide", "equals": true } },
+                { "name": "med_corticoide_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_corticoide", "equals": true } },
+
+                { "name": "med_corticoide_inalatorio", "label": "Corticóide inalatório", "type": "boolean", "width": "half" },
+                { "name": "med_corticoide_inalatorio_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_corticoide_inalatorio", "equals": true } },
+                { "name": "med_corticoide_inalatorio_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_corticoide_inalatorio", "equals": true } },
 
                 { "name": "med_outros_medicamentos", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_outros_medicamentos_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_outros_medicamentos", "equals": true } },
