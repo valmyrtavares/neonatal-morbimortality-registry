@@ -332,9 +332,12 @@ const schema = {
             "fields": [
                 { "name": "infeccao_sepse", "label": "Sepse", "type": "select", "multiple": true, "options": ["precoce", "tardia"] },
                 { "name": "infeccao_pneumonia", "label": "Pneumonia", "type": "select", "multiple": true, "options": ["congênita", "PAV"] },
-                { "name": "infeccao_hmc", "label": "HMC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
-                { "name": "infeccao_lcr", "label": "LCR", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
-                { "name": "infeccao_urc", "label": "URC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
+                { "name": "infeccao_hmc", "label": "HMC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"], "width": "half" },
+                { "name": "infeccao_hmc_resultado", "label": "Resultado", "type": "text", "width": "half", "showIf": { "field": "infeccao_hmc", "notEmpty": true } },
+                { "name": "infeccao_lcr", "label": "LCR", "type": "select", "options": ["negativa", "positiva", "afastado infecção"], "width": "half" },
+                { "name": "infeccao_lcr_resultado", "label": "Resultado", "type": "text", "width": "half", "showIf": { "field": "infeccao_lcr", "notEmpty": true } },
+                { "name": "infeccao_urc", "label": "URC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"], "width": "half" },
+                { "name": "infeccao_urc_resultado", "label": "Resultado", "type": "text", "width": "half", "showIf": { "field": "infeccao_urc", "notEmpty": true } },
                 { "name": "infeccao_outras", "label": "Outras infecções?", "type": "boolean", "width": "half" },
                 { "name": "infeccao_outras_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "infeccao_outras", "equals": true } }
             ]

@@ -140,8 +140,11 @@ const schema = {
                  { "name": "infeccao_sepse", "label": "Sepse" },
                  { "name": "infeccao_pneumonia", "label": "Pneumonia" },
                 { "name": "infeccao_hmc", "label": "HMC" },
+                { "name": "infeccao_hmc_resultado", "label": "HMC Result." },
                 { "name": "infeccao_lcr", "label": "LCR" },
+                { "name": "infeccao_lcr_resultado", "label": "LCR Result." },
                 { "name": "infeccao_urc", "label": "URC" },
+                { "name": "infeccao_urc_resultado", "label": "URC Result." },
                 { "name": "infeccao_out", "label": "Outras Inf.", "composite": ["infeccao_outras", "infeccao_outras_qual"] }
             ]
         },
