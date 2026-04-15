@@ -330,8 +330,8 @@ const schema = {
         {
             "title": "INFECÇÃO",
             "fields": [
-                { "name": "infeccao_sepse", "label": "Sepse", "type": "select", "options": ["precoce", "tardia"] },
-                { "name": "infeccao_pneumonia", "label": "Pneumonia", "type": "select", "options": ["congênita", "PAV"] },
+                { "name": "infeccao_sepse", "label": "Sepse", "type": "select", "multiple": true, "options": ["precoce", "tardia"] },
+                { "name": "infeccao_pneumonia", "label": "Pneumonia", "type": "select", "multiple": true, "options": ["congênita", "PAV"] },
                 { "name": "infeccao_hmc", "label": "HMC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
                 { "name": "infeccao_lcr", "label": "LCR", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
                 { "name": "infeccao_urc", "label": "URC", "type": "select", "options": ["negativa", "positiva", "afastado infecção"] },
