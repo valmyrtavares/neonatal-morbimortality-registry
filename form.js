@@ -167,6 +167,26 @@ const schema = {
                 { "name": "med_atb_cefepima_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
                 { "name": "med_atb_cefepima_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_cefepima", "equals": true } },
 
+                { "name": "med_atb_vancomicina", "label": "Vancomicina", "type": "boolean", "width": "half" },
+                { "name": "med_atb_vancomicina_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_vancomicina", "equals": true } },
+                { "name": "med_atb_vancomicina_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_vancomicina", "equals": true } },
+
+                { "name": "med_atb_meropenem", "label": "Meropenem", "type": "boolean", "width": "half" },
+                { "name": "med_atb_meropenem_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_meropenem", "equals": true } },
+                { "name": "med_atb_meropenem_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_meropenem", "equals": true } },
+
+                { "name": "med_atb_metronidazol", "label": "Metronidazol", "type": "boolean", "width": "half" },
+                { "name": "med_atb_metronidazol_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_metronidazol", "equals": true } },
+                { "name": "med_atb_metronidazol_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_metronidazol", "equals": true } },
+
+                { "name": "med_atb_tazocin", "label": "Tazocin", "type": "boolean", "width": "half" },
+                { "name": "med_atb_tazocin_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_tazocin", "equals": true } },
+                { "name": "med_atb_tazocin_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_tazocin", "equals": true } },
+
+                { "name": "med_atb_fluconazol", "label": "Fluconazol", "type": "boolean", "width": "half" },
+                { "name": "med_atb_fluconazol_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_fluconazol", "equals": true } },
+                { "name": "med_atb_fluconazol_dura", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "med_atb_fluconazol", "equals": true } },
+
                 { "name": "med_atb_outros", "label": "Outros", "type": "boolean", "width": "half" },
                 { "name": "med_atb_outros_qual", "label": "Qual?", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },
                 { "name": "med_atb_outros_inicio", "label": "Idade início:", "type": "text", "width": "half", "enableIf": { "field": "med_atb_outros", "equals": true } },

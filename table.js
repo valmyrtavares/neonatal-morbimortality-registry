@@ -86,6 +86,11 @@ const schema = {
                 { "name": "med_atb_oxa", "label": "Oxacilina", "composite": ["med_atb_oxacilina", "med_atb_oxacilina_inicio", "med_atb_oxacilina_dura"] },
                 { "name": "med_atb_pec", "label": "Peni Crist", "composite": ["med_atb_peni_cristal", "med_atb_peni_cristal_inicio", "med_atb_peni_cristal_dura"] },
                 { "name": "med_atb_cef", "label": "Cefepima", "composite": ["med_atb_cefepima", "med_atb_cefepima_inicio", "med_atb_cefepima_dura"] },
+                { "name": "med_atb_van", "label": "Vancomicina", "composite": ["med_atb_vancomicina", "med_atb_vancomicina_inicio", "med_atb_vancomicina_dura"] },
+                { "name": "med_atb_mer", "label": "Meropenem", "composite": ["med_atb_meropenem", "med_atb_meropenem_inicio", "med_atb_meropenem_dura"] },
+                { "name": "med_atb_met", "label": "Metronidazol", "composite": ["med_atb_metronidazol", "med_atb_metronidazol_inicio", "med_atb_metronidazol_dura"] },
+                { "name": "med_atb_taz", "label": "Tazocin", "composite": ["med_atb_tazocin", "med_atb_tazocin_inicio", "med_atb_tazocin_dura"] },
+                { "name": "med_atb_flu", "label": "Fluconazol", "composite": ["med_atb_fluconazol", "med_atb_fluconazol_inicio", "med_atb_fluconazol_dura"] },
                 { "name": "med_atb_out", "label": "Outro ATB", "composite": ["med_atb_outros", "med_atb_outros_qual", "med_atb_outros_inicio", "med_atb_outros_dura"] },
 
                 { "name": "med_vaso_dopa", "label": "Dopamina", "composite": ["med_vaso_dopamina", "med_vaso_dopamina_inicio", "med_vaso_dopamina_dura"] },
