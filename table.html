@@ -11,32 +11,41 @@
     <script src="auth.js"></script>
     <!-- SheetJS for Excel Export -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <style>
+        /* Ajustes específicos para esta página */
+        .table-page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-bottom: 8rem; /* Espaço para o menu inferior */
+        }
+        .table-window-panel {
+            flex: 0 0 auto;
+        }
+        .filters-panel {
+            flex: 1 1 auto;
+        }
+    </style>
 </head>
 <body>
     <div class="container" style="max-width: 1600px;">
         <header>
             <h1>Exploração de Dados</h1>
-            <p>Selecione as colunas que deseja visualizar na tabela.</p>
+            <p>Os dados estão na janela fixa. Role a página para configurar as colunas abaixo.</p>
         </header>
-...
-                    <h2>Filtros de Coluna <span id="columnCounter" style="font-size: 0.9rem; color: var(--primary); margin-left: 1rem;">(0)</span></h2>
-                    <button id="clearFiltersBtn" class="secondary-btn" style="width: auto; margin-top: 0; padding: 0.5rem 1rem; font-size: 0.8rem;">Limpar Tudo</button>
-                </div>
-                <div id="columnSelectorContainer" class="column-selector-grid">
-                    <!-- Groups and Checkboxes will be injected here -->
-                </div>
-            </div>
 
-            <!-- Table Panel -->
-            <main class="glass-panel fade-in-up" style="animation-delay: 0.2s;">
-                <div class="table-controls" style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center;">
-                    <div class="search-box" style="flex: 1;">
-                        <input type="text" id="searchInput" placeholder="Pesquisar por nome ou qualquer dado..." style="width: 100%;">
+        <div class="table-page-container">
+            <!-- Table Panel (Top) -->
+            <main class="glass-panel fade-in-up table-window-panel" style="animation-delay: 0.1s; padding: 1.5rem;">
+                <!-- Search Box -->
+                <div class="table-controls" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center; flex-wrap: wrap;">
+                    <div class="search-box" style="flex: 1; min-width: 300px;">
+                        <input type="text" id="searchInput" placeholder="Pesquisar por nome ou qualquer dado..." style="width: 100%; border-radius: 1rem;">
                     </div>
-                    <button id="exportAllBtn" class="secondary-btn" style="width: auto; margin-top: 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);">Exportar TUDO (Excel)</button>
+                    <button id="exportAllBtn" class="secondary-btn" style="width: auto; margin-top: 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 1rem;">Exportar TUDO (Excel)</button>
                 </div>
 
-                <div class="table-container" style="overflow-x: auto;">
+                <div class="table-container" style="max-height: 50vh; overflow: auto; border-radius: 1rem;">
                     <table id="dynamicPatientsTable">
                         <thead id="tableHeader">
                             <!-- Headers will be dynamic -->
@@ -47,6 +56,19 @@
                     </table>
                 </div>
             </main>
+
+            <!-- Filters & Controls (Bottom) -->
+            <div class="glass-panel fade-in-up filters-panel" style="animation-delay: 0.2s;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <h2 style="font-size: 1.2rem; color: var(--primary);">Configurar Colunas <span id="columnCounter" style="font-size: 0.9rem; color: var(--text-secondary); margin-left: 1rem;">(0)</span></h2>
+                    <button id="clearFiltersBtn" class="secondary-btn" style="width: auto; margin-top: 0; padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 0.75rem;">Limpar Seleção</button>
+                </div>
+                
+                <!-- Grade de Colunas Ajustada -->
+                <div id="columnSelectorContainer" class="column-selector-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <!-- Groups and Checkboxes will be injected here -->
+                </div>
+            </div>
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">

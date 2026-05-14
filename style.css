@@ -333,11 +333,20 @@ button:active {
 
 /* Table Styles */
 .table-container {
-    overflow-x: auto;
+    overflow: auto;
     width: 100%;
+    max-height: 65vh; /* Janela fixa de rolagem */
     border-radius: 0.75rem;
     border: 1px solid var(--border-color);
-    background: rgba(15, 23, 42, 0.5); /* Semi-opaque background for the container */
+    background: rgba(15, 23, 42, 0.5);
+    position: relative;
+}
+
+table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1e293b;
 }
 
 table {
