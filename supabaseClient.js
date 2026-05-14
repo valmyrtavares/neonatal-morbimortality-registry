@@ -8,9 +8,16 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 if (window.supabase && typeof window.supabase.createClient === 'function') {
     const { createClient } = window.supabase;
-    // Sobrescrevemos o objeto da biblioteca pelo cliente já configurado
-    window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    console.log('Supabase Cliente inicializado com sucesso.');
+    try {
+        // Sobrescrevemos o objeto da biblioteca pelo cliente já configurado
+        window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.supabaseReady = true;
+        console.log('Supabase Cliente inicializado com sucesso.');
+    } catch (err) {
+        console.error('Erro ao criar o cliente Supabase:', err);
+        window.supabaseReady = false;
+    }
 } else {
     console.error('Erro: SDK do Supabase não encontrado.');
+    window.supabaseReady = false;
 }

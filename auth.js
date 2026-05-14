@@ -2,21 +2,35 @@
     const FIXED_EMAIL = 'registro@neonatal.com';
 
     async function checkAuth() {
-        if (!window.supabase) {
-            console.error("Supabase não carregado para autenticação.");
+        if (!window.supabase || !window.supabase.auth) {
+            console.error("Supabase não carregado ou inválido para autenticação.");
+            // Se não está pronto, vamos esperar um pouco mais antes de desistir
+            if (!window.supabaseReady) {
+                console.log("Aguardando inicialização do Supabase...");
+                setTimeout(checkAuth, 500);
+                return;
+            }
             return;
         }
 
-        // Verifica se existe uma sessão ativa no Supabase
-        const { data: { session } } = await window.supabase.auth.getSession();
-        
-        if (session) {
-            console.log("Sessão ativa encontrada.");
-            return true;
-        }
+        try {
+            // Verifica se existe uma sessão ativa no Supabase
+            const { data: { session }, error } = await window.supabase.auth.getSession();
+            
+            if (error) throw error;
 
-        showAuthScreen();
-        return false;
+            if (session) {
+                console.log("Sessão ativa encontrada.");
+                return true;
+            }
+
+            showAuthScreen();
+            return false;
+        } catch (err) {
+            console.error("Erro ao verificar autenticação:", err);
+            showAuthScreen(); // Mostra tela de login se houver erro na verificação
+            return false;
+        }
     }
 
     function showAuthScreen() {

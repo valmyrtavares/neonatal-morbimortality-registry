@@ -5,21 +5,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderRecentTable();
 
     async function renderRecentTable() {
-        if (!supabase) {
-            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Erro: Cliente Supabase não inicializado.</td></tr>';
+        // Aguarda até que o Supabase esteja pronto
+        if (!window.supabaseReady) {
+            console.log("Aguardando Supabase para carregar tabela recente...");
+            setTimeout(renderRecentTable, 500);
+            return;
+        }
+
+        if (!window.supabase || !window.supabase.from) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Erro: Cliente Supabase não inicializado corretamente.</td></tr>';
             return;
         }
 
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Carregando registros...</td></tr>';
 
         try {
-            const { data, error, count } = await supabase
+            const { data, error, count } = await window.supabase
                 .from('pacientes')
                 .select('*', { count: 'exact' })
                 .order('created_at', { ascending: false })
                 .limit(5);
 
-            if (error) throw error;
+            if (error) {
+                // Erro específico para projeto pausado ou erro de rede
+                if (error.message && error.message.includes('FetchError')) {
+                    throw new Error("Não foi possível conectar ao banco de dados. O serviço pode estar pausado ou você está sem internet.");
+                }
+                throw error;
+            }
 
             const patients = data || [];
             tableBody.innerHTML = '';
@@ -51,7 +64,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         } catch (err) {
             console.error('Erro ao carregar registros do Supabase:', err);
-            tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 3rem;">Erro ao conectar com o banco de dados.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 3rem;">
+                <strong>Erro ao conectar com o banco de dados</strong><br>
+                <span style="font-size: 0.8rem; opacity: 0.8;">${err.message || 'Verifique sua conexão ou se o projeto no Supabase está ativo.'}</span>
+            </td></tr>`;
         }
     }
 });

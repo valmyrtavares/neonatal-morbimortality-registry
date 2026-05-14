@@ -13,9 +13,10 @@ const schema = {
             "fields": [
                 { "name": "idade_materna", "label": "Idade Materna", "type": "number", "min": 10, "max": 60, "width": "half" },
                 { "name": "consultas_pn", "label": "Número de consultas pré natal", "type": "number", "min": 0, "max": 30, "width": "half" },
-                { "name": "patologias_maternas", "label": "Patologias Maternas", "type": "select", "multiple": true, "options": ["colo curto", "obesidade", "HAC", "DMG", "ITU", "TPP", "pré-eclâmpsia", "sífilis", "hipotireoidismo", "tabagismo", "VAP", "Narguilé", "Doença psiquiátrica", "uso de drogas", "diabetes", "HAS", "eclâmpsia", "vaginose bacteriana"] },
+                { "name": "patologias_maternas", "label": "Patologias Maternas", "type": "select", "multiple": true, "options": ["colo curto", "obesidade", "HAC", "DMG", "ITU", "TPP", "pré-eclâmpsia", "sífilis", "hipotireoidismo", "tabagismo", "VAP", "Narguilé", "Doença psiquiátrica", "uso de drogas", "diabetes tipo 1", "DGEG", "eclâmpsia", "vaginose bacteriana", "Outros"] },
                 { "name": "patologias_psiquiatrica_qual", "label": "Qual doença psiquiátrica?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "Doença psiquiátrica" }, "placeholder": "Qual?" },
                 { "name": "patologias_drogas_qual", "label": "Qual droga?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "uso de drogas" }, "placeholder": "Qual?" },
+                { "name": "patologias_maternas_outros", "label": "Qual outra patologia?", "type": "text", "showIf": { "field": "patologias_maternas", "includes": "Outros" }, "placeholder": "Outros" },
                 { "name": "corticoide_antenatal", "label": "Corticóide Antenatal", "type": "boolean", "width": "half" },
                 { "name": "corticoide_ciclos", "label": "Ciclos", "type": "number", "min": 0, "max": 10, "showIf": { "field": "corticoide_antenatal", "equals": true }, "width": "half" },
                 { "name": "outras_medicacoes_maternas", "label": "Medicações", "type": "text" }
@@ -27,9 +28,9 @@ const schema = {
                 { "name": "apresentacao_parto", "label": "Apresentação", "type": "select", "options": ["cefálica", "pélvica", "transversa", "outra"] },
                 { "name": "tempo_amniorrexe_horas", "label": "Tempo de bolsa rota (em horas) :", "type": "number", "min": 0, "max": 1000 },
                 { "name": "tipo_parto", "label": "Tipo de Parto", "type": "select", "options": ["normal", "cesárea", "fórceps", "vácuo"] },
-                { "name": "causas_cesarea", "label": "Causas de cesárea", "type": "select", "multiple": true, "options": ["Mecônio", "Sofrimento fetal agudo", "CIUR", "Doença materna descompensada", "Pré Eclâmpsia", "Eclâmpsia", "Síndrome HELLP", "Apresentação anômala", "Falha de indução", "Desproporção céfalo-pélvica", "Parada de descida", "Cesárea a pedido", "Outro"], "showIf": { "field": "tipo_parto", "equals": "cesárea" } },
+                { "name": "causas_cesarea", "label": "Causas de cesárea", "type": "select", "multiple": true, "options": ["Mecônio", "Sofrimento fetal agudo", "CIUR", "Doença materna descompensada", "Pré Eclâmpsia", "Eclâmpsia", "Síndrome HELLP", "Apresentação anômala", "Falha de indução", "Desproporção céfalo-pélvica", "Parada de descida", "Cesárea a pedido", "incompatibilidade istmo cervical", "Gemelaridade sofrimento fetal agudo", "Outro"], "showIf": { "field": "tipo_parto", "equals": "cesárea" } },
                 { "name": "causas_cesarea_outro", "label": "Qual causa de cesária?", "type": "text", "showIf": { "field": "causas_cesarea", "includes": "Outro" }, "placeholder": "Especifique a causa" },
-                { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospitalar", "não hospitalar"] },
+                { "name": "local_parto", "label": "Local do Parto", "type": "select", "options": ["hospitalar cirurgico", "hospitalar não cirurgico", "não hospitalar"] },
                 { "name": "streptococcus_b", "label": "Streptococcus B", "type": "select", "options": ["positivo", "negativo", "desconhecido"] },
                 { "name": "profilaxia", "label": "Profilaxia:", "type": "boolean", "width": "half" },
                 { "name": "tipo_profilaxia", "label": "Tipo de Profilaxia:", "type": "select", "options": ["Adequada", "Inadequada"], "width": "half", "showIf": { "field": "profilaxia", "equals": true } }
@@ -38,6 +39,10 @@ const schema = {
         {
             "title": "Recém-Nascido",
             "fields": [
+                { "type": "subtitle", "label": "ESCORE DE GRAVIDADE" },
+                { "name": "escore_nsofa", "label": "nSOFA:", "type": "text", "width": "third" },
+                { "name": "escore_snap", "label": "SNAP:", "type": "text", "width": "third" },
+                { "name": "escore_risco_morte", "label": "Risco de morte:", "type": "text", "width": "third" },
                 { "name": "idade_gestacional", "label": "Idade Gestacional", "type": "text" },
                 { "name": "peso_nascimento", "label": "Peso de nascimento (g)", "type": "number", "min": 300, "max": 6000 },
                 { "name": "sexo", "label": "Sexo", "type": "select", "options": ["masculino", "feminino", "indefinido"] },
@@ -80,7 +85,11 @@ const schema = {
                 { "name": "acesso_retorno_vent_qual", "label": "Qual(is)?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "name": "acesso_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
                 { "name": "acesso_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "acesso_retorno_vent", "equals": true } },
-                { "type": "subtitle", "label": "2- Oxigenação/ventilação" },
+                { "type": "subtitle", "label": "2- SVD" },
+                { "name": "procedimento_svd", "label": "SVD", "type": "boolean", "width": "half" },
+                { "name": "procedimento_svd_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_svd", "equals": true } },
+                { "name": "procedimento_svd_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_svd", "equals": true } },
+                { "type": "subtitle", "label": "3- Oxigenação/ventilação" },
                 { "name": "oxig_vm", "label": "VM", "type": "boolean", "width": "half" },
                 { "name": "oxig_vm_instalacao", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
                 { "name": "oxig_vm_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_vm", "equals": true } },
@@ -110,16 +119,16 @@ const schema = {
                 { "name": "oxig_retorno_vent_tempo", "label": "Por quanto tempo?", "type": "text", "width": "quarter", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
                 { "name": "oxig_retorno_vent_motivo", "label": "Motivo", "type": "text", "width": "full", "enableIf": { "field": "oxig_retorno_vent", "equals": true } },
 
-                { "name": "procedimento_hipotermia", "label": "3- Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
+                { "name": "procedimento_hipotermia", "label": "4- Hipotermia terapêutica", "type": "boolean", "width": "half", "marginTop": true },
                 { "name": "procedimento_hipotermia_inicio", "label": "Idade de início:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
                 { "name": "procedimento_hipotermia_retirada", "label": "Idade de retirada:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_hipotermia", "equals": true } },
 
-                { "name": "procedimento_fototerapia_tipo", "label": "4- Fototerapia (tipo):", "type": "select", "options": ["Bilisky", "Bilibed"], "width": "quarter" },
+                { "name": "procedimento_fototerapia_tipo", "label": "5- Fototerapia (tipo):", "type": "select", "options": ["Bilisky", "Bilibed"], "width": "quarter" },
                 { "name": "procedimento_fototerapia_irradiacao", "label": "Irradiação:", "type": "text", "width": "quarter" },
                 { "name": "procedimento_fototerapia_inicio", "label": "Idade início:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
                 { "name": "procedimento_fototerapia_duracao", "label": "Duração:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_fototerapia_irradiacao", "notEmpty": true } },
 
-                { "name": "procedimento_outros", "label": "5- Outros procedimentos", "type": "boolean", "width": "quarter", "marginTop": true },
+                { "name": "procedimento_outros", "label": "6- Outros procedimentos", "type": "boolean", "width": "quarter", "marginTop": true },
                 { "name": "procedimento_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } },
                 { "name": "procedimento_outros_inst", "label": "Idade instalação:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } },
                 { "name": "procedimento_outros_tempo", "label": "Tempo de uso:", "type": "text", "width": "quarter", "enableIf": { "field": "procedimento_outros", "equals": true } }
@@ -389,13 +398,13 @@ const schema = {
             "title": "EXAMES SUBMETIDOS",
             "fields": [
                 { "name": "exames_fo", "label": "FO", "type": "boolean", "width": "half" },
-                { "name": "exames_fo_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_fo", "equals": true } },
+                { "name": "exames_fo_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_fo", "equals": true } },
 
                 { "name": "exames_eoa", "label": "EOA", "type": "boolean", "width": "half" },
-                { "name": "exames_eoa_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_eoa", "equals": true } },
+                { "name": "exames_eoa_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_eoa", "equals": true } },
 
                 { "name": "exames_peate", "label": "PEATE", "type": "boolean", "width": "half" },
-                { "name": "exames_peate_res", "label": "Resultado:", "type": "select", "options": ["Negativo", "Positivo"], "width": "half", "enableIf": { "field": "exames_peate", "equals": true } },
+                { "name": "exames_peate_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_peate", "equals": true } },
 
                 { "name": "exames_ustf", "label": "USTF", "type": "boolean", "width": "half" },
                 { "name": "exames_ustf_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_ustf", "equals": true } },
@@ -412,9 +421,29 @@ const schema = {
                 { "name": "exames_usg_renal", "label": "USG renal", "type": "boolean", "width": "half" },
                 { "name": "exames_usg_renal_res", "label": "Resultado:", "type": "text", "width": "half", "enableIf": { "field": "exames_usg_renal", "equals": true } },
 
-                { "name": "exames_outros", "label": "Outros", "type": "boolean", "width": "half" },
+                { "name": "exames_outros", "label": "Outros", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out" },
                 { "name": "exames_outros_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros", "equals": true } },
-                { "name": "exames_outros_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros", "equals": true } }
+                { "name": "exames_outros_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros", "equals": true } },
+
+                { "name": "exames_outros_2", "label": "Outros (2)", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out", "isRepeat": true },
+                { "name": "exames_outros_2_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_2", "equals": true }, "isRepeat": true },
+                { "name": "exames_outros_2_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_2", "equals": true }, "isRepeat": true },
+
+                { "name": "exames_outros_3", "label": "Outros (3)", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out", "isRepeat": true },
+                { "name": "exames_outros_3_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_3", "equals": true }, "isRepeat": true },
+                { "name": "exames_outros_3_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_3", "equals": true }, "isRepeat": true },
+
+                { "name": "exames_outros_4", "label": "Outros (4)", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out", "isRepeat": true },
+                { "name": "exames_outros_4_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_4", "equals": true }, "isRepeat": true },
+                { "name": "exames_outros_4_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_4", "equals": true }, "isRepeat": true },
+
+                { "name": "exames_outros_5", "label": "Outros (5)", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out", "isRepeat": true },
+                { "name": "exames_outros_5_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_5", "equals": true }, "isRepeat": true },
+                { "name": "exames_outros_5_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_5", "equals": true }, "isRepeat": true },
+
+                { "name": "exames_outros_6", "label": "Outros (6)", "type": "boolean", "width": "half", "canRepeat": true, "repeatGroup": "ex_out", "isRepeat": true },
+                { "name": "exames_outros_6_qual", "label": "Qual?", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_6", "equals": true }, "isRepeat": true },
+                { "name": "exames_outros_6_res", "label": "Resultado:", "type": "text", "width": "quarter", "enableIf": { "field": "exames_outros_6", "equals": true }, "isRepeat": true }
             ]
         },
         {
@@ -423,16 +452,27 @@ const schema = {
                 { "name": "cirurgia_realizada", "label": "Realizou Cirurgia?", "type": "boolean", "width": "half" },
                 { "name": "cirurgia_tipo", "label": "Tipo", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
                 { "name": "cirurgia_idade", "label": "Idade RN no procedimento", "type": "text", "width": "half", "showIf": { "field": "cirurgia_realizada", "equals": true } },
-                { "type": "subtitle", "label": "ESCORE DE GRAVIDADE" },
-                { "name": "escore_nsofa", "label": "nSOFA:", "type": "text", "width": "third" },
-                { "name": "escore_snap", "label": "SNAP:", "type": "text", "width": "third" },
-                { "name": "escore_risco_morte", "label": "Risco de morte:", "type": "text", "width": "third" },
+                { "name": "evento_adverso", "label": "Eventos Adversos", "type": "boolean", "width": "full" },
+                
+                { "name": "evento_estubacao", "label": "Estubação Acidental", "type": "boolean", "width": "half", "showIf": { "field": "evento_adverso", "equals": true } },
+                { "name": "evento_estubacao_desf", "label": "Desfecho:", "type": "text", "width": "half", "placeholder": "desfecho", "showIf": { "field": "evento_adverso", "equals": true }, "enableIf": { "field": "evento_estubacao", "equals": true } },
+
+                { "name": "evento_pneumotorax", "label": "Pneumotorax", "type": "boolean", "width": "half", "showIf": { "field": "evento_adverso", "equals": true } },
+                { "name": "evento_pneumotorax_desf", "label": "Desfecho:", "type": "text", "width": "half", "placeholder": "desfecho", "showIf": { "field": "evento_adverso", "equals": true }, "enableIf": { "field": "evento_pneumotorax", "equals": true } },
+
+                { "name": "evento_rotura", "label": "Rotura Gástrica", "type": "boolean", "width": "half", "showIf": { "field": "evento_adverso", "equals": true } },
+                { "name": "evento_rotura_desf", "label": "Desfecho:", "type": "text", "width": "half", "placeholder": "desfecho", "showIf": { "field": "evento_adverso", "equals": true }, "enableIf": { "field": "evento_rotura", "equals": true } },
+
+                { "name": "evento_medicamentos", "label": "Medicamentos", "type": "boolean", "width": "half", "showIf": { "field": "evento_adverso", "equals": true } },
+                { "name": "evento_medicamentos_desf", "label": "Desfecho:", "type": "text", "width": "half", "placeholder": "desfecho", "showIf": { "field": "evento_adverso", "equals": true }, "enableIf": { "field": "evento_medicamentos", "equals": true } },
+
                 { "name": "diagnostico", "label": "DIAGNÓSTICOS:", "type": "textarea", "width": "full" },
                 { "name": "desfecho", "label": "Desfecho", "type": "select", "options": ["Alta", "Transf", "Óbito"], "width": "half" },
                 { "name": "desfecho_idade", "label": "Idade", "type": "text", "width": "quarter" },
                 { "name": "desfecho_igc", "label": "IGC", "type": "text", "width": "quarter" },
                 { "name": "desfecho_data", "label": "Data", "type": "date", "width": "quarter" },
-                { "name": "desfecho_peso", "label": "Peso", "type": "number", "width": "quarter" }
+                { "name": "desfecho_peso", "label": "Peso", "type": "number", "width": "quarter" },
+                { "name": "alta_nirsevimabe", "label": "NIRSEVIMABE", "type": "boolean", "width": "half" }
             ]
         },
         {
@@ -501,14 +541,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 group.className = field.width ? `form-group form-group-${field.width}` : 'form-group';
                 if (field.showIf) group.classList.add('hidden-field');
                 if (field.enableIf) group.classList.add('disabled-group');
+                if (field.isRepeat) group.classList.add('hidden-repeat');
                 group.dataset.name = field.name;
 
                 let inputHtml = '';
                 if (field.type === 'boolean') {
-                    group.className = field.width ? `form-group form-group-${field.width} boolean-group` : 'form-group boolean-group';
-                    if (field.showIf) group.classList.add('hidden-field');
-                    if (field.enableIf) group.classList.add('disabled-group');
-                    inputHtml = `<label for="f_${field.name}">${field.label}</label><input type="checkbox" id="f_${field.name}" name="${field.name}" style="width: 20px; height: 20px;">`;
+                    group.classList.add('boolean-group');
+                    
+                    let plusBtn = '';
+                    if (field.canRepeat) {
+                        plusBtn = `<button type="button" class="plus-btn hidden-field" id="btn_plus_${field.name}" onclick="showNextRepeat('${field.repeatGroup}')" title="Adicionar outra linha">+</button>`;
+                    }
+                    
+                    inputHtml = `<label for="f_${field.name}">${field.label}</label>
+                                 <div style="display: flex; align-items: center; gap: 10px;">
+                                     <input type="checkbox" id="f_${field.name}" name="${field.name}" style="width: 20px; height: 20px;">
+                                     ${plusBtn}
+                                 </div>`;
                 } else if (field.type === 'select' && field.multiple) {
                     inputHtml = `<label>${field.label}</label><div class="checkbox-grid">`;
                     field.options.forEach(opt => {
@@ -692,9 +741,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadPatientForEdit() {
-        if (!supabase) return;
+        if (!window.supabaseReady) {
+            console.log("Aguardando Supabase para carregar dados de edição...");
+            setTimeout(loadPatientForEdit, 500);
+            return;
+        }
 
-        const { data, error } = await supabase
+        if (!window.supabase || !window.supabase.from) {
+            console.error('Erro: Cliente Supabase não disponível.');
+            return;
+        }
+
+        const { data, error } = await window.supabase
             .from('pacientes')
             .select('*')
             .eq('id', editingPatientId)
@@ -884,7 +942,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Formatting function
                     const fmt = (v) => {
-                        if (Array.isArray(v)) return v.length > 0 ? v.join(', ') : 'Nenhum';
+                        // Label mapping for consistency
+                        const mapping = {
+                            'HAS': 'DGEG',
+                            'diabetes': 'diabetes tipo 1',
+                            'hospitalar': 'hospitalar cirurgico',
+                            'gemelaridade': 'Gemelaridade sofrimento fetal agudo'
+                        };
+
+                        if (Array.isArray(v)) {
+                            const mapped = v.map(item => mapping[item] || item);
+                            return mapped.length > 0 ? mapped.join(', ') : 'Nenhum';
+                        }
+                        
+                        if (mapping[v]) v = mapping[v];
                         if (typeof v === 'boolean') return v ? 'Sim' : 'Não';
                         if (v === null || v === '' || v === undefined) return '-';
                         
@@ -934,6 +1005,33 @@ document.addEventListener('DOMContentLoaded', () => {
         return value === condition.equals;
     }
 
+    // Exposure showNextRepeat to global scope
+    window.showNextRepeat = function(groupName) {
+        const repeatFields = schema.sections.flatMap(s => s.fields).filter(f => f.repeatGroup === groupName && f.isRepeat);
+        
+        for (const field of repeatFields) {
+            const groupEl = document.querySelector(`.form-group[data-name="${field.name}"]`);
+            if (groupEl && groupEl.classList.contains('hidden-repeat')) {
+                // Unhide this field and its related qual/res fields
+                groupEl.classList.remove('hidden-repeat');
+                
+                // Find fields that enableIf this one
+                const relatedFields = schema.sections.flatMap(s => s.fields).filter(f => f.enableIf && f.enableIf.field === field.name);
+                relatedFields.forEach(rf => {
+                    const rfEl = document.querySelector(`.form-group[data-name="${rf.name}"]`);
+                    if (rfEl) rfEl.classList.remove('hidden-repeat');
+                });
+                
+                // If it was in a row that was hidden, we might need to fix the row too
+                const row = groupEl.closest('.form-row');
+                if (row) row.style.display = 'flex';
+                
+                return; // Only show one at a time
+            }
+        }
+        alert("Limite de campos adicionais atingido.");
+    };
+
     function updateVisibility() {
         const formData = getFormData();
         schema.sections.forEach(section => {
@@ -964,6 +1062,35 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (input) {
                             input.disabled = true;
                             input.value = '';
+                        }
+                    }
+                }
+                if (field.isRepeat) {
+                    const group = document.querySelector(`.form-group[data-name="${field.name}"]`);
+                    const val = formData[field.name];
+                    const qualVal = formData[field.name + '_qual'];
+                    const resVal = formData[field.name + '_res'];
+                    
+                    // Unhide if it has data
+                    if (val || qualVal || resVal) {
+                        group.classList.remove('hidden-repeat');
+                        const related = schema.sections.flatMap(s => s.fields).filter(rf => rf.enableIf && rf.enableIf.field === field.name);
+                        related.forEach(rf => {
+                            const rfEl = document.querySelector(`.form-group[data-name="${rf.name}"]`);
+                            if (rfEl) rfEl.classList.remove('hidden-repeat');
+                        });
+                    }
+                }
+
+                // Plus button visibility
+                if (field.canRepeat) {
+                    const btn = document.getElementById(`btn_plus_${field.name}`);
+                    if (btn) {
+                        const val = formData[field.name];
+                        if (val) {
+                            btn.classList.remove('hidden-field');
+                        } else {
+                            btn.classList.add('hidden-field');
                         }
                     }
                 }
@@ -1029,8 +1156,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (!supabase) {
-            alert('Erro: Conexão com Supabase não estabelecida.');
+        if (!window.supabaseReady || !window.supabase || !window.supabase.from) {
+            alert('Erro: Conexão com Supabase não estabelecida ou o serviço está offline.');
             return;
         }
 
@@ -1052,7 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase
                 .from('pacientes')
                 .upsert(fullData)
                 .select();

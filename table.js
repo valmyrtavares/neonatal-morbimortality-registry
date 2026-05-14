@@ -16,6 +16,7 @@ const schema = {
                 { "name": "patologias_maternas", "label": "Patologias Maternas" },
                 { "name": "patologias_psiquiatrica_qual", "label": "Detalhamento Psiq." },
                 { "name": "patologias_drogas_qual", "label": "Detalhamento Drogas" },
+                { "name": "patologias_maternas_outros", "label": "Outras Patologias" },
                 { "name": "corticoide_antenatal", "label": "Corticóide Antenatal" },
                 { "name": "corticoide_ciclos", "label": "Ciclos" },
                 { "name": "outras_medicacoes_maternas", "label": "Outras Medicações" }
@@ -38,6 +39,9 @@ const schema = {
         {
             "title": "Recém-Nascido",
             "fields": [
+                { "name": "escore_nsofa", "label": "nSOFA" },
+                { "name": "escore_snap", "label": "SNAP" },
+                { "name": "escore_risco_morte", "label": "Risco de morte" },
                 { "name": "idade_gestacional", "label": "IG" },
                 { "name": "peso_nascimento", "label": "Peso de nascimento (g)" },
                 { "name": "sexo", "label": "Sexo" },
@@ -61,6 +65,7 @@ const schema = {
                 { "name": "proc_flepo", "label": "Flebo", "composite": ["acesso_flepotomia", "acesso_flepotomia_inst", "acesso_flepotomia_tempo"] },
                 { "name": "proc_perif", "label": "Acesso Perif.", "composite": ["acesso_venoso_perif", "acesso_venoso_perif_inst", "acesso_venoso_perif_tempo"] },
                 { "name": "proc_retorno_vent", "label": "Retorno Acesso Ven.", "composite": ["acesso_retorno_vent", "acesso_retorno_vent_qual", "acesso_retorno_vent_tempo", "acesso_retorno_vent_motivo"] },
+                { "name": "proc_svd", "label": "SVD", "composite": ["procedimento_svd", "procedimento_svd_inst", "procedimento_svd_tempo"] },
                 { "name": "proc_vm", "label": "VM (p)", "composite": ["oxig_vm", "oxig_vm_instalacao", "oxig_vm_tempo"] },
                 { "name": "proc_vni", "label": "VNI (p)", "composite": ["oxig_vni", "oxig_vni_instalacao", "oxig_vni_tempo"] },
                 { "name": "proc_cpap", "label": "CPAP (p)", "composite": ["oxig_cpap", "oxig_cpap_instalacao", "oxig_cpap_tempo"] },
@@ -178,18 +183,22 @@ const schema = {
                 { "name": "ex_aeeg", "label": "aEEG", "composite": ["exames_aeeg", "exames_aeeg_res"] },
                 { "name": "ex_usg_abd", "label": "USG abd", "composite": ["exames_usg_abd", "exames_usg_abd_res"] },
                 { "name": "ex_usg_ren", "label": "USG renal", "composite": ["exames_usg_renal", "exames_usg_renal_res"] },
-                { "name": "ex_out_c", "label": "Outro Exame", "composite": ["exames_outros", "exames_outros_qual", "exames_outros_res"] }
+                { "name": "ex_out_c", "label": "Outro Exame (1)", "composite": ["exames_outros", "exames_outros_qual", "exames_outros_res"] },
+                { "name": "ex_out_c2", "label": "Outro Exame (2)", "composite": ["exames_outros_2", "exames_outros_2_qual", "exames_outros_2_res"] },
+                { "name": "ex_out_c3", "label": "Outro Exame (3)", "composite": ["exames_outros_3", "exames_outros_3_qual", "exames_outros_3_res"] },
+                { "name": "ex_out_c4", "label": "Outro Exame (4)", "composite": ["exames_outros_4", "exames_outros_4_qual", "exames_outros_4_res"] },
+                { "name": "ex_out_c5", "label": "Outro Exame (5)", "composite": ["exames_outros_5", "exames_outros_5_qual", "exames_outros_5_res"] },
+                { "name": "ex_out_c6", "label": "Outro Exame (6)", "composite": ["exames_outros_6", "exames_outros_6_qual", "exames_outros_6_res"] }
             ]
         },
         {
             "title": "CIRURGIA",
             "fields": [
                 { "name": "cir_c", "label": "Cirurgia", "composite": ["cirurgia_realizada", "cirurgia_tipo", "cirurgia_idade"] },
-                { "name": "escore_nsofa", "label": "nSOFA" },
-                { "name": "escore_snap", "label": "SNAP" },
-                { "name": "escore_risco_morte", "label": "Risco de morte" },
+                { "name": "ev_adverso", "label": "Evento Adverso", "composite": ["evento_adverso", "evento_estubacao", "evento_estubacao_desf", "evento_pneumotorax", "evento_pneumotorax_desf", "evento_rotura", "evento_rotura_desf", "evento_medicamentos", "evento_medicamentos_desf"] },
                 { "name": "diagnostico", "label": "Diagnósticos" },
-                { "name": "desfecho_c", "label": "Desfecho (Completo)", "composite": ["desfecho", "desfecho_data", "desfecho_peso", "desfecho_idade", "desfecho_igc"] }
+                { "name": "desfecho_c", "label": "Desfecho (Completo)", "composite": ["desfecho", "desfecho_data", "desfecho_peso", "desfecho_idade", "desfecho_igc"] },
+                { "name": "alta_nirsevimabe", "label": "NIRSEVIMABE" }
             ]
         },
         {
@@ -225,17 +234,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadPatients() {
-        if (!supabase) return;
+        if (!window.supabaseReady) {
+            console.log("Aguardando Supabase para carregar pacientes...");
+            setTimeout(loadPatients, 500);
+            return;
+        }
+
+        if (!window.supabase || !window.supabase.from) {
+            tableBody.innerHTML = `<tr><td colspan="${selectedColumns.length + 1}" style="text-align: center; padding: 3rem; color: #ef4444;">Erro: Cliente Supabase não inicializado corretamente.</td></tr>`;
+            return;
+        }
         
         tableBody.innerHTML = `<tr><td colspan="${selectedColumns.length + 1}" style="text-align: center; padding: 3rem; color: var(--text-secondary);">Carregando dados do banco...</td></tr>`;
 
         try {
-            const { data, error } = await supabase
+            const { data, error } = await window.supabase
                 .from('pacientes')
                 .select('*')
                 .order('created_at', { ascending: false });
 
-            if (error) throw error;
+            if (error) {
+                if (error.message && error.message.includes('FetchError')) {
+                    throw new Error("Não foi possível conectar ao banco de dados. O serviço pode estar pausado ou você está sem internet.");
+                }
+                throw error;
+            }
             patients = data || [];
             
             if (patients.length === 0) {
@@ -359,12 +382,43 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTableBody();
     }
 
+    function formatValue(val) {
+        // Label mapping for old data consistency
+        const mapping = {
+            'HAS': 'DGEG',
+            'diabetes': 'diabetes tipo 1',
+            'hospitalar': 'hospitalar cirurgico',
+            'gemelaridade': 'Gemelaridade sofrimento fetal agudo'
+        };
+
+        if (Array.isArray(val)) {
+            return val.map(v => mapping[v] || v).join(', ');
+        }
+        
+        if (mapping[val]) return mapping[val];
+        if (typeof val === 'boolean') return val ? 'Sim' : 'Não';
+        if (val === null || val === undefined || val === '') return '-';
+        
+        // Format datetime-local
+        if (typeof val === 'string' && val.includes('T')) {
+            const parts = val.split('T');
+            const datePart = parts[0];
+            const timePart = parts[1];
+            const dateParts = datePart.split('-');
+            if (dateParts.length === 3) {
+                const [year, month, day] = dateParts;
+                if (day && month && year) {
+                    return `${day}/${month}/${year} ${timePart}`;
+                }
+            }
+        }
+        return val;
+    }
+
     async function renderTableBody(query = searchInput.value) {
         tableBody.innerHTML = '';
         const q = query.toLowerCase();
 
-        // Se tiver query, podemos filtrar localmente ou no Supabase. 
-        // Para uma base de dados neonatal (geralmente pequena < 10k), filtro local é mais rápido.
         const filtered = patients.filter(p => {
             return Object.values(p).some(val => 
                 String(val).toLowerCase().includes(q)
@@ -386,45 +440,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const visibleFields = allFields.filter(f => selectedColumns.includes(f.name));
             visibleFields.forEach(field => {
-                const colName = field.name;
                 const td = document.createElement('td');
-                const fieldDef = field;
                 let val = '-';
 
-                if (fieldDef && fieldDef.composite) {
-                    const parts = fieldDef.composite;
+                if (field.composite) {
+                    const parts = field.composite;
                     const mainVal = p[parts[0]];
                     
                     if (mainVal && mainVal !== 'false' && mainVal !== '-') {
                         const detail = parts.slice(1).map(k => p[k] || '-').join(' / ');
                         val = (typeof mainVal === 'boolean') ? `Sim (${detail})` : `${mainVal} (${detail})`;
-                    } else {
-                        val = '-';
                     }
                 } else {
-                    val = p[colName];
+                    val = p[field.name];
                 }
                 
-                // Format values for display
-                if (Array.isArray(val)) val = val.join(', ');
-                if (typeof val === 'boolean') val = val ? 'Sim' : 'Não';
-                if (val === null || val === undefined || val === '') val = '-';
-                
-                // Format datetime-local
-                if (typeof val === 'string' && val.includes('T')) {
-                    const parts = val.split('T');
-                    const datePart = parts[0];
-                    const timePart = parts[1];
-                    const dateParts = datePart.split('-');
-                    if (dateParts.length === 3) {
-                        const [year, month, day] = dateParts;
-                        if (day && month && year) {
-                            val = `${day}/${month}/${year} ${timePart}`;
-                        }
-                    }
-                }
-                
-                td.textContent = val;
+                td.textContent = formatValue(val);
                 row.appendChild(td);
             });
             tableBody.appendChild(row);
@@ -441,15 +472,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Prepare full data for export
+        // Export using schema labels and order
         const exportData = patients.map(p => {
-            const flat = { ...p };
-            // Flatten arrays and booleans for Excel
-            Object.keys(flat).forEach(key => {
-                if (Array.isArray(flat[key])) flat[key] = flat[key].join(', ');
-                if (typeof flat[key] === 'boolean') flat[key] = flat[key] ? 'Sim' : 'Não';
+            const row = {};
+            // First, add Timestamp
+            row['Data do Registro'] = p.timestamp || '-';
+            
+            // Add all fields from schema in order
+            allFields.forEach(f => {
+                let val = '-';
+                if (f.composite) {
+                    const parts = f.composite;
+                    const mainVal = p[parts[0]];
+                    if (mainVal && mainVal !== 'false' && mainVal !== '-') {
+                        const detail = parts.slice(1).map(k => p[k] || '-').join(' / ');
+                        val = (typeof mainVal === 'boolean') ? `Sim (${detail})` : `${mainVal} (${detail})`;
+                    }
+                } else {
+                    val = p[f.name];
+                }
+                row[f.label] = formatValue(val);
             });
-            return flat;
+            return row;
         });
 
         const worksheet = XLSX.utils.json_to_sheet(exportData);
