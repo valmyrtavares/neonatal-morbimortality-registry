@@ -284,8 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
         selectorContainer.innerHTML = '';
         schema.sections.forEach(section => {
             const group = document.createElement('div');
-            group.className = 'column-group';
+            group.className = 'column-group collapsed'; // Collapsed by default
             group.innerHTML = `<h3>${section.title}</h3><div class="column-list"></div>`;
+            
+            const header = group.querySelector('h3');
+            header.onclick = () => {
+                group.classList.toggle('collapsed');
+            };
+
             const list = group.querySelector('.column-list');
 
             section.fields.forEach(field => {
