@@ -280,16 +280,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let expandedGroups = new Set();
+
     function renderSelector() {
         selectorContainer.innerHTML = '';
         schema.sections.forEach(section => {
             const group = document.createElement('div');
-            group.className = 'column-group collapsed'; // Collapsed by default
+            // Persist expanded state
+            const isExpanded = expandedGroups.has(section.title);
+            group.className = `column-group ${isExpanded ? '' : 'collapsed'}`;
             group.innerHTML = `<h3>${section.title}</h3><div class="column-list"></div>`;
             
             const header = group.querySelector('h3');
             header.onclick = () => {
-                group.classList.toggle('collapsed');
+                const nowCollapsed = group.classList.toggle('collapsed');
+                if (nowCollapsed) {
+                    expandedGroups.delete(section.title);
+                } else {
+                    expandedGroups.add(section.title);
+                }
             };
 
             const list = group.querySelector('.column-list');
